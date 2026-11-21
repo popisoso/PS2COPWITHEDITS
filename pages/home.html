@@ -6,22 +6,23 @@
 .page-home .hero__media { position: relative; height: clamp(300px, 40vw, 560px); overflow: hidden; }
 .page-home .hero__photo { width: 100%; height: 100%; object-fit: cover; }
 .page-home .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 27, 38, .08) 0%, rgba(30, 27, 38, 0) 35%, rgba(46, 30, 80, .35) 100%); pointer-events: none; }
-.page-home .hero__hands { position: absolute; z-index: 2; right: clamp(16px, 7vw, 120px); top: clamp(24px, 5vw, 70px); width: clamp(96px, 12vw, 170px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; animation: bubble-float 10s ease-in-out infinite; --dy: -10px; }
-.page-home .hero__hands img { width: 78%; height: auto; filter: drop-shadow(0 6px 12px rgba(168, 53, 101, .3)); }
 .page-home .hero__card-wrap { position: relative; z-index: 3; margin-top: clamp(-140px, -9vw, -60px); }
 .page-home .hero__card { background: #fff; border-radius: var(--radius-l); box-shadow: var(--e3); padding: clamp(24px, 4vw, 52px); display: grid; gap: clamp(16px, 2.4vw, 24px); max-width: 960px; }
 .page-home .hero__line { width: min(420px, 70%); height: auto; opacity: .85; }
 .page-home .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
 
 /* ---- who we are ---- */
-.page-home .who__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: center; }
+.page-home .who__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: start; }
 @media (min-width: 1000px) { .page-home .who__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
 .page-home .network { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-l); box-shadow: var(--e2); padding: clamp(18px, 3vw, 36px); overflow: hidden; }
 .page-home .network::before { content: ""; position: absolute; width: 60%; aspect-ratio: 1; right: -18%; bottom: -40%; border-radius: 50%; background: radial-gradient(circle, var(--lime-100), transparent 70%); }
 .page-home .network__map { position: relative; width: 100%; aspect-ratio: 608 / 295; }
 .page-home .network__lines { position: absolute; left: 2.709%; top: 25.48%; width: 94.65%; height: 45.04%; max-width: none; opacity: .22; }
-.page-home .network__logo { position: absolute; height: auto; max-width: none; transition: transform .3s var(--ease), box-shadow .3s; animation: bubble-float var(--dur, 8s) ease-in-out infinite; animation-delay: var(--delay, 0s); --dy: -5px; --dx: 0px; }
-.page-home .network__logo:hover { scale: 1.08; box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--pink-100), 0 14px 28px -10px rgba(46, 30, 80, .4); animation-play-state: paused; }
+.page-home .network__logo { background: none; border: 0; padding: 0; cursor: pointer; border-radius: 50%; position: absolute; height: auto; max-width: none; transition: transform .3s var(--ease), box-shadow .3s; animation: bubble-float var(--dur, 8s) ease-in-out infinite; animation-delay: var(--delay, 0s); --dy: -5px; --dx: 0px; }
+.page-home .network__logo img { width: 100%; height: auto; display: block; transition: box-shadow .3s; }
+.page-home .network__logo:hover, .page-home .network__logo:focus-visible { scale: 1.08; animation-play-state: paused; }
+.page-home .network__logo:hover img, .page-home .network__logo:focus-visible img { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--pink), 0 14px 28px -10px rgba(46, 30, 80, .4); }
+.page-home .network__hint { position: relative; margin-top: 14px; text-align: center; }
 
 /* ---- collaborators ---- */
 .page-home .collab__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: center; }
@@ -71,13 +72,10 @@
   <div class="hero__media">
     <img class="hero__photo" src="assets/img/home/hero.jpg" alt="Members of women's organizations in The Hague working together around a table" width="1600" height="1067">
     <span class="bubble" style="width:clamp(140px,20vw,300px);height:clamp(140px,20vw,300px);left:-4%;top:-12%;--dur:11s"></span>
-    <span class="bubble" style="width:clamp(56px,7vw,110px);height:clamp(56px,7vw,110px);left:15%;top:46%;--dur:8s;--delay:-2s;--dy:-18px"></span>
-    <span class="bubble" style="width:clamp(70px,9vw,150px);height:clamp(70px,9vw,150px);right:24%;bottom:14%;--dur:12s;--delay:-5s;--dx:-10px"></span>
-    <span class="hero__hands glass" aria-hidden="true"><img src="assets/img/home/hero-circle-small.png" alt="" width="451" height="451"></span>
+    <span class="bubble" style="width:clamp(70px,9vw,150px);height:clamp(70px,9vw,150px);right:-3%;bottom:-8%;--dur:12s;--delay:-5s;--dx:-10px"></span>
   </div>
   <div class="container hero__card-wrap">
     <div class="hero__card">
-      <span class="eyebrow">Community of Practice · The Hague</span>
       <h1 class="h-display" id="home-title">Kracht(vrouwen) in de Wijk</h1>
       <p class="lead">Kracht(vrouwen) in de Wijk is a Community of Practice for and by women's organizations in The Hague. In this learning environment, organizations come together to share knowledge, learn from each other, and strengthen their impact. By pooling experiences, tackling challenges together, and developing practical solutions, we are building a sustainable network that supports and connects women in The Hague.</p>
       <img class="hero__line" src="assets/img/home/hero-line.svg" alt="" width="669" height="16">
@@ -93,40 +91,96 @@
   <div class="container section">
     <div class="who__grid">
       <div class="stack min0" style="--gap:22px">
-        <span class="eyebrow eyebrow--lime">Since January 2024</span>
         <h2 class="h-section" id="who-title">Who We Are</h2>
         <div class="body">
           <p>Kracht(vrouwen) in de wijk is a Community of Practice (CoP) that arose from the need of women's organizations in The Hague to learn together and become stronger together.</p>
           <p>There are dozens of women's organizations active in The Hague, each with their own background, goals, and approach. Although they differ from each other, they surprisingly often encounter the same questions: How do we find a good space? How can we grow? How do we make our impact visible?</p>
         </div>
-        <div class="stat-panel" style="margin-top:6px">
+      </div>
+      <div class="stack min0" style="--gap:16px">
+        <div class="network">
+          <div class="network__map">
+            <img class="network__lines" src="assets/img/home/who-lines.svg" alt="" width="576" height="133">
+          <button type="button" class="network__logo" data-modal="org-info-reva" aria-label="ReVa Moeders: more information" style="left:0.33%;top:8.81%;width:17.27%;--dur:9s;--delay:0s"><img class="logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-amal" aria-label="Amal Coaching: more information" style="left:0%;top:51.19%;width:19.41%;--dur:10s;--delay:-3s"><img class="logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-eva" aria-label="Coöperatie Eva: more information" style="left:21.22%;top:33.22%;width:15.95%;--dur:8s;--delay:-1s"><img class="logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-klup" aria-label="Talentenklup: more information" style="left:40.79%;top:6.1%;width:20.07%;--dur:11s;--delay:-4s"><img class="logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-vbl" aria-label="VrouwenBuurtLab Laak: more information" style="left:36.18%;top:53.56%;width:22.53%;--dur:9.5s;--delay:-2s"><img class="logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-member" aria-label="Member organization: more information" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-polka" aria-label="POLKA: more information" style="left:76.81%;top:0%;width:21.55%;--dur:10.5s;--delay:-1.5s"><img class="logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-wijkz" aria-label="Wijkz: more information" style="left:81.25%;top:52.54%;width:18.75%;--dur:9s;--delay:-6s"><img class="logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="120" height="120"></button>
+          </div>
+          <p class="network__hint small muted">Select a logo to learn more about the organization.</p>
+        </div>
+        <div class="stat-panel">
           <div><p class="stat__num">10</p><p class="stat__label">Organizations</p></div>
           <div><p class="stat__num">250</p><p class="stat__label">Total Members</p></div>
           <div><p class="stat__num">300</p><p class="stat__label">Activities</p></div>
         </div>
       </div>
-      <div class="network">
-        <div class="network__map" role="img" aria-label="Logos of the member organizations, connected in one network">
-          <img class="network__lines" src="assets/img/home/who-lines.svg" alt="" width="576" height="133">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="105" height="105" style="left:0.33%;top:8.81%;width:17.27%;--dur:9s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="118" height="118" style="left:0;top:51.19%;width:19.41%;--dur:10s;--delay:-3s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="97" height="97" style="left:21.22%;top:33.22%;width:15.95%;--dur:8s;--delay:-1s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="122" height="122" style="left:40.79%;top:6.1%;width:20.07%;--dur:11s;--delay:-4s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="137" height="137" style="left:36.18%;top:53.56%;width:22.53%;--dur:9.5s;--delay:-2s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="96" height="96" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="131" height="131" style="left:76.81%;top:0;width:21.55%;--dur:10.5s;--delay:-1.5s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="114" height="114" style="left:81.25%;top:52.54%;width:18.75%;--dur:9s;--delay:-6s">
-        </div>
-      </div>
     </div>
   </div>
+<template id="org-info-vbl">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">VrouwenBuurtLab Laak</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Social</span></div></div></div>
+    <p class="body">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
+    <a class="btn" href="#org-vbl" data-modal-close>View organization page <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-reva">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">ReVa Moeders</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Motherhood</span><span class="tag tag--pink">Courses</span></div></div></div>
+    <p class="body">Het gaat deze groep om de belangenbehartiging en emancipatie van een grote...</p>
+    <a class="btn" href="#org-reva" data-modal-close>View organization page <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-eva">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Coöperatie Eva</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Women</span><span class="tag tag--pink">Health</span></div></div></div>
+    <p class="body">Coöperatie Eva ondersteunt vrouwen op weg naar economische zelfstandigheid.</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-klup">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Talentenklup</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Children</span><span class="tag tag--pink">Activities</span></div></div></div>
+    <p class="body">Stichting de Talentenklup biedt peuteropvang aan voor alle kinderen in de leeftijd van 2,5 tot 4 jaar.</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-polka">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">POLKA</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Women</span><span class="tag tag--pink">Culture</span></div></div></div>
+    <p class="body">We organiseren themabijeenkomsten, workshops, trainingen, rondleidingen door de stad, maar ook sport...</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-amal">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Amal Coaching</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Coaching</span></div></div></div>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-wijkz">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Wijkz</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Social</span><span class="tag tag--pink">Activities</span></div></div></div>
+    <p class="body">We zetten ons met veel enthousiasme en deskundigheid in om je te informeren, advies te geven en je alvast een stukje ...</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-member">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Member organization</h2></div></div>
+    <p class="body">One of the organizations in the Kracht(vrouwen) in de Wijk network.</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
 </section>
 
 <section class="band band--pink-soft" aria-labelledby="collab-title">
   <div class="container section">
     <div class="collab__grid">
       <div class="stack min0" style="--gap:18px">
-        <span class="eyebrow">Partners</span>
         <h2 class="h-section" id="collab-title">Collaborators</h2>
         <p class="body">The Hague University of Applied Sciences, together with women's organizations in The Hague and the municipality of The Hague, combined this shared need into a sustainable learning environment. Since January 1, 2024, organizations from different neighborhoods—such as Laak, Escamp, and Schilderswijk—have been meeting regularly to share experiences, knowledge, and practical solutions. In this way, we are gradually building a strong, connected network in which women's organizations inspire, support, and strengthen each other.</p>
       </div>
@@ -150,7 +204,6 @@
   <div class="container stack" style="--gap:28px">
     <div class="find__top">
       <div class="section-head">
-        <span class="eyebrow eyebrow--purple">Across The Hague</span>
         <h2 class="h-section" id="find-title">Find Organizations</h2>
       </div>
       <form class="search search--lg" role="search">
@@ -187,7 +240,6 @@
   <div class="container section stack" style="--gap:28px">
     <div class="find__top">
       <div class="section-head">
-        <span class="eyebrow eyebrow--purple">What's on</span>
         <h2 class="h-section" id="cal-title">Calendar</h2>
       </div>
       <a class="btn" href="#events">All Events <span class="arrow" aria-hidden="true">→</span></a>
@@ -200,7 +252,6 @@
   <div class="container stack" style="--gap:28px">
     <div class="find__top">
       <div class="section-head">
-        <span class="eyebrow">Moments together</span>
         <h2 class="h-section" id="media-title">Media</h2>
       </div>
       <a class="btn btn--outline" href="#media">View More <span class="arrow" aria-hidden="true">→</span></a>

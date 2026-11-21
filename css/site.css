@@ -110,8 +110,7 @@ h1, h2, h3, h4 { margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
 .body p + p, .prose p + p { margin-top: 1em; }
 .small { font-size: 14px; line-height: 1.45; }
 .muted { color: var(--muted); }
-.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pink-700); }
-.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.eyebrow { display: inline-flex; align-items: center; font-size: 15px; font-weight: 600; color: var(--pink-700); }
 .eyebrow--lime { color: var(--lime-800); }
 .eyebrow--purple { color: var(--purple-700); }
 .section-head { display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
@@ -329,7 +328,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--pink); }
 .cal__views button { background: none; border: 0; padding: 6px 14px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 500; color: var(--ink-soft); cursor: pointer; }
 .cal__views button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: var(--e1); font-weight: 600; }
 .cal__dow, .cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(4px, 1vw, 10px); }
-.cal__dow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); text-align: center; margin-bottom: 8px; }
+.cal__dow { font-size: 13px; font-weight: 600; color: var(--muted); text-align: center; margin-bottom: 8px; }
 .cal__day { aspect-ratio: 1; border: 1px solid var(--line); border-radius: 12px; background: #fff; position: relative; padding: 8px; text-align: left; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; transition: background .15s, border-color .15s, transform .15s var(--ease); font-variant-numeric: tabular-nums; }
 .cal__day:hover { background: var(--lavender-50); border-color: var(--purple); }
 .cal__day.is-out { background: var(--surface-2); border-color: transparent; color: #b7b1c2; }
@@ -345,7 +344,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--pink); }
 .cal__side h3 { font-size: 18px; font-weight: 650; text-align: left; }
 .cal__side .divider { margin: 12px 0 14px; }
 .cal__list { max-height: 520px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 2px; }
-.cal__date { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 12px; }
+.cal__date { font-size: 14px; font-weight: 650; color: var(--muted); margin-top: 12px; }
 .cal__event { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: center; padding: 10px 12px; background: #fff; border: 1px solid var(--line); border-radius: 14px; text-align: left; cursor: pointer; width: 100%; transition: border-color .15s, box-shadow .15s, transform .15s var(--ease); }
 .cal__event:hover { border-color: var(--pink-100); box-shadow: var(--e2); transform: translateY(-1px); }
 .cal__event b { display: block; font-size: 15px; font-weight: 600; }
@@ -382,3 +381,9 @@ mark { background: var(--lime-100); padding: 0 2px; border-radius: 3px; }
 
 /* the hidden attribute always wins over component display rules */
 [hidden] { display: none !important; }
+
+/* organization info modal (opened with data-modal="<template id>") */
+.org-modal { display: grid; gap: 18px; }
+.org-modal__head { display: flex; gap: 16px; align-items: center; padding-right: 32px; }
+.org-modal__head .logo-dot { width: 72px; height: 72px; flex: none; }
+.org-modal .btn { justify-self: start; }

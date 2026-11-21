@@ -30,22 +30,23 @@
 .page-home .hero__media { position: relative; height: clamp(300px, 40vw, 560px); overflow: hidden; }
 .page-home .hero__photo { width: 100%; height: 100%; object-fit: cover; }
 .page-home .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 27, 38, .08) 0%, rgba(30, 27, 38, 0) 35%, rgba(46, 30, 80, .35) 100%); pointer-events: none; }
-.page-home .hero__hands { position: absolute; z-index: 2; right: clamp(16px, 7vw, 120px); top: clamp(24px, 5vw, 70px); width: clamp(96px, 12vw, 170px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; animation: bubble-float 10s ease-in-out infinite; --dy: -10px; }
-.page-home .hero__hands img { width: 78%; height: auto; filter: drop-shadow(0 6px 12px rgba(168, 53, 101, .3)); }
 .page-home .hero__card-wrap { position: relative; z-index: 3; margin-top: clamp(-140px, -9vw, -60px); }
 .page-home .hero__card { background: #fff; border-radius: var(--radius-l); box-shadow: var(--e3); padding: clamp(24px, 4vw, 52px); display: grid; gap: clamp(16px, 2.4vw, 24px); max-width: 960px; }
 .page-home .hero__line { width: min(420px, 70%); height: auto; opacity: .85; }
 .page-home .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
 
 /* ---- who we are ---- */
-.page-home .who__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: center; }
+.page-home .who__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: start; }
 @media (min-width: 1000px) { .page-home .who__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
 .page-home .network { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-l); box-shadow: var(--e2); padding: clamp(18px, 3vw, 36px); overflow: hidden; }
 .page-home .network::before { content: ""; position: absolute; width: 60%; aspect-ratio: 1; right: -18%; bottom: -40%; border-radius: 50%; background: radial-gradient(circle, var(--lime-100), transparent 70%); }
 .page-home .network__map { position: relative; width: 100%; aspect-ratio: 608 / 295; }
 .page-home .network__lines { position: absolute; left: 2.709%; top: 25.48%; width: 94.65%; height: 45.04%; max-width: none; opacity: .22; }
-.page-home .network__logo { position: absolute; height: auto; max-width: none; transition: transform .3s var(--ease), box-shadow .3s; animation: bubble-float var(--dur, 8s) ease-in-out infinite; animation-delay: var(--delay, 0s); --dy: -5px; --dx: 0px; }
-.page-home .network__logo:hover { scale: 1.08; box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--pink-100), 0 14px 28px -10px rgba(46, 30, 80, .4); animation-play-state: paused; }
+.page-home .network__logo { background: none; border: 0; padding: 0; cursor: pointer; border-radius: 50%; position: absolute; height: auto; max-width: none; transition: transform .3s var(--ease), box-shadow .3s; animation: bubble-float var(--dur, 8s) ease-in-out infinite; animation-delay: var(--delay, 0s); --dy: -5px; --dx: 0px; }
+.page-home .network__logo img { width: 100%; height: auto; display: block; transition: box-shadow .3s; }
+.page-home .network__logo:hover, .page-home .network__logo:focus-visible { scale: 1.08; animation-play-state: paused; }
+.page-home .network__logo:hover img, .page-home .network__logo:focus-visible img { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--pink), 0 14px 28px -10px rgba(46, 30, 80, .4); }
+.page-home .network__hint { position: relative; margin-top: 14px; text-align: center; }
 
 /* ---- collaborators ---- */
 .page-home .collab__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: center; }
@@ -95,13 +96,10 @@
   <div class="hero__media">
     <img class="hero__photo" src="assets/img/home/hero.jpg" alt="Members of women's organizations in The Hague working together around a table" width="1600" height="1067">
     <span class="bubble" style="width:clamp(140px,20vw,300px);height:clamp(140px,20vw,300px);left:-4%;top:-12%;--dur:11s"></span>
-    <span class="bubble" style="width:clamp(56px,7vw,110px);height:clamp(56px,7vw,110px);left:15%;top:46%;--dur:8s;--delay:-2s;--dy:-18px"></span>
-    <span class="bubble" style="width:clamp(70px,9vw,150px);height:clamp(70px,9vw,150px);right:24%;bottom:14%;--dur:12s;--delay:-5s;--dx:-10px"></span>
-    <span class="hero__hands glass" aria-hidden="true"><img src="assets/img/home/hero-circle-small.png" alt="" width="451" height="451"></span>
+    <span class="bubble" style="width:clamp(70px,9vw,150px);height:clamp(70px,9vw,150px);right:-3%;bottom:-8%;--dur:12s;--delay:-5s;--dx:-10px"></span>
   </div>
   <div class="container hero__card-wrap">
     <div class="hero__card">
-      <span class="eyebrow">Community of Practice · The Hague</span>
       <h1 class="h-display" id="home-title">Kracht(vrouwen) in de Wijk</h1>
       <p class="lead">Kracht(vrouwen) in de Wijk is a Community of Practice for and by women's organizations in The Hague. In this learning environment, organizations come together to share knowledge, learn from each other, and strengthen their impact. By pooling experiences, tackling challenges together, and developing practical solutions, we are building a sustainable network that supports and connects women in The Hague.</p>
       <img class="hero__line" src="assets/img/home/hero-line.svg" alt="" width="669" height="16">
@@ -117,40 +115,96 @@
   <div class="container section">
     <div class="who__grid">
       <div class="stack min0" style="--gap:22px">
-        <span class="eyebrow eyebrow--lime">Since January 2024</span>
         <h2 class="h-section" id="who-title">Who We Are</h2>
         <div class="body">
           <p>Kracht(vrouwen) in de wijk is a Community of Practice (CoP) that arose from the need of women's organizations in The Hague to learn together and become stronger together.</p>
           <p>There are dozens of women's organizations active in The Hague, each with their own background, goals, and approach. Although they differ from each other, they surprisingly often encounter the same questions: How do we find a good space? How can we grow? How do we make our impact visible?</p>
         </div>
-        <div class="stat-panel" style="margin-top:6px">
+      </div>
+      <div class="stack min0" style="--gap:16px">
+        <div class="network">
+          <div class="network__map">
+            <img class="network__lines" src="assets/img/home/who-lines.svg" alt="" width="576" height="133">
+          <button type="button" class="network__logo" data-modal="org-info-reva" aria-label="ReVa Moeders: more information" style="left:0.33%;top:8.81%;width:17.27%;--dur:9s;--delay:0s"><img class="logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-amal" aria-label="Amal Coaching: more information" style="left:0%;top:51.19%;width:19.41%;--dur:10s;--delay:-3s"><img class="logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-eva" aria-label="Coöperatie Eva: more information" style="left:21.22%;top:33.22%;width:15.95%;--dur:8s;--delay:-1s"><img class="logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-klup" aria-label="Talentenklup: more information" style="left:40.79%;top:6.1%;width:20.07%;--dur:11s;--delay:-4s"><img class="logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-vbl" aria-label="VrouwenBuurtLab Laak: more information" style="left:36.18%;top:53.56%;width:22.53%;--dur:9.5s;--delay:-2s"><img class="logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-member" aria-label="Member organization: more information" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-polka" aria-label="POLKA: more information" style="left:76.81%;top:0%;width:21.55%;--dur:10.5s;--delay:-1.5s"><img class="logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-wijkz" aria-label="Wijkz: more information" style="left:81.25%;top:52.54%;width:18.75%;--dur:9s;--delay:-6s"><img class="logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="120" height="120"></button>
+          </div>
+          <p class="network__hint small muted">Select a logo to learn more about the organization.</p>
+        </div>
+        <div class="stat-panel">
           <div><p class="stat__num">10</p><p class="stat__label">Organizations</p></div>
           <div><p class="stat__num">250</p><p class="stat__label">Total Members</p></div>
           <div><p class="stat__num">300</p><p class="stat__label">Activities</p></div>
         </div>
       </div>
-      <div class="network">
-        <div class="network__map" role="img" aria-label="Logos of the member organizations, connected in one network">
-          <img class="network__lines" src="assets/img/home/who-lines.svg" alt="" width="576" height="133">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="105" height="105" style="left:0.33%;top:8.81%;width:17.27%;--dur:9s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="118" height="118" style="left:0;top:51.19%;width:19.41%;--dur:10s;--delay:-3s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="97" height="97" style="left:21.22%;top:33.22%;width:15.95%;--dur:8s;--delay:-1s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="122" height="122" style="left:40.79%;top:6.1%;width:20.07%;--dur:11s;--delay:-4s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="137" height="137" style="left:36.18%;top:53.56%;width:22.53%;--dur:9.5s;--delay:-2s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="96" height="96" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="131" height="131" style="left:76.81%;top:0;width:21.55%;--dur:10.5s;--delay:-1.5s">
-          <img class="network__logo logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="114" height="114" style="left:81.25%;top:52.54%;width:18.75%;--dur:9s;--delay:-6s">
-        </div>
-      </div>
     </div>
   </div>
+<template id="org-info-vbl">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">VrouwenBuurtLab Laak</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Social</span></div></div></div>
+    <p class="body">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
+    <a class="btn" href="#org-vbl" data-modal-close>View organization page <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-reva">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">ReVa Moeders</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Motherhood</span><span class="tag tag--pink">Courses</span></div></div></div>
+    <p class="body">Het gaat deze groep om de belangenbehartiging en emancipatie van een grote...</p>
+    <a class="btn" href="#org-reva" data-modal-close>View organization page <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-eva">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Coöperatie Eva</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Women</span><span class="tag tag--pink">Health</span></div></div></div>
+    <p class="body">Coöperatie Eva ondersteunt vrouwen op weg naar economische zelfstandigheid.</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-klup">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Talentenklup</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Children</span><span class="tag tag--pink">Activities</span></div></div></div>
+    <p class="body">Stichting de Talentenklup biedt peuteropvang aan voor alle kinderen in de leeftijd van 2,5 tot 4 jaar.</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-polka">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">POLKA</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Women</span><span class="tag tag--pink">Culture</span></div></div></div>
+    <p class="body">We organiseren themabijeenkomsten, workshops, trainingen, rondleidingen door de stad, maar ook sport...</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-amal">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Amal Coaching</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Coaching</span></div></div></div>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-wijkz">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Wijkz</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Social</span><span class="tag tag--pink">Activities</span></div></div></div>
+    <p class="body">We zetten ons met veel enthousiasme en deskundigheid in om je te informeren, advies te geven en je alvast een stukje ...</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
+<template id="org-info-member">
+  <div class="org-modal">
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Member organization</h2></div></div>
+    <p class="body">One of the organizations in the Kracht(vrouwen) in de Wijk network.</p>
+    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</template>
 </section>
 
 <section class="band band--pink-soft" aria-labelledby="collab-title">
   <div class="container section">
     <div class="collab__grid">
       <div class="stack min0" style="--gap:18px">
-        <span class="eyebrow">Partners</span>
         <h2 class="h-section" id="collab-title">Collaborators</h2>
         <p class="body">The Hague University of Applied Sciences, together with women's organizations in The Hague and the municipality of The Hague, combined this shared need into a sustainable learning environment. Since January 1, 2024, organizations from different neighborhoods—such as Laak, Escamp, and Schilderswijk—have been meeting regularly to share experiences, knowledge, and practical solutions. In this way, we are gradually building a strong, connected network in which women's organizations inspire, support, and strengthen each other.</p>
       </div>
@@ -174,7 +228,6 @@
   <div class="container stack" style="--gap:28px">
     <div class="find__top">
       <div class="section-head">
-        <span class="eyebrow eyebrow--purple">Across The Hague</span>
         <h2 class="h-section" id="find-title">Find Organizations</h2>
       </div>
       <form class="search search--lg" role="search">
@@ -211,7 +264,6 @@
   <div class="container section stack" style="--gap:28px">
     <div class="find__top">
       <div class="section-head">
-        <span class="eyebrow eyebrow--purple">What's on</span>
         <h2 class="h-section" id="cal-title">Calendar</h2>
       </div>
       <a class="btn" href="#events">All Events <span class="arrow" aria-hidden="true">→</span></a>
@@ -224,7 +276,6 @@
   <div class="container stack" style="--gap:28px">
     <div class="find__top">
       <div class="section-head">
-        <span class="eyebrow">Moments together</span>
         <h2 class="h-section" id="media-title">Media</h2>
       </div>
       <a class="btn btn--outline" href="#media">View More <span class="arrow" aria-hidden="true">→</span></a>
@@ -320,7 +371,6 @@
     <span class="bubble" aria-hidden="true" style="width: 54px; height: 54px; right: 15%; top: 40px; --dur: 8s; --delay: -3s; --dx: -8px;"></span>
     <span class="bubble" aria-hidden="true" style="width: 30px; height: 30px; right: 6%; top: 128px; --dur: 7s; --delay: -1.5s;"></span>
     <div class="org-hero__text">
-      <span class="eyebrow">Organizations</span>
       <h1 class="h-display">All Organizations</h1>
     </div>
   </header>
@@ -581,7 +631,7 @@
 .page-org-vbl .event-card:hover .event-card__media > img { transform: scale(1.04); }
 .page-org-vbl .event-card__body { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 22px; }
 .page-org-vbl .event-card__title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; color: var(--ink); }
-.page-org-vbl .event-card__new { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; line-height: 1.4; }
+.page-org-vbl .event-card__new { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; line-height: 1.4; }
 .page-org-vbl .event-card__desc { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
 .page-org-vbl .event-card__meta { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .page-org-vbl .event-card__meta li { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
@@ -657,7 +707,7 @@
 @media (min-width: 560px) { .page-org-vbl .org-info { grid-template-columns: 1fr 1fr; } }
 .page-org-vbl .org-info li { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 14px; row-gap: 2px; align-items: center; padding: 16px; }
 .page-org-vbl .org-info img { grid-row: 1 / span 2; width: 44px; height: 44px; padding: 11px; border-radius: 50%; background: var(--pink-50); }
-.page-org-vbl .org-info h3 { font-size: 13px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); line-height: 1.3; }
+.page-org-vbl .org-info h3 { font-size: 14px; font-weight: 650; letter-spacing: 0; text-transform: none; color: var(--muted); line-height: 1.3; }
 .page-org-vbl .org-info p, .page-org-vbl .org-info a { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
 .page-org-vbl .org-info a { text-decoration: none; }
 .page-org-vbl .org-info a:hover { color: var(--pink-700); text-decoration: underline; text-underline-offset: 3px; }
@@ -696,7 +746,6 @@
   <div class="container">
     <div class="org-head">
       <div class="section-head">
-        <span class="eyebrow">VrouwenBuurtLab Laak</span>
         <h2 class="h-section" id="org-events-title">Events</h2>
       </div>
       <a class="btn btn--outline btn--sm" href="#events">All Events <span class="arrow" aria-hidden="true">&rarr;</span></a>
@@ -762,7 +811,6 @@
 <section class="container section org-media" aria-labelledby="org-media-title">
   <div class="org-head">
     <div class="section-head">
-      <span class="eyebrow eyebrow--purple">VrouwenBuurtLab Laak</span>
       <h2 class="h-section" id="org-media-title">Photos and Media</h2>
     </div>
   </div>
@@ -784,7 +832,6 @@
   <div class="container">
     <div class="org-head org-head--center">
       <div class="section-head">
-        <span class="eyebrow eyebrow--lime">VrouwenBuurtLab Laak</span>
         <h2 class="h-section" id="org-comments-title">Comments</h2>
       </div>
     </div>
@@ -831,7 +878,6 @@
 <section class="container section org-contact" aria-labelledby="org-contact-title">
   <div class="org-head">
     <div class="section-head">
-      <span class="eyebrow">VrouwenBuurtLab Laak</span>
       <h2 class="h-section" id="org-contact-title">Contact Us</h2>
     </div>
   </div>
@@ -942,7 +988,7 @@
 .page-org-reva .event-card:hover .event-card__media > img { transform: scale(1.04); }
 .page-org-reva .event-card__body { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 22px; }
 .page-org-reva .event-card__title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; color: var(--ink); }
-.page-org-reva .event-card__new { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; line-height: 1.4; }
+.page-org-reva .event-card__new { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; line-height: 1.4; }
 .page-org-reva .event-card__desc { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
 .page-org-reva .event-card__meta { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .page-org-reva .event-card__meta li { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
@@ -1018,7 +1064,7 @@
 @media (min-width: 560px) { .page-org-reva .org-info { grid-template-columns: 1fr 1fr; } }
 .page-org-reva .org-info li { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 14px; row-gap: 2px; align-items: center; padding: 16px; }
 .page-org-reva .org-info img { grid-row: 1 / span 2; width: 44px; height: 44px; padding: 11px; border-radius: 50%; background: var(--pink-50); }
-.page-org-reva .org-info h3 { font-size: 13px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); line-height: 1.3; }
+.page-org-reva .org-info h3 { font-size: 14px; font-weight: 650; letter-spacing: 0; text-transform: none; color: var(--muted); line-height: 1.3; }
 .page-org-reva .org-info p, .page-org-reva .org-info a { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
 .page-org-reva .org-info a { text-decoration: none; }
 .page-org-reva .org-info a:hover { color: var(--pink-700); text-decoration: underline; text-underline-offset: 3px; }
@@ -1057,7 +1103,6 @@
   <div class="container">
     <div class="org-head">
       <div class="section-head">
-        <span class="eyebrow">ReVa Moeders</span>
         <h2 class="h-section" id="org-events-title">Events</h2>
       </div>
       <a class="btn btn--outline btn--sm" href="#events">All Events <span class="arrow" aria-hidden="true">&rarr;</span></a>
@@ -1123,7 +1168,6 @@
 <section class="container section org-media" aria-labelledby="org-media-title">
   <div class="org-head">
     <div class="section-head">
-      <span class="eyebrow eyebrow--purple">ReVa Moeders</span>
       <h2 class="h-section" id="org-media-title">Photos and Media</h2>
     </div>
   </div>
@@ -1145,7 +1189,6 @@
   <div class="container">
     <div class="org-head org-head--center">
       <div class="section-head">
-        <span class="eyebrow eyebrow--lime">ReVa Moeders</span>
         <h2 class="h-section" id="org-comments-title">Comments</h2>
       </div>
     </div>
@@ -1192,7 +1235,6 @@
 <section class="container section org-contact" aria-labelledby="org-contact-title">
   <div class="org-head">
     <div class="section-head">
-      <span class="eyebrow">ReVa Moeders</span>
       <h2 class="h-section" id="org-contact-title">Contact Us</h2>
     </div>
   </div>
@@ -1293,7 +1335,7 @@
   .page-events .ev-filter__head .h-sub { font-size: 24px; }
   .page-events .ev-filter__groups { display: grid; gap: 14px; grid-template-columns: 1fr; }
   .page-events .ev-fbox { padding: 0; overflow: hidden; }
-  .page-events .ev-fbox > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); border-radius: var(--radius-m); }
+  .page-events .ev-fbox > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); border-radius: var(--radius-m); }
   .page-events .ev-fbox > summary::-webkit-details-marker { display: none; }
   .page-events .ev-fbox > summary::after { content: ""; flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--pill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%234a4556' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat; transform: rotate(180deg); transition: transform .25s var(--ease), background-color .2s; }
   .page-events .ev-fbox:not([open]) > summary::after { transform: none; }
@@ -1340,7 +1382,7 @@
   .page-events .ev-meta { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; color: var(--ink-soft); font-weight: 500; }
   .page-events .ev-meta li { display: flex; align-items: center; gap: 10px; }
   .page-events .ev-meta img { width: 15px; height: 15px; flex: none; opacity: .5; }
-  .page-events .ev-new { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 4px 12px -4px rgba(168, 53, 101, .6); }
+  .page-events .ev-new { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; box-shadow: 0 4px 12px -4px rgba(168, 53, 101, .6); }
   .page-events .ev-new::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
 
   /* calendar section (widget itself is styled globally) */
@@ -1548,7 +1590,6 @@
 <section class="band band--lavender-soft section ev-cal" id="events-calendar" aria-labelledby="ev-cal-title">
   <div class="container">
     <div class="section-head ev-cal__head">
-      <span class="eyebrow eyebrow--purple">Events</span>
       <h2 id="ev-cal-title" class="h-section">Calendar</h2>
     </div>
     <div data-mount="calendar"></div>
@@ -1765,7 +1806,6 @@
 <section class="band band--lavender-soft section be-related" aria-labelledby="be-related-title">
   <div class="container">
   <div class="section-head">
-    <span class="eyebrow eyebrow--purple">Blog</span>
     <h2 id="be-related-title" class="h-sub">Related Posts</h2>
   </div>
   <div class="grid-3">
@@ -1994,7 +2034,7 @@
 .page-guide-location .guide-toc { align-self: start; }
 @media (min-width: 1000px) { .page-guide-location .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
 .page-guide-location .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
-.page-guide-location .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-location .guide-toc__title { padding-inline: 8px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-location .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
 .page-guide-location .guide-toc li { counter-increment: toc; }
 .page-guide-location .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
@@ -2017,7 +2057,7 @@
 .page-guide-location .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
 .page-guide-location .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .page-guide-location .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
-.page-guide-location .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-location .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); }
 .page-guide-location .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .page-guide-location .guide-bullets li { position: relative; padding-left: 26px; }
 .page-guide-location .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
@@ -2033,7 +2073,7 @@
 .page-guide-location .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
 .page-guide-location .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
 .page-guide-location .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
-.page-guide-location .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-location .guide-step__label { font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-location .guide-step p { font-size: 17px; line-height: 1.65; }
 
 /* checklist: native checkboxes in calm rows */
@@ -2231,7 +2271,7 @@
 .page-guide-structure .guide-toc { align-self: start; }
 @media (min-width: 1000px) { .page-guide-structure .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
 .page-guide-structure .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
-.page-guide-structure .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-structure .guide-toc__title { padding-inline: 8px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-structure .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
 .page-guide-structure .guide-toc li { counter-increment: toc; }
 .page-guide-structure .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
@@ -2254,7 +2294,7 @@
 .page-guide-structure .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
 .page-guide-structure .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .page-guide-structure .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
-.page-guide-structure .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-structure .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); }
 .page-guide-structure .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .page-guide-structure .guide-bullets li { position: relative; padding-left: 26px; }
 .page-guide-structure .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
@@ -2270,7 +2310,7 @@
 .page-guide-structure .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
 .page-guide-structure .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
 .page-guide-structure .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
-.page-guide-structure .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-structure .guide-step__label { font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-structure .guide-step p { font-size: 17px; line-height: 1.65; }
 
 /* checklist: native checkboxes in calm rows */
@@ -2489,7 +2529,7 @@
 .page-guide-frictions .guide-toc { align-self: start; }
 @media (min-width: 1000px) { .page-guide-frictions .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
 .page-guide-frictions .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
-.page-guide-frictions .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-frictions .guide-toc__title { padding-inline: 8px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-frictions .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
 .page-guide-frictions .guide-toc li { counter-increment: toc; }
 .page-guide-frictions .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
@@ -2512,7 +2552,7 @@
 .page-guide-frictions .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
 .page-guide-frictions .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .page-guide-frictions .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
-.page-guide-frictions .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-frictions .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); }
 .page-guide-frictions .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .page-guide-frictions .guide-bullets li { position: relative; padding-left: 26px; }
 .page-guide-frictions .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
@@ -2528,7 +2568,7 @@
 .page-guide-frictions .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
 .page-guide-frictions .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
 .page-guide-frictions .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
-.page-guide-frictions .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-frictions .guide-step__label { font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-frictions .guide-step p { font-size: 17px; line-height: 1.65; }
 
 /* checklist: native checkboxes in calm rows */
@@ -2735,7 +2775,7 @@
 .page-guide-balance .guide-toc { align-self: start; }
 @media (min-width: 1000px) { .page-guide-balance .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
 .page-guide-balance .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
-.page-guide-balance .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-balance .guide-toc__title { padding-inline: 8px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-balance .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
 .page-guide-balance .guide-toc li { counter-increment: toc; }
 .page-guide-balance .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
@@ -2758,7 +2798,7 @@
 .page-guide-balance .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
 .page-guide-balance .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .page-guide-balance .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
-.page-guide-balance .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-balance .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); }
 .page-guide-balance .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .page-guide-balance .guide-bullets li { position: relative; padding-left: 26px; }
 .page-guide-balance .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
@@ -2774,7 +2814,7 @@
 .page-guide-balance .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
 .page-guide-balance .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
 .page-guide-balance .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
-.page-guide-balance .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-balance .guide-step__label { font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-balance .guide-step p { font-size: 17px; line-height: 1.65; }
 
 /* checklist: native checkboxes in calm rows */
@@ -2974,7 +3014,7 @@
 .page-guide-generations .guide-toc { align-self: start; }
 @media (min-width: 1000px) { .page-guide-generations .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
 .page-guide-generations .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
-.page-guide-generations .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-generations .guide-toc__title { padding-inline: 8px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-generations .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
 .page-guide-generations .guide-toc li { counter-increment: toc; }
 .page-guide-generations .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
@@ -2997,7 +3037,7 @@
 .page-guide-generations .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
 .page-guide-generations .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .page-guide-generations .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
-.page-guide-generations .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-generations .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); }
 .page-guide-generations .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .page-guide-generations .guide-bullets li { position: relative; padding-left: 26px; }
 .page-guide-generations .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
@@ -3013,7 +3053,7 @@
 .page-guide-generations .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
 .page-guide-generations .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
 .page-guide-generations .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
-.page-guide-generations .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-generations .guide-step__label { font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--t-ink); }
 .page-guide-generations .guide-step p { font-size: 17px; line-height: 1.65; }
 
 /* checklist: native checkboxes in calm rows */
@@ -3228,7 +3268,6 @@
 
   <section class="faq-hero" aria-labelledby="faq-title">
     <div class="faq-hero__text">
-      <span class="eyebrow">FAQ</span>
       <h1 id="faq-title" class="h-display">Frequently Asked Questions</h1>
       <p class="lead">Search what you’ve been looking for</p>
       <div class="search search--lg" role="search">
@@ -3327,7 +3366,7 @@
   .page-contact .detail:hover { transform: translateY(-4px); box-shadow: var(--e3); border-color: transparent; }
   .page-contact .detail__icon { width: 52px; height: 52px; border-radius: 16px; background: var(--pink-50); border: 1px solid var(--pink-100); display: grid; place-items: center; margin-bottom: 12px; }
   .page-contact .detail__icon img { width: 26px; height: 26px; }
-  .page-contact .detail h3 { font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .page-contact .detail h3 { font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--muted); }
   .page-contact .detail p { font-size: 16px; font-weight: 500; line-height: 1.45; color: var(--ink); overflow-wrap: anywhere; }
   .page-contact .detail .btn { margin-top: auto; }
   .page-contact .detail__foot { margin-top: auto; padding-top: 16px; width: 100%; }
@@ -3347,7 +3386,6 @@
   <div class="contact-top">
     <section class="contact-main" aria-labelledby="contact-title">
       <div class="section-head">
-        <span class="eyebrow">About Us</span>
         <h1 id="contact-title" class="h-section">Contact Us</h1>
       </div>
       <div class="card contact-card">
@@ -3397,7 +3435,6 @@
   <span class="bubble" aria-hidden="true" style="width:70px;height:70px;right:4%;bottom:24px;--dur:9s;--delay:-4s;--dx:-8px"></span>
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Contact Us</span>
       <h2 class="h-section" id="details-title">our details</h2>
     </div>
     <div class="grid-4">
@@ -3478,7 +3515,6 @@
     <span class="bubble" aria-hidden="true" style="width:64px;height:64px;right:5%;bottom:18px;--dur:8s;--delay:-3s;--dx:-6px"></span>
     <span class="bubble" aria-hidden="true" style="width:40px;height:40px;right:26%;bottom:-10px;--dur:12s;--delay:-6s"></span>
     <div class="section-head">
-      <span class="eyebrow eyebrow--purple">Photos and Media</span>
       <h1 class="h-display">Media</h1>
     </div>
   </header>
@@ -3564,7 +3600,6 @@
   <div class="about-hero">
     <img src="assets/img/about/group-hero.jpg" alt="Group of smiling women holding books together" width="1600" height="1200">
     <div class="about-hero__text">
-      <span class="eyebrow">Our Project</span>
       <h1 class="h-display">About Us</h1>
     </div>
   </div>
@@ -3574,7 +3609,6 @@
   <div class="container">
     <div class="about-row">
       <div class="about-text">
-        <span class="eyebrow">01</span>
         <h2 id="about-mission" class="h-section">Mission</h2>
         <p class="body">Our mission is to support women's organizations in The Hague in their growth, professionalization, and self-reliance. We bring them together to share knowledge, experience, and practical insights, so that they are even better equipped to empower women from diverse backgrounds and promote equal opportunities.</p>
       </div>
@@ -3595,7 +3629,6 @@
         <img src="assets/img/about/vision.jpg" alt="Three women standing close together and smiling" width="1600" height="1200" loading="lazy">
       </figure>
       <div class="about-text">
-        <span class="eyebrow eyebrow--lime">02</span>
         <h2 id="about-vision" class="h-section">Vision</h2>
         <p class="body">We believe in the power of women's organizations as a driving force behind social change in the neighborhood. When these organizations connect with each other, a network is created that not only shares knowledge, but also jointly creates and reinforces solutions. In our vision, Kracht(vrouwen) in de wijk will grow into a sustainable platform that supports, inspires, and connects women's organizations—a place where their collective knowledge takes center stage and their impact becomes visible.</p>
       </div>
@@ -3607,7 +3640,6 @@
   <div class="container">
     <div class="about-row">
       <div class="about-text">
-        <span class="eyebrow">03</span>
         <h2 id="about-project" class="h-section">Main Project</h2>
         <p class="body">The aim of Kracht(vrouwen) in de wijk is to strengthen women's organizations and groups in The Hague, with a focus on organizations that are active in vulnerable neighborhoods. By setting up and supervising a Community of Practice, we create a sustainable learning environment in which organizations exchange knowledge, collaborate on concrete solutions to shared challenges, and thus increase their social impact.</p>
       </div>
@@ -3627,7 +3659,6 @@
         <img src="assets/img/about/group-hero.jpg" alt="Members of the network gathered for a group photo, holding books" width="1600" height="1200" loading="lazy">
       </figure>
       <div class="about-text">
-        <span class="eyebrow eyebrow--purple">04</span>
         <h2 id="about-values" class="h-section">Core Values</h2>
         <div class="values">
           <div class="value"><p><strong>1. Learning together</strong></p>

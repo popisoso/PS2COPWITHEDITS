@@ -387,6 +387,14 @@
       go(0, false);
     });
 
+    // modal from a <template>: data-modal="<template id>"
+    $$("[data-modal]", root).forEach(function (el) {
+      el.addEventListener("click", function () {
+        var tpl = document.getElementById(el.dataset.modal);
+        if (tpl) openModal(tpl.innerHTML);
+      });
+    });
+
     // linked highlight: hovering/focusing one [data-hl] element highlights all with the same key
     $$("[data-hl]", root).forEach(function (el) {
       var on = function (v) { $$('[data-hl="' + el.dataset.hl + '"]', root).forEach(function (x) { x.classList.toggle("is-hl", v); }); };

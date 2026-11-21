@@ -1,106 +1,118 @@
 <!-- title: VrouwenBuurtLab Laak -->
 <style>
-.page-org-vbl { --org-cream: #fffbf7; --org-rule: #783230; --org-field: rgba(164, 69, 108, 0.1); }
-.page-org-vbl .breadcrumb { color: #000; font-size: 15px; padding-block: 65px 30px; gap: 10px; }
-.page-org-vbl .breadcrumb a { color: #000; }
-.page-org-vbl .breadcrumb span[aria-current] { font-weight: 700; }
-.page-org-vbl .org-title { font-size: clamp(32px, 3.4vw, 43px); font-weight: 700; line-height: 1.2; }
-.page-org-vbl .org-hero { padding-bottom: clamp(48px, 6vw, 86px); --gap: clamp(32px, 8vw, 110px); }
-@media (min-width: 900px) { .page-org-vbl .org-hero { grid-template-columns: minmax(0, 527px) minmax(0, 500px); justify-content: space-between; } }
-.page-org-vbl .org-hero__text { display: flex; flex-direction: column; gap: 24px; }
-.page-org-vbl .org-hero__text .org-title { max-width: 390px; padding-left: 4px; }
-.page-org-vbl .org-hero__lead { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.2; margin-top: 8px; }
-.page-org-vbl .org-rule { width: 100px; height: 3px; background: var(--pink); border: 0; margin: 0; }
-.page-org-vbl .org-hero__body { font-size: 18px; line-height: 1.2; max-width: 514px; }
-.page-org-vbl .org-hero__img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03); }
+.page-org-vbl { --mx: 52.2%; --my: 55%; }
+.page-org-vbl .org-top { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--lavender-50), #fff 85%); }
+.page-org-vbl .org-hero { position: relative; padding-block: clamp(8px, 2vw, 24px) clamp(56px, 7vw, 96px); --gap: clamp(32px, 6vw, 80px); }
+@media (min-width: 900px) { .page-org-vbl .org-hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); } }
+.page-org-vbl .org-hero__text { display: flex; flex-direction: column; gap: 18px; position: relative; z-index: 1; }
+.page-org-vbl .org-hero__text .h-display { color: var(--ink); max-width: 14ch; }
+.page-org-vbl .org-hero__lead { color: var(--ink); font-weight: 500; font-size: clamp(20px, 1.9vw, 24px); line-height: 1.4; max-width: 30ch; }
+.page-org-vbl .org-rule { margin: 4px 0; }
+.page-org-vbl .org-hero__body { max-width: 56ch; }
+.page-org-vbl .org-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.page-org-vbl .org-hero__media { position: relative; }
+.page-org-vbl .org-hero__img { position: relative; z-index: 1; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;  border-radius: var(--radius-l); border: 6px solid #fff; box-shadow: var(--e3); }
+.page-org-vbl .org-hero__media .bubble { z-index: 0; }
+.page-org-vbl .org-hero__media .bubble--front { z-index: 2; }
 
-.page-org-vbl .org-events { padding-block: clamp(48px, 5vw, 61px) clamp(48px, 5vw, 74px); }
-.page-org-vbl .org-events__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: clamp(32px, 4vw, 61px); }
-.page-org-vbl .org-events__head h2 { color: #fff; border-bottom: 3px solid #fff; padding-bottom: 8px; }
-.page-org-vbl .org-events__all { color: var(--org-cream); font-size: clamp(20px, 2.2vw, 28px); text-decoration: underline; }
-.page-org-vbl .org-events__all:hover { color: #fff; text-decoration-thickness: 2px; }
-.page-org-vbl .org-events__grid { list-style: none; margin: 0; padding: 0; --gap: 20px; }
+.page-org-vbl .org-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px; margin-bottom: clamp(28px, 3.5vw, 44px); }
+.page-org-vbl .org-head .section-head { gap: 8px; }
+.page-org-vbl .org-head--center { justify-content: center; text-align: center; }
+.page-org-vbl .org-head--center .section-head { align-items: center; }
+.page-org-vbl .org-head h2 { color: var(--ink); }
+
+.page-org-vbl .org-events__grid { list-style: none; margin: 0; padding: 0; --gap: 24px; }
 @media (min-width: 960px) { .page-org-vbl .org-events__grid { grid-template-columns: repeat(3, 1fr); } }
-.page-org-vbl .event-card { height: 100%; display: flex; flex-direction: column; background: var(--org-cream); border-radius: 10px; overflow: hidden; }
-.page-org-vbl .event-card__media { position: relative; height: 262px; }
-.page-org-vbl .event-card__media > img { width: 100%; height: 100%; object-fit: cover; }
-.page-org-vbl .event-card__media::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 -125px 85px -50px rgba(0, 0, 0, 0.5); pointer-events: none; }
-.page-org-vbl .event-card__title { position: absolute; z-index: 1; left: 21px; right: 21px; bottom: 21px; display: flex; align-items: center; gap: 12px; color: var(--org-cream); font-size: 22px; font-weight: 700; line-height: 1.2; }
-.page-org-vbl .event-card__new { width: 38px; height: 38px; transform: rotate(30deg); flex: none; }
-.page-org-vbl .event-card__body { flex: 1; display: flex; flex-direction: column; gap: 17px; padding: 21px 21px 30px; font-size: 16px; line-height: 1.1; }
-.page-org-vbl .event-card__desc { min-height: 75px; }
-.page-org-vbl .event-card__meta { display: flex; align-items: flex-end; gap: 7px; }
-.page-org-vbl .event-card__meta img { width: 20px; height: 20px; flex: none; }
-.page-org-vbl .event-card .btn { align-self: center; margin-top: auto; width: 179px; min-height: 60px; font-size: 20px; font-weight: 400; }
-.page-org-vbl .event-card__meta:last-of-type { margin-bottom: 28px; }
+.page-org-vbl .event-card { height: 100%; display: flex; flex-direction: column; padding: 0; overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+.page-org-vbl .event-card:hover { transform: translateY(-4px); box-shadow: var(--e3); border-color: transparent; }
+.page-org-vbl .event-card__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--lavender-100); }
+.page-org-vbl .event-card__media > img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.page-org-vbl .event-card:hover .event-card__media > img { transform: scale(1.04); }
+.page-org-vbl .event-card__body { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 22px; }
+.page-org-vbl .event-card__title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; color: var(--ink); }
+.page-org-vbl .event-card__new { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; line-height: 1.4; }
+.page-org-vbl .event-card__desc { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+.page-org-vbl .event-card__meta { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.page-org-vbl .event-card__meta li { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+.page-org-vbl .event-card__meta img { width: 16px; height: 16px; flex: none; opacity: .5; }
+.page-org-vbl .event-card .btn { align-self: flex-start; margin-top: 6px; }
 
-.page-org-vbl .carousel-ctrl { display: flex; justify-content: center; align-items: center; gap: 21px; margin-top: clamp(40px, 5vw, 68px); }
-.page-org-vbl .carousel-ctrl__arrow { width: 50px; height: 50px; border: 2px solid #fff; border-radius: 25px; display: grid; place-items: center; }
-.page-org-vbl .carousel-ctrl__arrow img { width: 12px; height: 24px; }
+.page-org-vbl .carousel-ctrl { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: clamp(32px, 4vw, 48px); }
+.page-org-vbl .carousel-ctrl .carousel-ctrl__arrow { width: 46px; height: 46px; border: 1px solid var(--line-strong); background: #fff; box-shadow: var(--e1); display: grid; place-items: center; }
+.page-org-vbl .carousel-ctrl .carousel-ctrl__arrow:hover { border-color: var(--pink); background: var(--pink-50); }
+.page-org-vbl .carousel-ctrl__arrow img { width: 10px; height: 20px; filter: brightness(0); opacity: .7; }
 .page-org-vbl .carousel-ctrl__arrow--prev img { transform: rotate(180deg); }
-.page-org-vbl .carousel-ctrl__dot { width: 20px; height: 20px; }
+.page-org-vbl .carousel-ctrl .carousel-ctrl__dots button { width: 10px; height: 10px; background: var(--line-strong); }
+.page-org-vbl .carousel-ctrl .carousel-ctrl__dots button:hover { background: var(--pink-100); transform: none; }
+.page-org-vbl .carousel-ctrl .carousel-ctrl__dots button[aria-current="true"] { width: 26px; background: var(--pink); }
 
-.page-org-vbl .org-media { padding-block: clamp(56px, 8vw, 110px) clamp(48px, 7vw, 110px); }
-.page-org-vbl .org-section-head { padding-bottom: 19px; border-bottom: 3px solid var(--org-rule); margin-bottom: 39px; }
-.page-org-vbl .org-gallery { display: grid; gap: 12px; grid-template-columns: 1fr; }
-.page-org-vbl .org-gallery figure { margin: 0; overflow: hidden; }
-.page-org-vbl .org-gallery img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
-.page-org-vbl .org-gallery__col { display: flex; flex-direction: column; gap: 12px; }
+.page-org-vbl .org-gallery { display: grid; gap: 14px; grid-template-columns: 1fr; }
+.page-org-vbl .org-gallery figure { margin: 0; overflow: hidden; border-radius: var(--radius-m); background: var(--lavender-100); box-shadow: var(--e1); }
+.page-org-vbl .org-gallery img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: transform .5s var(--ease); }
+.page-org-vbl .org-gallery figure:hover img { transform: scale(1.04); }
+.page-org-vbl .org-gallery__col { display: flex; flex-direction: column; gap: 14px; }
 .page-org-vbl .org-gallery__a { aspect-ratio: 476 / 512; }
 .page-org-vbl .org-gallery__b1 { aspect-ratio: 809 / 673; }
-.page-org-vbl .org-gallery__b2 { aspect-ratio: 327 / 215; position: relative; overflow: hidden; container-type: inline-size; }
+.page-org-vbl .org-gallery__b2 { aspect-ratio: 327 / 215; position: relative; container-type: inline-size; }
 .page-org-vbl .org-gallery__b2 img { position: absolute; left: 50%; top: 50%; width: 65.75cqw; height: 100cqw; transform: translate(-50%, -50%) rotate(-90deg); }
+.page-org-vbl .org-gallery__b2:hover img { transform: translate(-50%, -50%) rotate(-90deg) scale(1.04); }
 .page-org-vbl .org-gallery__c1 { aspect-ratio: 1291 / 791; }
 .page-org-vbl .org-gallery__c2 { aspect-ratio: 301 / 298; }
 @media (min-width: 640px) { .page-org-vbl .org-gallery { grid-template-columns: 1fr 1fr; } .page-org-vbl .org-gallery__a { grid-column: 1 / -1; aspect-ratio: 16 / 10; } }
 @media (min-width: 960px) {
-  .page-org-vbl .org-gallery { grid-template-columns: 476fr 327fr 314fr; align-items: stretch; }
+  .page-org-vbl .org-gallery { grid-template-columns: 476fr 327fr 314fr; align-items: stretch; gap: 16px; }
   .page-org-vbl .org-gallery__a { grid-column: auto; aspect-ratio: auto; position: relative; min-height: 360px; }
   .page-org-vbl .org-gallery__a img { position: absolute; inset: 0; }
-  .page-org-vbl .org-gallery__col--b { gap: 25px; }
-  .page-org-vbl .org-gallery__col--c { gap: 11px; }
+  .page-org-vbl .org-gallery__col { gap: 16px; }
 }
-.page-org-vbl .org-media .btn { display: flex; width: 179px; min-height: 60px; margin: 12px auto 0; font-size: 20px; }
+.page-org-vbl .org-media__more { display: flex; justify-content: center; margin-top: clamp(28px, 3vw, 40px); }
 
-.page-org-vbl .org-comments { padding-block: clamp(56px, 6vw, 81px); }
-.page-org-vbl .org-comments h2 { color: #fff; text-align: center; width: fit-content; margin: 0 auto clamp(40px, 5.5vw, 80px); border-bottom: 3px solid #fff; padding-bottom: 8px; min-width: 231px; }
-.page-org-vbl .org-comments__grid { list-style: none; margin: 0; padding: 0; --gap: 23px; }
+.page-org-vbl .org-comments__grid { list-style: none; margin: 0; padding: 0; --gap: 24px; }
 @media (min-width: 960px) { .page-org-vbl .org-comments__grid { grid-template-columns: repeat(3, 1fr); } }
-.page-org-vbl .comment { height: 100%; min-height: 300px; margin: 0; background: #fff; border-radius: 10px; padding: 25px 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
-@media (min-width: 960px) { .page-org-vbl .comment { aspect-ratio: 1; } }
+.page-org-vbl .comment { height: 100%; min-height: 260px; margin: 0; padding: 26px 26px 24px; display: flex; flex-direction: column; gap: 20px; }
 .page-org-vbl .comment__icons { display: flex; justify-content: space-between; align-items: center; }
-.page-org-vbl .comment__quote { display: flex; }
-.page-org-vbl .comment__quote img { width: 36px; height: 36px; transform: rotate(180deg); }
-.page-org-vbl .comment__icons > img { width: 36px; height: 36px; }
-.page-org-vbl .comment blockquote { margin: 0; padding-inline: 18.5px; font-size: clamp(20px, 2vw, 24px); line-height: 1.2; }
-.page-org-vbl .comment figcaption { text-align: center; font-size: clamp(20px, 2vw, 24px); }
+.page-org-vbl .comment__quote { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--pink-50); }
+.page-org-vbl .comment__quote img { width: 16px; height: 16px; transform: rotate(180deg); margin-inline: -2px; }
+.page-org-vbl .comment__icons > img { width: 24px; height: 24px; opacity: .35; filter: grayscale(1); }
+.page-org-vbl .comment blockquote { flex: 1; margin: 0; font-size: clamp(18px, 1.6vw, 20px); font-weight: 500; line-height: 1.5; color: var(--ink); }
+.page-org-vbl .comment figcaption { display: flex; align-items: center; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15px; font-weight: 650; color: var(--ink); }
+.page-org-vbl .comment figcaption::before { content: ""; width: 20px; height: 3px; border-radius: 3px; background: var(--green); }
 
-.page-org-vbl .org-contact { padding-block: clamp(56px, 6vw, 92px) clamp(56px, 7vw, 100px); }
-.page-org-vbl .org-contact__q { font-size: clamp(28px, 2.8vw, 35px); font-weight: 700; margin-bottom: 37px; }
-.page-org-vbl .org-contact__split { --gap: 56px; align-items: start; }
-@media (min-width: 900px) { .page-org-vbl .org-contact__split { grid-template-columns: minmax(0, 485px) minmax(0, 599px); justify-content: space-between; } }
-.page-org-vbl .org-form { display: flex; flex-direction: column; gap: 29px; }
-.page-org-vbl .org-form .field { gap: 9px; }
-.page-org-vbl .org-form label { font-size: 16px; font-weight: 700; line-height: 1; }
-.page-org-vbl .org-form .input, .page-org-vbl .org-form .textarea, .page-org-vbl .org-form select { background: var(--org-field); border: 1.5px solid var(--pink); border-radius: 30px; height: 45px; padding: 0 18px; font: 400 16px var(--font); color: #000; }
-.page-org-vbl .org-form .input::placeholder, .page-org-vbl .org-form .textarea::placeholder { color: rgba(0, 0, 0, 0.5); font-style: italic; }
-.page-org-vbl .org-form .textarea { height: 160px; min-height: 160px; border-radius: 20px; padding: 18px; }
+.page-org-vbl .org-contact__split { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+@media (min-width: 960px) { .page-org-vbl .org-contact__split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; } }
+.page-org-vbl .org-form-card { padding: clamp(22px, 3vw, 34px); }
+.page-org-vbl .org-contact__q { color: var(--ink); margin-bottom: 20px; }
+.page-org-vbl .org-form { display: flex; flex-direction: column; gap: 18px; }
 .page-org-vbl .org-form .select { display: flex; }
-.page-org-vbl .org-form .select::after { display: none; }
-.page-org-vbl .org-form select { appearance: none; width: 100%; padding: 0 50px 0 15px; font-size: 20px; cursor: pointer; }
-.page-org-vbl .org-form .select img { position: absolute; right: 19px; top: 50%; width: 19px; height: 2px; transform: translateY(-50%); pointer-events: none; }
-.page-org-vbl .org-form .btn { align-self: center; width: min(100%, 348px); min-height: 60px; font-size: 20px; font-weight: 400; margin-top: 5px; }
-.page-org-vbl .org-form .form-note { font-size: 18px; }
-.page-org-vbl .org-map { width: 100%; height: auto; aspect-ratio: 599 / 437; object-fit: cover; border-radius: 10px; box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3); margin-top: 25px; }
-.page-org-vbl .org-info { list-style: none; margin: 52px 0 0; padding: 0; --gap: 35px; }
-.page-org-vbl .org-info li { min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px 16px; background: var(--org-field); border-radius: 30px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); text-align: center; }
-.page-org-vbl .org-info img { width: 67px; height: 67px; margin-bottom: 8px; }
-.page-org-vbl .org-info h3 { font-size: 18px; font-weight: 700; line-height: 1; }
-.page-org-vbl .org-info p, .page-org-vbl .org-info a { font-size: 16px; line-height: 1.2; color: rgba(0, 0, 0, 0.5); overflow-wrap: anywhere; }
+.page-org-vbl .org-form .select select { width: 100%; height: 48px; box-shadow: inset 0 1px 2px rgba(30, 27, 38, .04); font-size: 16px; }
+.page-org-vbl .org-form .select img { display: none; }
+.page-org-vbl .org-form .input { height: 48px; }
+.page-org-vbl .org-form .btn { align-self: stretch; margin-top: 4px; }
+.page-org-vbl .org-aside { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.page-org-vbl .org-map { position: relative; margin: 0; padding: 0; overflow: hidden; isolation: isolate; }
+.page-org-vbl .org-map__canvas { position: relative; isolation: isolate; }
+.page-org-vbl .org-map__canvas > img { width: 100%; height: auto; filter: grayscale(.7) saturate(.8) contrast(.95) brightness(1.05); }
+.page-org-vbl .org-map__canvas::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(160deg, rgba(193, 164, 233, .22), rgba(221, 92, 144, .08)); pointer-events: none; }
+.page-org-vbl .org-map__pin { position: absolute; z-index: 2; left: var(--mx); top: var(--my); width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 4px #fff, 0 6px 14px -4px rgba(168, 53, 101, .6); }
+.page-org-vbl .org-map__pin::before { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--pink); animation: org-pulse 2.4s var(--ease) infinite; }
+@keyframes org-pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.6); opacity: 0; } }
+.page-org-vbl .org-map__label { position: absolute; z-index: 2; left: 14px; bottom: 14px; right: 14px; max-width: 300px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius-s); background: rgba(255, 255, 255, .9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, .8); box-shadow: var(--e2); }
+.page-org-vbl .org-map__label img { width: 18px; height: 18px; flex: none; }
+.page-org-vbl .org-map__disc { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--pink-50); }
+.page-org-vbl .org-map__label b { display: block; font-size: 14px; font-weight: 650; color: var(--ink); line-height: 1.3; }
+.page-org-vbl .org-map__label span { display: block; font-size: 13px; color: var(--muted); line-height: 1.35; }
+@media (max-width: 420px) { .page-org-vbl .org-map__label { position: static; max-width: none; margin: 0; border-radius: 0; border-width: 1px 0 0; border-color: var(--line); box-shadow: none; } }
+.page-org-vbl .org-info { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .page-org-vbl .org-info { grid-template-columns: 1fr 1fr; } }
+.page-org-vbl .org-info li { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 14px; row-gap: 2px; align-items: center; padding: 16px; }
+.page-org-vbl .org-info img { grid-row: 1 / span 2; width: 44px; height: 44px; padding: 11px; border-radius: 50%; background: var(--pink-50); }
+.page-org-vbl .org-info h3 { font-size: 14px; font-weight: 650; letter-spacing: 0; text-transform: none; color: var(--muted); line-height: 1.3; }
+.page-org-vbl .org-info p, .page-org-vbl .org-info a { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
 .page-org-vbl .org-info a { text-decoration: none; }
-.page-org-vbl .org-info a:hover { color: var(--pink-dark); text-decoration: underline; }
+.page-org-vbl .org-info a:hover { color: var(--pink-700); text-decoration: underline; text-underline-offset: 3px; }
 </style>
 
+<div class="org-top">
 <div class="container">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="#organizations">Organizations</a> <span aria-hidden="true">//</span>
@@ -110,61 +122,79 @@
 
   <section class="split org-hero" aria-labelledby="org-title">
     <div class="org-hero__text">
-      <h1 class="org-title" id="org-title">VrouwenBuurtLab Laak</h1>
-      <p class="org-hero__lead">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
-      <hr class="org-rule">
-      <p class="org-hero__body">Een ontmoetingscentrum voor vrouwen, het VrouwenBuurtLab. Niet de problemen van de vrouwen staan centraal, maar hun mogelijkheden, kwaliteiten en talenten. Via verschillende soorten activiteiten en cursussen worden de vrouwen stap voor stap begeleid naar bijvoorbeeld een opleiding of een baan. Het nieuwe ontmoetingscentrum is bedacht en georganiseerd door de vrouwen zelf en wordt door ons ondersteund.</p>
+      <h1 class="h-display" id="org-title">VrouwenBuurtLab Laak</h1>
+      <p class="lead org-hero__lead">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
+      <hr class="divider org-rule">
+      <p class="body org-hero__body">Een ontmoetingscentrum voor vrouwen, het VrouwenBuurtLab. Niet de problemen van de vrouwen staan centraal, maar hun mogelijkheden, kwaliteiten en talenten. Via verschillende soorten activiteiten en cursussen worden de vrouwen stap voor stap begeleid naar bijvoorbeeld een opleiding of een baan. Het nieuwe ontmoetingscentrum is bedacht en georganiseerd door de vrouwen zelf en wordt door ons ondersteund.</p>
+      <div class="org-hero__actions">
+        <button type="button" class="btn" data-scroll="org-contact-title">Contact Us <span class="arrow" aria-hidden="true">&rarr;</span></button>
+        <button type="button" class="btn btn--outline" data-scroll="org-events-title">Events</button>
+      </div>
     </div>
-    <img class="org-hero__img" src="assets/img/org-vbl/logo.jpg" alt="VrouwenBuurtLab Laak bij Noortje logo" width="417" height="417">
+    <div class="org-hero__media">
+      <span class="bubble" aria-hidden="true" style="width: 150px; height: 150px; left: -48px; top: -36px; --dur: 11s;"></span>
+      <span class="bubble" aria-hidden="true" style="width: 90px; height: 90px; right: -20px; bottom: -30px; --dur: 9s; --delay: -4s; --dx: -8px;"></span>
+      <span class="bubble bubble--front" aria-hidden="true" style="width: 44px; height: 44px; right: 8%; top: -18px; --dur: 7s; --delay: -2s;"></span>
+      <img class="org-hero__img" src="assets/img/org-vbl/logo.jpg" alt="VrouwenBuurtLab Laak bij Noortje logo" width="417" height="417">
+    </div>
   </section>
 </div>
+</div>
 
-<section class="band band--pink org-events" aria-labelledby="org-events-title">
+<section class="band band--pink-soft section org-events" aria-labelledby="org-events-title">
   <div class="container">
-    <div class="org-events__head">
-      <h2 class="org-title" id="org-events-title">Events</h2>
-      <a class="org-events__all" href="#events">All Events</a>
+    <div class="org-head">
+      <div class="section-head">
+        <h2 class="h-section" id="org-events-title">Events</h2>
+      </div>
+      <a class="btn btn--outline btn--sm" href="#events">All Events <span class="arrow" aria-hidden="true">&rarr;</span></a>
     </div>
     <ul class="grid-2 org-events__grid">
       <li id="vbl-event-1">
-        <article class="event-card">
+        <article class="card event-card">
           <div class="event-card__media">
             <img src="assets/img/org-vbl/event-turns-pink.jpg" alt="Pink breast cancer awareness ribbon" width="720" height="360" loading="lazy">
-            <h3 class="event-card__title">Turns Pink <img class="event-card__new" src="assets/img/org-vbl/burst-new.svg" alt="New" width="38" height="38"></h3>
           </div>
           <div class="event-card__body">
+            <h3 class="h-card event-card__title">Turns Pink <span class="event-card__new">New</span></h3>
             <p class="event-card__desc">We come together for breast cancer month. We’ll share our knowledge and experiences on the topic. We’d like to be there for everyone and whoever is ...</p>
-            <p class="event-card__meta"><img src="assets/img/org-vbl/icon-calendar.svg" alt="Date" width="20" height="20"> Mon, 13 October 2025</p>
-            <p class="event-card__meta"><img src="assets/img/org-vbl/icon-location.svg" alt="Location" width="20" height="20"> Van Meursstraat 1</p>
-            <a class="btn" href="#events">Read More</a>
+            <ul class="event-card__meta">
+              <li><img src="assets/img/org-vbl/icon-calendar.svg" alt="Date" width="20" height="20"> Mon, 13 October 2025</li>
+              <li><img src="assets/img/org-vbl/icon-location.svg" alt="Location" width="20" height="20"> Van Meursstraat 1</li>
+            </ul>
+            <a class="btn btn--outline btn--sm" href="#events">Read More <span class="arrow" aria-hidden="true">&rarr;</span></a>
           </div>
         </article>
       </li>
       <li id="vbl-event-2">
-        <article class="event-card">
+        <article class="card event-card">
           <div class="event-card__media">
             <img src="assets/img/org-vbl/event-painting-club.jpg" alt="A woman painting a forest scene on a canvas at an easel" width="809" height="673" loading="lazy">
-            <h3 class="event-card__title">Painting Club</h3>
           </div>
           <div class="event-card__body">
+            <h3 class="h-card event-card__title">Painting Club</h3>
             <p class="event-card__desc">With Sadaf, you’ll learn how to paint step-by-step. You don’t need experience, together we’ll see how creative and fun painting can be.</p>
-            <p class="event-card__meta"><img src="assets/img/org-vbl/icon-calendar.svg" alt="Date" width="20" height="20"> Every Monday</p>
-            <p class="event-card__meta"><img src="assets/img/org-vbl/icon-location.svg" alt="Location" width="20" height="20"> Van Meursstraat 1</p>
-            <a class="btn" href="#events">Read More</a>
+            <ul class="event-card__meta">
+              <li><img src="assets/img/org-vbl/icon-calendar.svg" alt="Date" width="20" height="20"> Every Monday</li>
+              <li><img src="assets/img/org-vbl/icon-location.svg" alt="Location" width="20" height="20"> Van Meursstraat 1</li>
+            </ul>
+            <a class="btn btn--outline btn--sm" href="#events">Read More <span class="arrow" aria-hidden="true">&rarr;</span></a>
           </div>
         </article>
       </li>
       <li id="vbl-event-3">
-        <article class="event-card">
+        <article class="card event-card">
           <div class="event-card__media">
             <img src="assets/img/org-vbl/event-communal-yoga.jpg" alt="Women doing a yoga class together in a community room" width="2048" height="2048" loading="lazy">
-            <h3 class="event-card__title">Communal Yoga</h3>
           </div>
           <div class="event-card__body">
+            <h3 class="h-card event-card__title">Communal Yoga</h3>
             <p class="event-card__desc">Come and have a meal together with the women from Wijk!</p>
-            <p class="event-card__meta"><img src="assets/img/org-vbl/icon-calendar.svg" alt="Date" width="20" height="20"> Mon, 29 September 2025</p>
-            <p class="event-card__meta"><img src="assets/img/org-vbl/icon-location.svg" alt="Location" width="20" height="20"> Van Meursstraat 1</p>
-            <a class="btn" href="#events">Read More</a>
+            <ul class="event-card__meta">
+              <li><img src="assets/img/org-vbl/icon-calendar.svg" alt="Date" width="20" height="20"> Mon, 29 September 2025</li>
+              <li><img src="assets/img/org-vbl/icon-location.svg" alt="Location" width="20" height="20"> Van Meursstraat 1</li>
+            </ul>
+            <a class="btn btn--outline btn--sm" href="#events">Read More <span class="arrow" aria-hidden="true">&rarr;</span></a>
           </div>
         </article>
       </li>
@@ -177,9 +207,11 @@
   </div>
 </section>
 
-<section class="container org-media" aria-labelledby="org-media-title">
-  <div class="org-section-head">
-    <h2 class="org-title" id="org-media-title">Photos and Media</h2>
+<section class="container section org-media" aria-labelledby="org-media-title">
+  <div class="org-head">
+    <div class="section-head">
+      <h2 class="h-section" id="org-media-title">Photos and Media</h2>
+    </div>
   </div>
   <div class="org-gallery">
     <figure class="org-gallery__a"><img src="assets/img/org-vbl/media-1.jpg" alt="Close-up of a hand painting trees on a canvas next to a paint palette" width="899" height="966" loading="lazy" data-lightbox></figure>
@@ -192,15 +224,19 @@
       <figure class="org-gallery__c2"><img src="assets/img/org-vbl/media-7.jpg" alt="Decorating a small card with flowers next to a cup of tea" width="641" height="625" loading="lazy" data-lightbox></figure>
     </div>
   </div>
-  <a class="btn btn--outline" href="#media">See More</a>
+  <div class="org-media__more"><a class="btn btn--outline" href="#media">See More <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
 </section>
 
-<section class="band band--green org-comments" aria-labelledby="org-comments-title">
+<section class="band band--lime-soft section org-comments" aria-labelledby="org-comments-title">
   <div class="container">
-    <h2 class="org-title" id="org-comments-title">Comments</h2>
+    <div class="org-head org-head--center">
+      <div class="section-head">
+        <h2 class="h-section" id="org-comments-title">Comments</h2>
+      </div>
+    </div>
     <ul class="grid-2 org-comments__grid">
       <li>
-        <figure class="comment">
+        <figure class="card comment">
           <div class="comment__icons" aria-hidden="true">
             <span class="comment__quote"><img src="assets/img/org-vbl/icon-quote.svg" alt="" width="36" height="36"><img src="assets/img/org-vbl/icon-quote.svg" alt="" width="36" height="36"></span>
             <img src="assets/img/org-vbl/icon-message.svg" alt="" width="36" height="36">
@@ -210,7 +246,7 @@
         </figure>
       </li>
       <li>
-        <figure class="comment">
+        <figure class="card comment">
           <div class="comment__icons" aria-hidden="true">
             <span class="comment__quote"><img src="assets/img/org-vbl/icon-quote.svg" alt="" width="36" height="36"><img src="assets/img/org-vbl/icon-quote.svg" alt="" width="36" height="36"></span>
             <img src="assets/img/org-vbl/icon-message.svg" alt="" width="36" height="36">
@@ -220,7 +256,7 @@
         </figure>
       </li>
       <li>
-        <figure class="comment">
+        <figure class="card comment">
           <div class="comment__icons" aria-hidden="true">
             <span class="comment__quote"><img src="assets/img/org-vbl/icon-quote.svg" alt="" width="36" height="36"><img src="assets/img/org-vbl/icon-quote.svg" alt="" width="36" height="36"></span>
             <img src="assets/img/org-vbl/icon-message.svg" alt="" width="36" height="36">
@@ -238,12 +274,15 @@
   </div>
 </section>
 
-<section class="container org-contact" aria-labelledby="org-contact-title">
-  <div class="org-section-head">
-    <h2 class="org-title" id="org-contact-title">Contact Us</h2>
+<section class="container section org-contact" aria-labelledby="org-contact-title">
+  <div class="org-head">
+    <div class="section-head">
+      <h2 class="h-section" id="org-contact-title">Contact Us</h2>
+    </div>
   </div>
-  <h3 class="org-contact__q">Questions</h3>
-  <div class="split org-contact__split">
+  <div class="org-contact__split">
+    <div class="card org-form-card">
+    <h3 class="h-sub org-contact__q">Questions</h3>
     <form class="org-form" data-form>
       <div class="field">
         <label for="vbl-org">Select organization</label>
@@ -274,28 +313,40 @@
       <button class="btn" type="submit">Send</button>
       <p class="form-note" data-form-success hidden>Thank you! Your message has been sent to VrouwenBuurtLab Laak.</p>
     </form>
-    <img class="org-map" src="assets/img/org-vbl/map.jpg" alt="Map showing the location of VrouwenBuurtLab Laak near Betsy Perkstraat in Den Haag" width="944" height="546" loading="lazy">
+    </div>
+    <div class="org-aside">
+      <figure class="card org-map">
+        <div class="org-map__canvas">
+          <img src="assets/img/org-vbl/map.jpg" alt="Map showing the location of VrouwenBuurtLab Laak near Betsy Perkstraat in Den Haag" width="944" height="546" loading="lazy">
+          <span class="org-map__pin" aria-hidden="true"></span>
+        </div>
+        <figcaption class="org-map__label">
+          <span class="org-map__disc"><img src="assets/img/org-vbl/icon-location-big.svg" alt="" width="18" height="18"></span>
+          <span><b>VrouwenBuurtLab Laak</b><span>Van Meursstraat 1</span></span>
+        </figcaption>
+      </figure>
+      <ul class="org-info">
+      <li class="card">
+        <img src="assets/img/org-vbl/icon-phone.svg" alt="" width="67" height="67">
+        <h3>Phone</h3>
+        <a href="tel:+31685782987">+31 6 85782987</a>
+      </li>
+      <li class="card">
+        <img src="assets/img/org-vbl/icon-email.svg" alt="" width="67" height="67">
+        <h3>E-mail</h3>
+        <a href="mailto:vrouwenbuurtlab@wijkz.nl">vrouwenbuurtlab@wijkz.nl</a>
+      </li>
+      <li class="card">
+        <img src="assets/img/org-vbl/icon-internet.svg" alt="" width="67" height="67">
+        <h3>Links</h3>
+        <a href="mailto:vrouwenbuurtlab@wijkz.nl">vrouwenbuurtlab@wijkz.nl</a>
+      </li>
+      <li class="card">
+        <img src="assets/img/org-vbl/icon-location-big.svg" alt="" width="67" height="67">
+        <h3>Location</h3>
+        <p>Van Meursstraat<br>12524 XN 's-Gravenhage</p>
+      </li>
+      </ul>
+    </div>
   </div>
-  <ul class="grid-4 org-info">
-    <li>
-      <img src="assets/img/org-vbl/icon-phone.svg" alt="" width="67" height="67">
-      <h3>Phone</h3>
-      <a href="tel:+31685782987">+31 6 85782987</a>
-    </li>
-    <li>
-      <img src="assets/img/org-vbl/icon-email.svg" alt="" width="67" height="67">
-      <h3>E-mail</h3>
-      <a href="mailto:vrouwenbuurtlab@wijkz.nl">vrouwenbuurtlab@wijkz.nl</a>
-    </li>
-    <li>
-      <img src="assets/img/org-vbl/icon-internet.svg" alt="" width="67" height="67">
-      <h3>Links</h3>
-      <a href="mailto:vrouwenbuurtlab@wijkz.nl">vrouwenbuurtlab@wijkz.nl</a>
-    </li>
-    <li>
-      <img src="assets/img/org-vbl/icon-location-big.svg" alt="" width="67" height="67">
-      <h3>Location</h3>
-      <p>Van Meursstraat<br>12524 XN 's-Gravenhage</p>
-    </li>
-  </ul>
 </section>

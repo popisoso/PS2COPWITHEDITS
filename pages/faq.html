@@ -1,51 +1,61 @@
 <!-- title: Frequently Asked Questions -->
 <style>
-  .page-faq .faq-hero { position: relative; margin-top: 24px; }
-  .page-faq .faq-box { background: rgba(221, 92, 144, 0.5); border-radius: clamp(30px, 4vw, 50px); padding: clamp(32px, 5.5vw, 77px) clamp(22px, 4vw, 58px); }
-  .page-faq .faq-box__inner { display: flex; flex-direction: column; gap: clamp(18px, 2.4vw, 32px); max-width: 597px; }
-  .page-faq .faq-box h1 { font-size: clamp(30px, 3.4vw, 43px); font-weight: 700; line-height: 1.2; }
-  .page-faq .faq-box__sub { font-size: clamp(20px, 2.2vw, 28px); line-height: 1.2; }
-  .page-faq .faq-search { position: relative; width: 552px; max-width: 100%; height: 55px; }
-  .page-faq .faq-search input { width: 100%; height: 100%; border: 0; border-radius: 30px; background: #fff; padding: 0 70px 0 24px; font: 400 18px/1.2 var(--font); color: #000; }
-  .page-faq .faq-search input::placeholder { color: #aeaeae; }
-  .page-faq .faq-search button { position: absolute; right: 0; top: 0; width: 55px; height: 55px; border: 0; border-radius: 30px; background: #bdd0fb; display: grid; place-items: center; cursor: pointer; padding: 0; }
-  .page-faq .faq-search button img { width: 35px; height: 35px; }
-  .page-faq .faq-illu-card { background: var(--pink); border-radius: clamp(30px, 4vw, 50px); padding: 37px 53px; display: flex; align-items: center; justify-content: center; width: 430px; max-width: 100%; margin: 20px auto 0; }
-  .page-faq .faq-illu { position: relative; width: 324px; max-width: 100%; aspect-ratio: 324.16 / 324.53; }
+  /* hero: soft pink→lavender panel, text left, illustration right, glass bubbles only around the illustration */
+  .page-faq .faq-hero { position: relative; overflow: hidden; isolation: isolate; margin-top: 4px; border-radius: var(--radius-l); border: 1px solid var(--pink-100); background: radial-gradient(120% 140% at 100% 0%, var(--lavender-100) 0%, rgba(239, 229, 252, 0) 55%), linear-gradient(135deg, var(--pink-50) 0%, var(--lavender-50) 100%); padding: clamp(28px, 5vw, 64px) clamp(20px, 4.5vw, 64px); display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px); align-items: center; }
+  @media (min-width: 960px) { .page-faq .faq-hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+  .page-faq .faq-hero__text { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 600px; }
+  .page-faq .faq-hero__text h1 { color: var(--ink); }
+  .page-faq .faq-hero__text .lead { margin-top: -4px; }
+  .page-faq .faq-hero .search { margin-top: 12px; }
+  .page-faq .faq-hero .search input { border-color: #fff; }
+  .page-faq .faq-hero .search input:hover { border-color: var(--line-strong); }
+  .page-faq .faq-hero .search input:focus { border-color: var(--pink); }
+  .page-faq .faq-art { position: relative; justify-self: center; width: min(360px, 100%); aspect-ratio: 1; display: grid; place-items: center; }
+  .page-faq .faq-art::before { content: ""; position: absolute; inset: 6%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0)); z-index: 0; }
+  .page-faq .faq-art .bubble { z-index: 0; }
+  .page-faq .faq-illu { position: relative; z-index: 1; width: 88%; aspect-ratio: 324.16 / 324.53; filter: drop-shadow(0 18px 30px rgba(46, 30, 80, .16)); }
   .page-faq .faq-illu img { position: absolute; height: auto; max-width: none; }
-  @media (min-width: 1000px) {
-    .page-faq .faq-hero { min-height: 433px; }
-    .page-faq .faq-box { width: 94.56%; min-height: 363px; }
-    .page-faq .faq-illu-card { position: absolute; right: 0; top: 34px; margin: 0; height: 399px; width: 37.72%; }
+  @media (max-width: 959px) { .page-faq .faq-art { width: min(300px, 82%); } }
+
+  /* questions */
+  .page-faq .faq-qa { padding-block: clamp(48px, 6vw, 80px) clamp(64px, 8vw, 110px); }
+  .page-faq .faq-qa__inner { max-width: 880px; margin-inline: auto; display: flex; flex-direction: column; gap: 22px; }
+  .page-faq .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .page-faq .faq-list .acc + .acc { margin-top: 0; }
+  .page-faq .faq-list .acc { transition: box-shadow .25s var(--ease), border-color .2s, transform .25s var(--ease); }
+  .page-faq .faq-list .acc:not([open]):hover { border-color: var(--pink-100); box-shadow: var(--e2); }
+  .page-faq .faq-list .acc > summary { justify-content: flex-start; gap: 16px; padding: 18px 20px; font-size: clamp(17px, 1.5vw, 19px); font-weight: 600; line-height: 1.35; color: var(--ink); }
+  .page-faq .faq-list .acc > summary::before { content: "?"; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--pink-50); border: 1px solid var(--pink-100); color: var(--pink-700); font-size: 16px; font-weight: 700; transition: background .2s, color .2s; }
+  .page-faq .faq-list .acc[open] > summary::before { background: var(--pink); border-color: var(--pink); color: #fff; }
+  .page-faq .faq-list .acc > summary::after { margin-left: auto; }
+  .page-faq .faq-list .acc > summary:focus-visible { outline-offset: -3px; border-radius: var(--radius-s); }
+  .page-faq .faq-list .acc__body { padding: 0 20px 22px 70px; max-width: 72ch; }
+  .page-faq .faq-list .acc__body a { color: var(--pink-700); font-weight: 600; text-underline-offset: 3px; }
+  .page-faq .faq-list .acc__body a:hover { color: var(--pink); }
+  @media (max-width: 520px) {
+    .page-faq .faq-list .acc > summary { padding: 16px; gap: 12px; }
+    .page-faq .faq-list .acc > summary::before { width: 30px; height: 30px; font-size: 15px; }
+    .page-faq .faq-list .acc__body { padding: 0 16px 18px; }
   }
-  .page-faq .faq-list { margin-top: clamp(48px, 8vw, 123px); border-top: 1px solid #000; }
-  .page-faq .faq-list .acc { border-bottom: 1px solid #000; }
-  .page-faq .faq-list .acc > summary { font-size: clamp(18px, 1.8vw, 22px); font-weight: 400; padding: 26px 0; gap: 30px; }
-  .page-faq .faq-list .acc > summary::after { content: none; }
-  .page-faq .faq-list .acc > summary img { width: 44px; height: 41px; flex: none; transition: transform .2s; }
-  .page-faq .faq-list .acc[open] > summary { font-weight: 600; }
-  .page-faq .faq-list .acc[open] > summary img { transform: scaleY(-1); }
-  .page-faq .faq-list .acc__body { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.25; padding: 0 0 26px; }
-  .page-faq .faq-list .acc__body a { color: var(--pink-dark); font-weight: 600; }
-  .page-faq .faq-qa { padding-bottom: clamp(48px, 7vw, 90px); }
-  .page-faq [data-empty] { padding: 26px 0; color: var(--muted); }
+  .page-faq [data-empty] { padding: 22px 20px; border: 1px dashed var(--line-strong); border-radius: var(--radius-s); background: var(--surface-2); color: var(--muted); text-align: center; font-size: 16px; }
 </style>
 
 <div class="container">
   <nav class="breadcrumb" aria-label="Breadcrumb"><a href="#about">About Us</a> // <span aria-current="page"><b>FAQ</b></span></nav>
 
   <section class="faq-hero" aria-labelledby="faq-title">
-    <div class="faq-box">
-      <div class="faq-box__inner">
-        <h1 id="faq-title">Frequently Asked Questions</h1>
-        <p class="faq-box__sub">Search what you’ve been looking for</p>
-        <div class="faq-search" role="search">
-          <input id="faq-search-input" type="search" placeholder="Search..." aria-label="Search the FAQ" data-search-target="faq">
-          <button type="button" aria-label="Search"><img src="assets/img/faq/search.svg" alt="" width="35" height="35"></button>
-        </div>
+    <div class="faq-hero__text">
+      <h1 id="faq-title" class="h-display">Frequently Asked Questions</h1>
+      <p class="lead">Search what you’ve been looking for</p>
+      <div class="search search--lg" role="search">
+        <input id="faq-search-input" type="search" placeholder="Search..." aria-label="Search the FAQ" data-search-target="faq">
+        <button type="button" aria-label="Search"><img src="assets/img/faq/search.svg" alt="" width="35" height="35"></button>
       </div>
     </div>
-    <div class="faq-illu-card">
+    <div class="faq-art">
+      <span class="bubble" aria-hidden="true" style="width:92px;height:92px;left:-2%;top:4%;--dur:10s"></span>
+      <span class="bubble" aria-hidden="true" style="width:54px;height:54px;right:2%;top:-2%;--dur:8s;--delay:-3s;--dx:-6px"></span>
+      <span class="bubble" aria-hidden="true" style="width:70px;height:70px;right:-4%;bottom:6%;--dur:11s;--delay:-5s;--dy:12px"></span>
       <div class="faq-illu" role="img" aria-label="Illustration of a woman working on a laptop at a desk between plants">
         <img src="assets/img/faq/illu-01.svg" alt="" width="316" height="319" style="left:1.61%;top:0.86%;width:97.50%">
         <img src="assets/img/faq/illu-02.svg" alt="" width="127" height="323" style="left:0.00%;top:0.32%;width:39.13%">
@@ -66,20 +76,22 @@
   </section>
 
   <section class="faq-qa" aria-label="Questions and answers">
+    <div class="faq-qa__inner">
     <div class="faq-list">
       <details class="acc" data-filter-item="faq">
-        <summary>Where do I find resources for setting up my organization? <img src="assets/img/faq/arrow-down.svg" alt="" width="44" height="41"></summary>
+        <summary>Where do I find resources for setting up my organization?</summary>
         <div class="acc__body"><a href="#guide">Resources</a></div>
       </details>
       <details class="acc" data-filter-item="faq">
-        <summary>How can I attract more members? <img src="assets/img/faq/arrow-down.svg" alt="" width="44" height="41"></summary>
+        <summary>How can I attract more members?</summary>
         <div class="acc__body">You can attract more members by being visible in the neighborhood, offering accessible activities, and collaborating with nearby organizations. Clear communication, word-of-mouth outreach, and partnering with community centers or schools can help you reach new groups. Regular events, open meetings, and a welcoming atmosphere encourage women to join and stay involved.</div>
       </details>
       <details class="acc" data-filter-item="faq">
-        <summary>My organization moved locations. <img src="assets/img/faq/arrow-down.svg" alt="" width="44" height="41"></summary>
+        <summary>My organization moved locations.</summary>
         <div class="acc__body">If your organization has moved, inform the Krachtvrouwen in de Wijk network directly so your new location can be updated in shared materials, maps, and communication channels. Provide the new address, your updated opening hours, and whether the move changes the type of activities you offer. This helps other organizations, partners, and local women find you easily and ensures the network’s overview of neighborhood initiatives stays accurate.</div>
       </details>
-      <p data-empty="faq" hidden>No results</p>
+    </div>
+    <p data-empty="faq" hidden>No results</p>
     </div>
   </section>
 </div>

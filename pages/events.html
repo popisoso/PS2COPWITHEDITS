@@ -1,135 +1,161 @@
 <!-- title: Events -->
 <style>
-  .page-events .ev-hero { position: relative; height: clamp(220px, 27vw, 388px); overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); display: grid; place-items: center; }
+  /* hero: full-bleed photo with gradient scrim, title in the content column */
+  .page-events .ev-hero { position: relative; min-height: clamp(260px, 30vw, 420px); overflow: hidden; display: flex; align-items: flex-end; background: var(--ink); }
   .page-events .ev-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 54%; }
-  .page-events .ev-hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); }
-  .page-events .ev-hero h1 { position: relative; z-index: 1; color: #fffbf7; font-size: clamp(32px, 3vw, 43px); font-weight: 700; text-align: center; padding-inline: 16px; }
+  .page-events .ev-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 27, 38, .08) 0%, rgba(30, 27, 38, .25) 45%, rgba(30, 27, 38, .72) 100%); }
+  .page-events .ev-hero__inner { position: relative; z-index: 1; padding-block: 40px clamp(32px, 4vw, 52px); display: flex; flex-direction: column; gap: 6px; }
+  .page-events .ev-hero h1 { color: #fff; text-shadow: 0 2px 18px rgba(30, 27, 38, .35); }
+  .page-events .ev-hero__crumb { padding-block: 0; color: rgba(255, 255, 255, .82); }
+  .page-events .ev-hero__crumb a { color: rgba(255, 255, 255, .82); }
+  .page-events .ev-hero__crumb a:hover { color: #fff; }
+  .page-events .ev-hero__crumb span[aria-current] { color: #fff; }
 
-  .page-events .ev-crumb { font-size: 15px; color: #000; padding-block: 33px 0; }
-  .page-events .ev-crumb a { color: #000; }
-  .page-events .ev-crumb span[aria-current] { color: #000; font-weight: 700; }
+  .page-events .ev-layout { display: grid; grid-template-columns: 1fr; gap: 36px; padding-block: clamp(36px, 5vw, 64px) clamp(56px, 7vw, 96px); align-items: start; }
+  @media (min-width: 900px) { .page-events .ev-layout { grid-template-columns: 260px minmax(0, 1fr); gap: clamp(28px, 3.5vw, 48px); } }
 
-  .page-events .ev-layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-block: 30px clamp(48px, 6vw, 80px); align-items: start; }
-  @media (min-width: 900px) { .page-events .ev-layout { grid-template-columns: 240px minmax(0, 1fr); gap: clamp(30px, 4vw, 55px); } }
-
-  /* filter sidebar */
-  .page-events .ev-filter { display: flex; flex-direction: column; gap: 20px; }
-  .page-events .ev-filter > h2 { font-size: 28px; font-weight: 700; }
-  .page-events .ev-filter__groups { display: grid; gap: 20px; grid-template-columns: 1fr; }
-  @media (min-width: 560px) and (max-width: 899px) { .page-events .ev-filter__groups { grid-template-columns: 1fr 1fr; align-items: start; } }
-  .page-events .ev-fbox { background: #eddae2; border-radius: 5px; padding: 24px 20px; }
-  @media (min-width: 900px) { .page-events .ev-fbox { padding: 40px 25px; } }
-  .page-events .ev-fbox > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 22px; font-weight: 700; }
+  /* filter sidebar: white card groups, native checkboxes */
+  .page-events .ev-filter { display: flex; flex-direction: column; gap: 16px; }
+  .page-events .ev-filter__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; }
+  .page-events .ev-filter__head .h-sub { font-size: 24px; }
+  .page-events .ev-filter__groups { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  .page-events .ev-fbox { padding: 0; overflow: hidden; }
+  .page-events .ev-fbox > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; font-size: 14px; font-weight: 650; text-transform: none; letter-spacing: 0; color: var(--ink); border-radius: var(--radius-m); }
   .page-events .ev-fbox > summary::-webkit-details-marker { display: none; }
-  .page-events .ev-fbox > summary img { width: 12px; height: 24px; transform: rotate(-90deg); transition: transform .2s; flex: none; }
-  .page-events .ev-fbox:not([open]) > summary img { transform: rotate(90deg); }
-  .page-events .ev-fbox ul { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 15px; }
-  .page-events .ev-check { display: flex; align-items: center; gap: 15px; font-size: 18px; line-height: 1.2; cursor: pointer; }
-  .page-events .ev-check input { appearance: none; -webkit-appearance: none; flex: none; width: 22px; height: 22px; margin: 0; border: 1px solid var(--pink); border-radius: 5px; background: rgba(221, 92, 144, 0.1); cursor: pointer; display: grid; place-items: center; }
-  .page-events .ev-check input:checked { background: var(--pink); }
-  .page-events .ev-check input:checked::after { content: ""; width: 6px; height: 11px; border: solid #fff; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
-  .page-events .ev-more { display: block; margin: 20px auto 0; background: none; border: 0; padding: 0; font-size: 16px; text-decoration: underline; cursor: pointer; text-align: center; width: 100%; }
-  .page-events .ev-more:hover { color: var(--pink); }
+  .page-events .ev-fbox > summary::after { content: ""; flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--pill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%234a4556' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat; transform: rotate(180deg); transition: transform .25s var(--ease), background-color .2s; }
+  .page-events .ev-fbox:not([open]) > summary::after { transform: none; }
+  .page-events .ev-fbox > summary:hover::after { background-color: var(--pink-50); }
+  .page-events .ev-fbox ul { list-style: none; margin: 0; padding: 4px 10px 6px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+  .page-events .ev-fbox ul { padding-top: 8px; }
+  .page-events .ev-check { display: flex; align-items: center; gap: 12px; padding: 7px 8px; border-radius: 10px; font-size: 16px; line-height: 1.3; color: var(--ink-soft); cursor: pointer; transition: background .15s, color .15s; }
+  .page-events .ev-check:hover { background: var(--pink-50); color: var(--ink); }
+  .page-events .ev-check input { flex: none; width: 18px; height: 18px; margin: 0; cursor: pointer; }
+  .page-events .ev-check input:checked + span { color: var(--ink); font-weight: 600; }
+  .page-events .ev-check input:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+  .page-events .ev-count { margin-left: auto; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .page-events .ev-more { display: block; width: calc(100% - 20px); margin: 0 10px 14px; padding: 8px; background: none; border: 0; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--pink-700); text-decoration: none; text-align: left; cursor: pointer; }
+  .page-events .ev-more::after { content: " \2192"; transition: margin .2s var(--ease); }
+  .page-events .ev-more:hover { background: var(--pink-50); }
+
+  /* below 900px the checkbox rows become compact pills so the grid is reached sooner */
+  @media (max-width: 899px) {
+    .page-events .ev-fbox > summary { padding: 14px 16px; }
+    .page-events .ev-fbox ul { flex-direction: row; flex-wrap: wrap; gap: 8px; padding: 14px 16px 6px; }
+    .page-events .ev-check { gap: 8px; padding: 6px 13px 6px 10px; min-height: 38px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); background: #fff; font-size: 14px; font-weight: 500; }
+    .page-events .ev-check:hover { border-color: var(--pink); background: #fff; }
+    .page-events .ev-check:has(input:checked) { background: var(--pink-50); border-color: var(--pink); color: var(--pink-700); }
+    .page-events .ev-check input:checked + span { color: var(--pink-700); }
+    .page-events .ev-check input { width: 16px; height: 16px; }
+    .page-events .ev-count { margin-left: 0; font-size: 13px; }
+    .page-events .ev-more { margin: 4px 6px 10px; width: auto; display: inline-block; }
+  }
 
   /* event cards */
-  .page-events .ev-grid { display: grid; gap: 38px clamp(20px, 3vw, 38px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
-  @media (min-width: 900px) { .page-events .ev-grid { padding-top: 63px; } }
-  .page-events .ev-card { position: relative; background: #fffbf7; border-radius: 10px; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); min-height: 432px; display: flex; flex-direction: column; }
-  .page-events .ev-card__media { position: relative; height: 180px; border-radius: 10px 10px 0 0; overflow: hidden; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03); }
-  .page-events .ev-card__media img { width: 100%; height: 100%; object-fit: cover; }
-  .page-events .ev-card__media::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 -125px 85px -50px rgba(0, 0, 0, 0.5); }
-  .page-events .ev-card h3 { position: absolute; left: 19px; right: 16px; top: 130px; z-index: 1; color: #fffbf7; font-size: 22px; font-weight: 700; line-height: 37px; }
-  .page-events .ev-card__body { padding: 17px 16px 22px; display: flex; flex-direction: column; gap: 20px; flex: 1; }
-  .page-events .ev-card__body > p { font-size: 16px; line-height: 1.1; min-height: 94px; }
-  .page-events .ev-meta { list-style: none; margin: 0; padding: 0 0 0 3px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 16px; }
-  .page-events .ev-meta li { display: flex; align-items: center; gap: 6px; }
-  .page-events .ev-meta img { width: 14px; height: 14px; flex: none; }
-  .page-events .ev-new { position: absolute; top: -18px; right: -29px; width: 49px; height: 49px; z-index: 2; display: grid; place-items: center; }
-  .page-events .ev-new img { width: 40px; height: 40px; transform: rotate(15.16deg); }
-  @media (max-width: 640px) { .page-events .ev-new { right: -8px; } }
-  .page-events .ev-grid + .pager { margin-top: 50px; }
+  .page-events .ev-results { display: flex; flex-direction: column; gap: 16px; }
+  @media (min-width: 900px) { .page-events .ev-results { padding-top: 60px; } }
+  .page-events .ev-empty { text-align: center; padding: 28px 20px; }
+  .page-events .ev-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+  .page-events .ev-card { position: relative; padding: 0; overflow: hidden; display: flex; flex-direction: column; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+  .page-events .ev-card[hidden] { display: none; }
+  .page-events .ev-card:hover { transform: translateY(-4px); box-shadow: var(--e3); border-color: transparent; }
+  .page-events .ev-card__media { aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-2); }
+  .page-events .ev-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+  .page-events .ev-card:hover .ev-card__media img { transform: scale(1.04); }
+  .page-events .ev-card h3 { padding: 18px 20px 0; font-size: 20px; font-weight: 650; line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); }
+  .page-events .ev-card__body { padding: 8px 20px 20px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .page-events .ev-card__body > p { font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+  .page-events .ev-meta { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; color: var(--ink-soft); font-weight: 500; }
+  .page-events .ev-meta li { display: flex; align-items: center; gap: 10px; }
+  .page-events .ev-meta img { width: 15px; height: 15px; flex: none; opacity: .5; }
+  .page-events .ev-new { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--radius-pill); background: var(--pink); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0; text-transform: none; box-shadow: 0 4px 12px -4px rgba(168, 53, 101, .6); }
+  .page-events .ev-new::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
 
-  .page-events .ev-cal { padding-block: clamp(48px, 6vw, 80px); }
-  .page-events .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  /* calendar section (widget itself is styled globally) */
+  .page-events .ev-cal { border-top: 1px solid var(--lavender-100); }
+  .page-events .ev-cal__head { margin-bottom: clamp(24px, 3vw, 36px); }
 </style>
 
 <section class="ev-hero">
   <img src="assets/img/events/hero-flowers.jpg" alt="Close-up of hands of a group of women making colourful paper flowers" width="612" height="408">
-  <h1>Events</h1>
+  <div class="container ev-hero__inner">
+    <nav class="breadcrumb ev-hero__crumb" aria-label="Breadcrumb"><a href="#organizations">Organizations</a> <span aria-hidden="true">/</span> <span aria-current="page">Events</span></nav>
+    <h1 class="h-display">Events</h1>
+  </div>
 </section>
 
 <div class="container">
-  <nav class="ev-crumb" aria-label="Breadcrumb"><a href="#organizations">Organizations</a> // <span aria-current="page">Events</span></nav>
 
   <div class="ev-layout">
     <aside class="ev-filter" aria-labelledby="ev-filter-title">
-      <h2 id="ev-filter-title">Filter</h2>
+      <div class="ev-filter__head">
+        <h2 id="ev-filter-title" class="h-sub">Filter</h2>
+        <button type="button" class="btn btn--outline btn--sm" data-check-clear="events">Clear filters</button>
+      </div>
       <div class="ev-filter__groups" data-check-filter="events">
-        <details class="ev-fbox" open>
-          <summary>Locations <img src="assets/img/events/chevron.svg" alt="" width="12" height="24" loading="lazy"></summary>
+        <details class="ev-fbox card" open>
+          <summary>Locations</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="binckhorst"> Binckhorst</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="laak"> Laak</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="moerwijk"> Moerwijk</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="scheveningen"> Scheveningen</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="segbroek"> Segbroek</label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="binckhorst"><span>Binckhorst</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="laak"><span>Laak</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="moerwijk"><span>Moerwijk</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="scheveningen"><span>Scheveningen</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="segbroek"><span>Segbroek</span></label></li>
           </ul>
           <button type="button" class="ev-more" data-scroll="events-calendar">See more</button>
         </details>
 
-        <details class="ev-fbox" open>
-          <summary>Categories <img src="assets/img/events/chevron.svg" alt="" width="12" height="24" loading="lazy"></summary>
+        <details class="ev-fbox card" open>
+          <summary>Categories</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="activities"> Activities (10)</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="advice"> Advice (5)</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="children"> Children (8)</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="coaching"> Coaching (7)</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="courses"> Courses (9)</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="culture"> Culture (13)</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="education"> Education (5)</label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="activities"><span>Activities</span><span class="ev-count">(10)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="advice"><span>Advice</span><span class="ev-count">(5)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="children"><span>Children</span><span class="ev-count">(8)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="coaching"><span>Coaching</span><span class="ev-count">(7)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="courses"><span>Courses</span><span class="ev-count">(9)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="culture"><span>Culture</span><span class="ev-count">(13)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="education"><span>Education</span><span class="ev-count">(5)</span></label></li>
           </ul>
           <button type="button" class="ev-more" data-scroll="events-calendar">See more</button>
         </details>
 
-        <details class="ev-fbox" open>
-          <summary>Demographic <img src="assets/img/events/chevron.svg" alt="" width="12" height="24" loading="lazy"></summary>
+        <details class="ev-fbox card" open>
+          <summary>Demographic</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="demographic" value="children"> Children</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="demographic" value="youth"> Youth</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="demographic" value="adults"> Adults</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="demographic" value="seniors"> Seniors</label></li>
+            <li><label class="ev-check"><input type="checkbox" name="demographic" value="children"><span>Children</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="demographic" value="youth"><span>Youth</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="demographic" value="adults"><span>Adults</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="demographic" value="seniors"><span>Seniors</span></label></li>
           </ul>
           <button type="button" class="ev-more" data-scroll="events-calendar">See more</button>
         </details>
 
-        <details class="ev-fbox" open>
-          <summary>Organization <img src="assets/img/events/chevron.svg" alt="" width="12" height="24" loading="lazy"></summary>
+        <details class="ev-fbox card" open>
+          <summary>Organization</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="amal"> Amal Coaching</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="bulgaarse-club"> Bulgaarse Club Laak</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="eva"> Coöperatie Eva</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="laak-ladies"> Laak ladies United</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="moerwijk-moeders"> Moerwijk Moeders</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="reva"> ReVa Moeders</label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="jemeniyaat"> Stichting Jemeniyaat</label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="amal"><span>Amal Coaching</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="bulgaarse-club"><span>Bulgaarse Club Laak</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="eva"><span>Coöperatie Eva</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="laak-ladies"><span>Laak ladies United</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="moerwijk-moeders"><span>Moerwijk Moeders</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="reva"><span>ReVa Moeders</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="jemeniyaat"><span>Stichting Jemeniyaat</span></label></li>
           </ul>
           <a class="ev-more" href="#organizations">See more</a>
         </details>
       </div>
-      <button type="button" class="btn btn--outline btn--sm" data-check-clear="events" style="margin-top:16px">Clear filters</button>
     </aside>
 
-    <section class="min0" aria-labelledby="ev-list-title">
+    <section class="min0 ev-results" aria-labelledby="ev-list-title">
       <h2 id="ev-list-title" class="sr-only">Events</h2>
-      <p class="form-note" data-empty="events" hidden>No events match these filters. Clear a filter to see more.</p>
+      <p class="form-note ev-empty" data-empty="events" hidden>No events match these filters. Clear a filter to see more.</p>
       <div class="ev-grid" data-paginate="6">
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="advice culture" data-demographic="adults seniors">
-          <span class="ev-new"><img src="assets/img/events/new-badge.svg" alt="New" width="40" height="40" loading="lazy"></span>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="advice culture" data-demographic="adults seniors">
+          <span class="ev-new">New</span>
           <div class="ev-card__media"><img src="assets/img/events/turns-pink.jpg" alt="Pink breast cancer awareness ribbon" width="720" height="360" loading="lazy" style="object-position: 0% 50%"></div>
           <h3>Turns Pink</h3>
           <div class="ev-card__body">
             <p>We come together for breast cancer month to share our knowledge and experiences on the topic. We’d like to be there for everyone and whoever is ...</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 13 December</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 16:00 - 18:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -137,12 +163,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="activities courses culture" data-demographic="adults seniors">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities courses culture" data-demographic="adults seniors">
           <div class="ev-card__media"><img src="assets/img/events/painting-club.jpg" alt="Easels with blank canvases set up for a painting class" width="800" height="1200" loading="lazy" style="object-position: 50% 58%"></div>
           <h3>Painting Club</h3>
           <div class="ev-card__body">
             <p>With Sadaf, you’ll learn how to paint step-by-step. You don’t need experience, together we’ll see how creative and fun painting can be.</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Monday</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -150,12 +176,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="activities culture" data-demographic="children youth adults seniors">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities culture" data-demographic="children youth adults seniors">
           <div class="ev-card__media"><img src="assets/img/events/communal-meal.jpg" alt="A table full of shared dishes for a communal meal" width="682" height="1023" loading="lazy"></div>
           <h3>Communal Meal</h3>
           <div class="ev-card__body">
             <p>Come and have a meal together with the women from Wijk!</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 29 November</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 17:00 - 19:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -163,12 +189,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="activities courses" data-demographic="adults seniors">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities courses" data-demographic="adults seniors">
           <div class="ev-card__media"><img src="assets/img/events/crochet-knitting.jpg" alt="Hands crocheting pink yarn" width="894" height="894" loading="lazy" style="object-position: 50% 56%"></div>
           <h3>Crochet &amp; Knitting</h3>
           <div class="ev-card__body">
             <p>Discover the magic of crochet and knitting. Whether you are a beginner who wants to learn the basics or you have more experience ...</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Tuesday</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -176,12 +202,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="activities" data-demographic="youth adults">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities" data-demographic="youth adults">
           <div class="ev-card__media"><img src="assets/img/events/zumba.jpg" alt="A group of women dancing at a zumba class" width="1200" height="800" loading="lazy" style="object-position: 50% 76%"></div>
           <h3>Zumba</h3>
           <div class="ev-card__body">
             <p>Discover the magic of movement and the art of zumba. Whether you are a beginner who wants to learn the basics or you have ...</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Thursday</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -189,12 +215,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="courses education" data-demographic="adults seniors">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="courses education" data-demographic="adults seniors">
           <div class="ev-card__media"><img src="assets/img/events/sewing.webp" alt="A sewing machine with fabric and a measuring tape" width="928" height="704" loading="lazy" style="object-position: 50% 100%"></div>
           <h3>Sewing</h3>
           <div class="ev-card__body">
             <p>If you have no experience with sewing machines, don’t fret! We will guide you. We ask that you bring your own fabric so that you can ...</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Wednesday</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 9:30 - 11:30</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -202,13 +228,13 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="advice culture" data-demographic="adults seniors">
-          <span class="ev-new"><img src="assets/img/events/new-badge.svg" alt="New" width="40" height="40" loading="lazy"></span>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="advice culture" data-demographic="adults seniors">
+          <span class="ev-new">New</span>
           <div class="ev-card__media"><img src="assets/img/events/turns-pink.jpg" alt="Pink breast cancer awareness ribbon" width="720" height="360" loading="lazy" style="object-position: 0% 50%"></div>
           <h3>Turns Pink</h3>
           <div class="ev-card__body">
             <p>We come together for breast cancer month to share our knowledge and experiences on the topic. We’d like to be there for everyone and whoever is ...</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 13 December</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 16:00 - 18:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -216,12 +242,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="activities courses culture" data-demographic="adults seniors">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities courses culture" data-demographic="adults seniors">
           <div class="ev-card__media"><img src="assets/img/events/painting-club.jpg" alt="Easels with blank canvases set up for a painting class" width="800" height="1200" loading="lazy" style="object-position: 50% 58%"></div>
           <h3>Painting Club</h3>
           <div class="ev-card__body">
             <p>With Sadaf, you’ll learn how to paint step-by-step. You don’t need experience, together we’ll see how creative and fun painting can be.</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Monday</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -229,12 +255,12 @@
           </div>
         </article>
 
-        <article class="ev-card" data-filter-item="events" data-location="laak" data-category="activities culture" data-demographic="children youth adults seniors">
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities culture" data-demographic="children youth adults seniors">
           <div class="ev-card__media"><img src="assets/img/events/communal-meal.jpg" alt="A table full of shared dishes for a communal meal" width="682" height="1023" loading="lazy"></div>
           <h3>Communal Meal</h3>
           <div class="ev-card__body">
             <p>Come and have a meal together with the women from Wijk!</p>
-            <ul class="ev-meta">
+            <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 29 November</li>
               <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 17:00 - 19:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
@@ -246,9 +272,11 @@
   </div>
 </div>
 
-<section class="band band--lavender ev-cal" id="events-calendar" aria-labelledby="ev-cal-title">
+<section class="band band--lavender-soft section ev-cal" id="events-calendar" aria-labelledby="ev-cal-title">
   <div class="container">
-    <h2 id="ev-cal-title" class="sr-only">Calendar</h2>
+    <div class="section-head ev-cal__head">
+      <h2 id="ev-cal-title" class="h-section">Calendar</h2>
+    </div>
     <div data-mount="calendar"></div>
   </div>
 </section>

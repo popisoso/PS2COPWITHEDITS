@@ -288,7 +288,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--pink); }
 @media (max-width: 520px) { .header-tools .search { width: 160px; } .brand { width: 52px; height: 52px; } }
 
 /* ---------- footer ---------- */
-.site-footer { background: var(--surface-2); border-top: 1px solid var(--line); padding-block: 56px 32px; }
+.site-footer { background: #fff; border-top: 1px solid var(--line-strong); box-shadow: 0 -1px 0 rgba(255,255,255,.6), 0 -12px 32px -24px rgba(46, 30, 80, .18); padding-block: 56px 32px; }
 .site-footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; }
 .site-footer__links { display: grid; grid-template-columns: repeat(2, auto); gap: 6px 48px; }
 .site-footer__links a { font-size: 15px; font-weight: 500; line-height: 30px; text-decoration: none; color: var(--ink-soft); }

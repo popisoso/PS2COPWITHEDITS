@@ -1,104 +1,124 @@
 <!-- title: About Us -->
 <style>
-  .page-about .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-  .page-about .about-hero { position: relative; height: clamp(200px, 25vw, 359px); overflow: hidden; }
-  .page-about .about-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 29%; }
-  .page-about .about-hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); }
-  .page-about .about-crumbs { padding-top: clamp(20px, 3.5vw, 50px); }
-  .page-about .about-row { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+  /* hero: contained rounded photo with a gradient scrim and the page title on top */
+  .page-about .about-hero { position: relative; overflow: hidden; isolation: isolate; border-radius: var(--radius-l); height: clamp(260px, 34vw, 440px); box-shadow: var(--e2); }
+  .page-about .about-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 29%; }
+  .page-about .about-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(30, 27, 38, .72) 0%, rgba(30, 27, 38, .28) 45%, rgba(30, 27, 38, 0) 75%); }
+  .page-about .about-hero__text { position: absolute; z-index: 2; left: clamp(20px, 4vw, 48px); right: clamp(20px, 4vw, 48px); bottom: clamp(20px, 3.6vw, 44px); display: flex; flex-direction: column; gap: 10px; }
+  .page-about .about-hero__text .eyebrow { color: #fff; }
+  .page-about .about-hero__text h1 { color: #fff; text-shadow: 0 2px 18px rgba(30, 27, 38, .35); }
+
+  /* content rows */
+  .page-about .about-sec { position: relative; overflow: hidden; }
+  .page-about .about-row { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 40px); align-items: center; }
   @media (min-width: 900px) {
-    .page-about .about-row { grid-template-columns: minmax(0, 560px) minmax(0, 500px); justify-content: space-between; }
-    .page-about .about-row--img-first { grid-template-columns: minmax(0, 500px) minmax(0, 560px); }
+    .page-about .about-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 88px); }
+    .page-about .about-row--img-first { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
   }
   @media (max-width: 899px) { .page-about .about-row--img-first .about-media { order: 2; } }
-  .page-about .about-text { display: flex; flex-direction: column; gap: 15px; }
-  .page-about .about-text h2 { font-size: clamp(32px, 3.4vw, 43px); font-weight: 700; line-height: 1.2; display: inline-flex; flex-direction: column; gap: 2px; }
-  .page-about .about-text h2::after { content: ""; display: block; height: 3px; width: var(--line-w, 180px); max-width: 100%; background: var(--pink); }
-  .page-about .about-text h2.about-h--sm { font-size: clamp(28px, 3vw, 36px); }
-  .page-about .about-text p { font-size: 18px; line-height: 1.22; }
-  .page-about .about-media { margin: 0; }
-  .page-about .about-media img { width: 100%; height: auto; aspect-ratio: 500 / 333; object-fit: cover; box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03); }
-  .page-about .about-media--mission img { aspect-ratio: 500 / 285; }
+  .page-about .about-text { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .page-about .about-text h2 { color: var(--ink); }
+  .page-about .about-text h2::after { content: ""; display: block; width: 56px; height: 4px; border-radius: 4px; background: var(--pink); margin-top: 16px; }
+  .page-about .about-vision .about-text h2::after { background: var(--lime-600); }
+  .page-about .about-values .about-text h2::after { background: var(--purple); }
+  .page-about .about-text > p { margin-top: 4px; font-size: 18px; line-height: 1.7; }
+
+  .page-about .about-media { position: relative; margin: 0; isolation: isolate; min-width: 0; }
+  .page-about .about-media img { position: relative; z-index: 1; width: 100%; height: auto; aspect-ratio: 500 / 360; object-fit: cover; border-radius: var(--radius-l); box-shadow: var(--e2); }
   .page-about .about-media--project img { object-position: 18% 50%; }
-  .page-about .about-mission { padding-block: clamp(32px, 4vw, 49px) clamp(48px, 5vw, 70px); }
-  .page-about .about-vision { padding-block: clamp(48px, 5.8vw, 84px); }
-  .page-about .about-project { padding-block: clamp(56px, 8vw, 120px); }
-  .page-about .about-values { padding-block: clamp(48px, 6vw, 80px); }
-  .page-about .values p + p { margin-top: 0; }
-  .page-about .values .gap { margin-top: 1.22em; }
+  .page-about .about-media .bubble { z-index: 0; }
+  @media (max-width: 719px) { .page-about .about-media .bubble { display: none; } }
+
+  /* core values */
+  .page-about .values { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; counter-reset: v; }
+  .page-about .value { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px 16px 20px; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--purple); border-radius: var(--radius-s); box-shadow: var(--e1); transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+  .page-about .value:hover { transform: translateY(-2px); box-shadow: var(--e2); }
+  .page-about .value p { font-size: 16px; line-height: 1.55; color: var(--ink-soft); }
+  .page-about .value p strong { font-size: 17px; font-weight: 650; color: var(--ink); }
+  @media (min-width: 900px) { .page-about .about-values .about-row { align-items: start; } .page-about .about-values .about-media { position: sticky; top: calc(var(--header-h) + 32px); } }
 </style>
 
-<h1 class="sr-only">About Us</h1>
-
-<div class="about-hero">
-  <img src="assets/img/about/group-hero.jpg" alt="Group of smiling women holding books together" width="1600" height="1200">
-</div>
-
-<div class="container about-crumbs">
+<div class="container">
   <nav class="breadcrumb" aria-label="Breadcrumb"><a href="#about">About Us</a> // <span aria-current="page"><b>Our Project</b></span></nav>
+  <div class="about-hero">
+    <img src="assets/img/about/group-hero.jpg" alt="Group of smiling women holding books together" width="1600" height="1200">
+    <div class="about-hero__text">
+      <span class="eyebrow">Our Project</span>
+      <h1 class="h-display">About Us</h1>
+    </div>
+  </div>
 </div>
 
-<section class="about-mission" aria-labelledby="about-mission">
+<section class="section about-sec about-mission" aria-labelledby="about-mission">
   <div class="container">
     <div class="about-row">
       <div class="about-text">
-        <h2 id="about-mission" class="about-h--sm" style="--line-w:153px">Mission</h2>
-        <p>Our mission is to support women's organizations in The Hague in their growth, professionalization, and self-reliance. We bring them together to share knowledge, experience, and practical insights, so that they are even better equipped to empower women from diverse backgrounds and promote equal opportunities.</p>
+        <span class="eyebrow">01</span>
+        <h2 id="about-mission" class="h-section">Mission</h2>
+        <p class="body">Our mission is to support women's organizations in The Hague in their growth, professionalization, and self-reliance. We bring them together to share knowledge, experience, and practical insights, so that they are even better equipped to empower women from diverse backgrounds and promote equal opportunities.</p>
       </div>
       <figure class="about-media about-media--mission">
+        <span class="bubble" aria-hidden="true" style="width:96px;height:96px;right:-30px;top:-34px;--dur:10s"></span>
+        <span class="bubble" aria-hidden="true" style="width:52px;height:52px;left:-22px;bottom:-18px;--dur:8s;--delay:-3s"></span>
         <img src="assets/img/about/mission.jpg" alt="Group of women proudly holding up certificates in a meeting room" width="2000" height="1500" loading="lazy">
       </figure>
     </div>
   </div>
 </section>
 
-<section class="band band--green about-vision" aria-labelledby="about-vision">
+<section class="band band--lime-soft section about-sec about-vision" aria-labelledby="about-vision">
   <div class="container">
     <div class="about-row about-row--img-first">
       <figure class="about-media">
+        <span class="bubble" aria-hidden="true" style="width:84px;height:84px;left:-28px;top:-28px;--dur:11s;--delay:-2s"></span>
         <img src="assets/img/about/vision.jpg" alt="Three women standing close together and smiling" width="1600" height="1200" loading="lazy">
       </figure>
       <div class="about-text">
-        <h2 id="about-vision" style="--line-w:181px">Vision</h2>
-        <p>We believe in the power of women's organizations as a driving force behind social change in the neighborhood. When these organizations connect with each other, a network is created that not only shares knowledge, but also jointly creates and reinforces solutions. In our vision, Kracht(vrouwen) in de wijk will grow into a sustainable platform that supports, inspires, and connects women's organizations—a place where their collective knowledge takes center stage and their impact becomes visible.</p>
+        <span class="eyebrow eyebrow--lime">02</span>
+        <h2 id="about-vision" class="h-section">Vision</h2>
+        <p class="body">We believe in the power of women's organizations as a driving force behind social change in the neighborhood. When these organizations connect with each other, a network is created that not only shares knowledge, but also jointly creates and reinforces solutions. In our vision, Kracht(vrouwen) in de wijk will grow into a sustainable platform that supports, inspires, and connects women's organizations—a place where their collective knowledge takes center stage and their impact becomes visible.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="about-project" aria-labelledby="about-project">
+<section class="section about-sec about-project" aria-labelledby="about-project">
   <div class="container">
     <div class="about-row">
       <div class="about-text">
-        <h2 id="about-project" style="--line-w:265px">Main Project</h2>
-        <p>The aim of Kracht(vrouwen) in de wijk is to strengthen women's organizations and groups in The Hague, with a focus on organizations that are active in vulnerable neighborhoods. By setting up and supervising a Community of Practice, we create a sustainable learning environment in which organizations exchange knowledge, collaborate on concrete solutions to shared challenges, and thus increase their social impact.</p>
+        <span class="eyebrow">03</span>
+        <h2 id="about-project" class="h-section">Main Project</h2>
+        <p class="body">The aim of Kracht(vrouwen) in de wijk is to strengthen women's organizations and groups in The Hague, with a focus on organizations that are active in vulnerable neighborhoods. By setting up and supervising a Community of Practice, we create a sustainable learning environment in which organizations exchange knowledge, collaborate on concrete solutions to shared challenges, and thus increase their social impact.</p>
       </div>
       <figure class="about-media about-media--project">
+        <span class="bubble" aria-hidden="true" style="width:72px;height:72px;right:-24px;bottom:-26px;--dur:9s;--delay:-4s"></span>
         <img src="assets/img/about/main-project.jpg" alt="Group of women posing together in a community room" width="1920" height="1080" loading="lazy">
       </figure>
     </div>
   </div>
 </section>
 
-<section class="band band--green about-values" aria-labelledby="about-values">
+<section class="band band--lavender-soft section about-sec about-values" aria-labelledby="about-values">
   <div class="container">
     <div class="about-row about-row--img-first">
       <figure class="about-media">
+        <span class="bubble" aria-hidden="true" style="width:90px;height:90px;left:-30px;bottom:-30px;--dur:10s;--delay:-1s"></span>
         <img src="assets/img/about/group-hero.jpg" alt="Members of the network gathered for a group photo, holding books" width="1600" height="1200" loading="lazy">
       </figure>
       <div class="about-text">
-        <h2 id="about-values" style="--line-w:294px">Core Values</h2>
+        <span class="eyebrow eyebrow--purple">04</span>
+        <h2 id="about-values" class="h-section">Core Values</h2>
         <div class="values">
-          <p><strong>1. Learning together</strong></p>
-          <p>We believe that shared knowledge leads to strong organizations. That is why collective learning is central to our approach.</p>
-          <p class="gap"><strong>2. Connection</strong></p>
-          <p>Women's organizations differ, but they also have a lot in common. By seeking connection, everyone becomes stronger.</p>
-          <p class="gap"><strong>3. Self-reliance</strong></p>
-          <p>We support organizations so that they can move forward with their own knowledge, talents, and networks.</p>
-          <p class="gap"><strong>4. Recognition &amp; visibility</strong></p>
-          <p>We make the impact of women's organizations visible and value their essential role in the city.</p>
-          <p class="gap"><strong>5. Inclusivity</strong></p>
-          <p>We work from the strength of diversity—cultural, organizational, and personal.</p>
+          <div class="value"><p><strong>1. Learning together</strong></p>
+          <p>We believe that shared knowledge leads to strong organizations. That is why collective learning is central to our approach.</p></div>
+          <div class="value"><p><strong>2. Connection</strong></p>
+          <p>Women's organizations differ, but they also have a lot in common. By seeking connection, everyone becomes stronger.</p></div>
+          <div class="value"><p><strong>3. Self-reliance</strong></p>
+          <p>We support organizations so that they can move forward with their own knowledge, talents, and networks.</p></div>
+          <div class="value"><p><strong>4. Recognition &amp; visibility</strong></p>
+          <p>We make the impact of women's organizations visible and value their essential role in the city.</p></div>
+          <div class="value"><p><strong>5. Inclusivity</strong></p>
+          <p>We work from the strength of diversity—cultural, organizational, and personal.</p></div>
         </div>
       </div>
     </div>

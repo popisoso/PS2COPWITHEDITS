@@ -1,35 +1,58 @@
 <!-- title: Contact Us -->
 <style>
-  .page-contact .contact-top { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; padding-top: 4px; }
-  @media (min-width: 1000px) { .page-contact .contact-top { grid-template-columns: minmax(0, 485px) minmax(0, 1fr); gap: 95px; } }
-  .page-contact h1, .page-contact h2.contact-h { font-size: clamp(26px, 2.4vw, 30px); font-weight: 700; text-transform: uppercase; }
-  .page-contact .contact-main, .page-contact .contact-form { display: flex; flex-direction: column; gap: 32px; }
-  .page-contact .contact-fields { display: flex; flex-direction: column; gap: 29px; }
-  .page-contact .contact-field { display: flex; flex-direction: column; gap: 9px; }
-  .page-contact .contact-field label { font-size: 16px; font-weight: 700; line-height: 1; }
-  .page-contact .contact-input { width: 100%; height: 45px; border: 1.5px solid var(--pink); border-radius: 30px; background: rgba(164, 69, 108, 0.1); padding: 0 18px; font: 400 16px var(--font); color: #000; }
-  .page-contact textarea.contact-input { height: 160px; border-radius: 20px; padding: 16px 18px; resize: vertical; }
-  .page-contact .contact-input::placeholder { font-style: italic; color: rgba(0, 0, 0, 0.5); }
-  .page-contact .contact-input:focus { outline: 2px solid var(--pink); outline-offset: 1px; }
-  .page-contact .contact-send { align-self: center; width: 348px; max-width: 100%; min-height: 60px; font-size: 20px; font-weight: 400; margin-top: 5px; }
-  .page-contact .contact-aside { display: flex; flex-direction: column; gap: 22px; }
-  .page-contact .contact-faq-note { font-size: 16px; text-align: center; }
-  .page-contact .contact-faq-note a { font-weight: 700; text-decoration: none; }
-  .page-contact .contact-faq-note a:hover { color: var(--pink); text-decoration: underline; }
-  .page-contact .join { background: var(--green); border-radius: var(--radius-l); padding: clamp(28px, 4vw, 40px) clamp(22px, 3.7vw, 53px); display: flex; flex-direction: column; gap: 15px; }
-  .page-contact .join h2 { font-size: 24px; font-weight: 700; }
-  .page-contact .join p { font-size: 18px; line-height: 1.25; }
-  .page-contact .join p + p { margin-top: 1.25em; }
-  .page-contact .join p.join__tight { margin-top: 0; }
-  .page-contact .details { padding-block: clamp(48px, 6vw, 70px) clamp(48px, 7vw, 90px); }
-  .page-contact .details h2 { text-align: center; margin-bottom: 28px; }
-  .page-contact .detail { background: rgba(164, 69, 108, 0.1); border-radius: var(--radius-l); box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1); min-height: 200px; padding: 28px 16px 22px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-  .page-contact .detail img { width: 67px; height: 67px; margin-bottom: 10px; }
-  .page-contact .detail h3 { font-size: 18px; font-weight: 700; }
-  .page-contact .detail p { font-size: 16px; color: rgba(0, 0, 0, 0.5); overflow-wrap: anywhere; }
-  .page-contact .copy-btn { margin-top: 6px; border: 1px solid var(--pink); background: #fff; color: var(--pink-dark); border-radius: 20px; padding: 4px 14px; font-size: 14px; cursor: pointer; }
-  .page-contact .copy-btn:hover { background: var(--pink); color: #fff; }
-  .page-contact [data-form-success] { font-size: 18px; }
+  /* intro + form */
+  .page-contact .contact-top { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 48px); align-items: start; padding-block: 8px clamp(48px, 6vw, 80px); }
+  @media (min-width: 1000px) { .page-contact .contact-top { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
+  .page-contact .contact-main { display: flex; flex-direction: column; gap: 22px; }
+  .page-contact .contact-main .section-head { gap: 8px; }
+  .page-contact .contact-card { padding: clamp(22px, 3.4vw, 36px); border-radius: var(--radius-l); }
+  .page-contact .contact-form { display: flex; flex-direction: column; gap: 22px; }
+  .page-contact .contact-fields { display: grid; grid-template-columns: 1fr; gap: 18px 16px; }
+  @media (min-width: 640px) { .page-contact .contact-fields { grid-template-columns: 1fr 1fr; } .page-contact .contact-field--full { grid-column: 1 / -1; } }
+  .page-contact .input::placeholder, .page-contact .textarea::placeholder { color: #8f8a9b; }
+  .page-contact .input[aria-invalid="true"], .page-contact .textarea[aria-invalid="true"] { border-color: #b0174f; }
+  .page-contact .contact-send { align-self: flex-start; min-width: 200px; }
+  @media (max-width: 520px) { .page-contact .contact-send { align-self: stretch; } }
+  .page-contact [data-form-success] { font-size: 16px; }
+
+  /* aside */
+  .page-contact .contact-aside { display: flex; flex-direction: column; gap: 16px; }
+  @media (min-width: 1000px) { .page-contact .contact-aside { padding-top: 6px; position: sticky; top: calc(var(--header-h) + 24px); } }
+  .page-contact .join { position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(160deg, var(--lime-50) 0%, #fff 85%); border: 1px solid var(--lime-100); border-radius: var(--radius-l); box-shadow: var(--e1); padding: clamp(24px, 3.4vw, 36px); display: flex; flex-direction: column; gap: 14px; }
+  .page-contact .join::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--green); }
+  .page-contact .join__icon { width: 48px; height: 48px; border-radius: 50%; background: var(--green); display: grid; place-items: center; box-shadow: 0 0 0 6px var(--lime-100); }
+  .page-contact .join__icon svg { width: 24px; height: 24px; }
+  .page-contact .join h2 { letter-spacing: -0.01em; }
+  .page-contact .join .body p + p { margin-top: .9em; }
+  .page-contact .join .body p.join__tight { margin-top: .9em; color: var(--ink); font-weight: 600; }
+  .page-contact .join .body strong { font-weight: 650; }
+  .page-contact .faq-note { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+  .page-contact .faq-note__icon { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--lavender-100); color: var(--purple-700); display: grid; place-items: center; font-weight: 700; font-size: 17px; }
+  .page-contact .faq-note a { color: var(--pink-700); font-weight: 650; text-underline-offset: 3px; }
+  .page-contact .faq-note a:hover { color: var(--pink); }
+
+  /* details */
+  .page-contact .details { position: relative; overflow: hidden; }
+  .page-contact .details .section-head { margin: 0 auto clamp(28px, 4vw, 44px); align-items: center; text-align: center; }
+  .page-contact .details h2::first-letter { text-transform: uppercase; }
+  .page-contact .details .bubble { z-index: 0; }
+  .page-contact .details .container { position: relative; z-index: 1; }
+  .page-contact .detail { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+  .page-contact .detail:hover { transform: translateY(-4px); box-shadow: var(--e3); border-color: transparent; }
+  .page-contact .detail__icon { width: 52px; height: 52px; border-radius: 16px; background: var(--pink-50); border: 1px solid var(--pink-100); display: grid; place-items: center; margin-bottom: 12px; }
+  .page-contact .detail__icon img { width: 26px; height: 26px; }
+  .page-contact .detail h3 { font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .page-contact .detail p { font-size: 16px; font-weight: 500; line-height: 1.45; color: var(--ink); overflow-wrap: anywhere; }
+  .page-contact .detail .btn { margin-top: auto; }
+  .page-contact .detail__foot { margin-top: auto; padding-top: 16px; width: 100%; }
+  .page-contact .copy-btn svg { width: 15px; height: 15px; }
+  @media (max-width: 719px) { .page-contact .details .bubble { display: none; } }
+  @media (max-width: 639px) {
+    .page-contact .details .grid-4 { --gap: 14px; }
+    .page-contact .detail { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 16px; row-gap: 4px; align-items: start; padding: 20px; }
+    .page-contact .detail__icon { grid-row: 1 / span 3; width: 48px; height: 48px; margin: 0; }
+    .page-contact .detail__foot { padding-top: 10px; }
+  }
 </style>
 
 <div class="container">
@@ -37,72 +60,85 @@
 
   <div class="contact-top">
     <section class="contact-main" aria-labelledby="contact-title">
-      <h1 id="contact-title">Contact Us</h1>
-      <form data-form class="contact-form">
-        <div class="contact-fields">
-          <div class="contact-field">
-            <label for="contact-name">Name</label>
-            <input class="contact-input" id="contact-name" name="name" type="text" placeholder="Jane Doe" autocomplete="name" required>
+      <div class="section-head">
+        <span class="eyebrow">About Us</span>
+        <h1 id="contact-title" class="h-section">Contact Us</h1>
+      </div>
+      <div class="card contact-card">
+        <form data-form class="contact-form">
+          <div class="contact-fields">
+            <div class="field">
+              <label for="contact-name">Name</label>
+              <input class="input" id="contact-name" name="name" type="text" placeholder="Jane Doe" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="contact-email">E-mail</label>
+              <input class="input" id="contact-email" name="email" type="email" placeholder="example@email.com" autocomplete="email" required>
+            </div>
+            <div class="field contact-field--full">
+              <label for="contact-phone">Phone Number</label>
+              <input class="input" id="contact-phone" name="phone" type="tel" placeholder="+31 6 12345678" autocomplete="tel">
+            </div>
+            <div class="field contact-field--full">
+              <label for="contact-note">Note</label>
+              <textarea class="textarea" id="contact-note" name="note" placeholder="Type here..." required></textarea>
+            </div>
           </div>
-          <div class="contact-field">
-            <label for="contact-email">E-mail</label>
-            <input class="contact-input" id="contact-email" name="email" type="email" placeholder="example@email.com" autocomplete="email" required>
-          </div>
-          <div class="contact-field">
-            <label for="contact-phone">Phone Number</label>
-            <input class="contact-input" id="contact-phone" name="phone" type="tel" placeholder="+31 6 12345678" autocomplete="tel">
-          </div>
-          <div class="contact-field">
-            <label for="contact-note">Note</label>
-            <textarea class="contact-input" id="contact-note" name="note" placeholder="Type here..." required></textarea>
-          </div>
-        </div>
-        <button type="submit" class="btn contact-send">Send</button>
-        <p class="form-note" data-form-success hidden>Thank you! Your message has been sent. We will get back to you soon.</p>
-      </form>
+          <button type="submit" class="btn contact-send">Send <span class="arrow" aria-hidden="true">&rarr;</span></button>
+          <p class="form-note" data-form-success hidden>Thank you! Your message has been sent. We will get back to you soon.</p>
+        </form>
+      </div>
     </section>
 
     <aside class="contact-aside">
-      <p class="contact-faq-note">Think your question may have already been asked? <a href="#faq">Check out our FAQ</a>!</p>
       <section class="join" aria-labelledby="join-title">
-        <h2 id="join-title">JOIN US</h2>
-        <div>
+        <span class="join__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#1e1b26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M19 8v6M22 11h-6"/></svg></span>
+        <h2 id="join-title" class="h-sub">JOIN US</h2>
+        <div class="body">
           <p>Are you part of a women’s group or organization in The Hague and looking to grow, learn, and expand your network? Then Kracht(vrouwen) in de Wijk is for you.</p>
           <p>Professionals, experts, and partners who can support topics like networking, fundraising, communication, or organizational development are also very welcome.</p>
           <p>Want to learn more or contribute? Get in touch with us!</p>
           <p class="join__tight"><strong>Together, we strengthen women’s organizations in The Hague.</strong></p>
         </div>
       </section>
+      <p class="faq-note"><span class="faq-note__icon" aria-hidden="true">?</span><span>Think your question may have already been asked? <a href="#faq">Check out our FAQ</a>!</span></p>
     </aside>
   </div>
+</div>
 
-  <section class="details" aria-labelledby="details-title">
-    <h2 class="contact-h" id="details-title">our details</h2>
+<section class="band band--pink-soft section details" aria-labelledby="details-title">
+  <span class="bubble" aria-hidden="true" style="width:96px;height:96px;left:4%;top:36px;--dur:11s"></span>
+  <span class="bubble" aria-hidden="true" style="width:70px;height:70px;right:4%;bottom:24px;--dur:9s;--delay:-4s;--dx:-8px"></span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Contact Us</span>
+      <h2 class="h-section" id="details-title">our details</h2>
+    </div>
     <div class="grid-4">
-      <article class="detail">
-        <img src="assets/img/contact/phone.svg" alt="" width="67" height="67" loading="lazy">
+      <article class="card detail">
+        <span class="detail__icon"><img src="assets/img/contact/phone.svg" alt="" width="67" height="67" loading="lazy"></span>
         <h3>Phone</h3>
         <p>+31 6 85782987</p>
-        <button type="button" class="copy-btn" data-copy="+31 6 85782987" aria-label="Copy phone number">Copy</button>
+        <div class="detail__foot"><button type="button" class="btn btn--outline btn--sm copy-btn" data-copy="+31 6 85782987" aria-label="Copy phone number"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg> Copy</button></div>
       </article>
-      <article class="detail">
-        <img src="assets/img/contact/email.svg" alt="" width="67" height="67" loading="lazy">
+      <article class="card detail">
+        <span class="detail__icon"><img src="assets/img/contact/email.svg" alt="" width="67" height="67" loading="lazy"></span>
         <h3>E-mail</h3>
         <p>vrouwenbuurtlab@wijkz.nl</p>
-        <button type="button" class="copy-btn" data-copy="vrouwenbuurtlab@wijkz.nl" aria-label="Copy e-mail address">Copy</button>
+        <div class="detail__foot"><button type="button" class="btn btn--outline btn--sm copy-btn" data-copy="vrouwenbuurtlab@wijkz.nl" aria-label="Copy e-mail address"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg> Copy</button></div>
       </article>
-      <article class="detail">
-        <img src="assets/img/contact/internet.svg" alt="" width="67" height="67" loading="lazy">
+      <article class="card detail">
+        <span class="detail__icon"><img src="assets/img/contact/internet.svg" alt="" width="67" height="67" loading="lazy"></span>
         <h3>Links</h3>
         <p>vrouwenbuurtlab@wijkz.nl</p>
-        <button type="button" class="copy-btn" data-copy="vrouwenbuurtlab@wijkz.nl" aria-label="Copy link">Copy</button>
+        <div class="detail__foot"><button type="button" class="btn btn--outline btn--sm copy-btn" data-copy="vrouwenbuurtlab@wijkz.nl" aria-label="Copy link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg> Copy</button></div>
       </article>
-      <article class="detail">
-        <img src="assets/img/contact/location.svg" alt="" width="67" height="67" loading="lazy">
+      <article class="card detail">
+        <span class="detail__icon"><img src="assets/img/contact/location.svg" alt="" width="67" height="67" loading="lazy"></span>
         <h3>Location</h3>
         <p>Van Meursstraat <br>12524 XN 's-Gravenhage</p>
-        <button type="button" class="copy-btn" data-copy="Van Meursstraat 12524 XN 's-Gravenhage" aria-label="Copy address">Copy</button>
+        <div class="detail__foot"><button type="button" class="btn btn--outline btn--sm copy-btn" data-copy="Van Meursstraat 12524 XN 's-Gravenhage" aria-label="Copy address"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 3.5v-.5a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 3v5A1.5 1.5 0 0 0 4 9.5h.5"/></svg> Copy</button></div>
       </article>
     </div>
-  </section>
-</div>
+  </div>
+</section>

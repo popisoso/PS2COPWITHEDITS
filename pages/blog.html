@@ -1,56 +1,62 @@
 <!-- title: All Blog Posts -->
 <style>
-  .page-blog .bl-hero { position: relative; height: clamp(220px, 27vw, 388px); overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); display: grid; place-items: center; }
+  /* hero: full-bleed photo with gradient scrim, title in the content column */
+  .page-blog .bl-hero { position: relative; min-height: clamp(260px, 30vw, 420px); overflow: hidden; display: flex; align-items: flex-end; background: var(--ink); }
   .page-blog .bl-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 54%; }
-  .page-blog .bl-hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); }
-  .page-blog .bl-hero h1 { position: relative; z-index: 1; color: #fffbf7; font-size: clamp(32px, 3vw, 43px); font-weight: 700; text-align: center; padding-inline: 16px; }
+  .page-blog .bl-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 27, 38, .08) 0%, rgba(30, 27, 38, .25) 45%, rgba(30, 27, 38, .72) 100%); }
+  .page-blog .bl-hero__inner { position: relative; z-index: 1; padding-block: 40px clamp(32px, 4vw, 52px); display: flex; flex-direction: column; gap: 6px; }
+  .page-blog .bl-hero h1 { color: #fff; text-shadow: 0 2px 18px rgba(30, 27, 38, .35); }
+  .page-blog .bl-hero__crumb { padding-block: 0; color: rgba(255, 255, 255, .82); }
+  .page-blog .bl-hero__crumb a { color: rgba(255, 255, 255, .82); }
+  .page-blog .bl-hero__crumb a:hover { color: #fff; }
+  .page-blog .bl-hero__crumb span[aria-current] { color: #fff; }
 
-  .page-blog .bl-crumb { font-size: 15px; color: #000; padding-top: 42px; }
-  .page-blog .bl-crumb a { color: #000; }
-  .page-blog .bl-crumb span[aria-current] { font-weight: 700; }
+  /* search toolbar */
+  .page-blog .bl-wrap { padding-block: clamp(36px, 5vw, 64px) clamp(56px, 7vw, 96px); }
+  .page-blog .bl-toolbar { display: flex; justify-content: center; margin-bottom: clamp(28px, 4vw, 44px); }
+  .page-blog .bl-toolbar .search { width: min(560px, 100%); }
+  @media (max-width: 480px) { .page-blog .bl-toolbar .search input { font-size: 16px; padding-right: 12px; } }
 
-  .page-blog .bl-search { position: relative; width: 552px; max-width: 100%; margin: 33px auto 0; }
-  .page-blog .bl-search input { width: 100%; height: 55px; border: 0; border-radius: 30px; background: #f6ecf0; padding: 0 70px 0 24px; font: 400 18px var(--font); color: #000; -webkit-appearance: none; appearance: none; }
-  .page-blog .bl-search input::placeholder { color: #aeaeae; }
-  .page-blog .bl-search input:focus { outline: 2px solid var(--pink); }
-  .page-blog .bl-search button { position: absolute; right: 0; top: 0; width: 55px; height: 55px; border: 0; border-radius: 30px; background: var(--pink); display: grid; place-items: center; cursor: pointer; padding: 0; }
-  .page-blog .bl-search button:hover { background: var(--pink-dark); }
-  .page-blog .bl-search button img { width: 35px; height: 35px; }
-
-  .page-blog .bl-list { list-style: none; margin: 0; padding: 12px 0 0; }
-  .page-blog .bl-post { display: grid; grid-template-columns: 1fr; gap: 20px; padding-block: 40px; border-bottom: 1px solid #000; }
-  @media (min-width: 760px) { .page-blog .bl-post { padding-block: 62px; } .page-blog .bl-list > li + li .bl-post { padding-top: 86px; } }
-  @media (min-width: 760px) { .page-blog .bl-post { grid-template-columns: 320px minmax(0, 1fr); gap: 31px; } }
-  .page-blog .bl-post__img { display: block; aspect-ratio: 320 / 200; overflow: hidden; width: 100%; }
-  .page-blog .bl-post__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s; }
-  .page-blog .bl-post__img:hover img { transform: scale(1.03); }
-  .page-blog .bl-post__body { display: flex; flex-direction: column; gap: 26px; min-width: 0; }
-  .page-blog .bl-post h2 { font-size: clamp(20px, 2vw, 24px); font-weight: 600; line-height: 1.2; max-width: 656px; }
-  .page-blog .bl-post h2 a { color: #000; text-decoration: underline; text-decoration-thickness: from-font; }
-  .page-blog .bl-post h2 a:hover { color: var(--pink); }
-  .page-blog .bl-post__excerpt { font-size: 18px; line-height: 1.21; max-width: 639px; padding-left: 4px; }
-  .page-blog .bl-post__by { font-size: 18px; font-style: italic; line-height: 1.21; margin-top: auto; }
-  .page-blog .bl-empty { text-align: center; padding: 40px 0; color: var(--muted); }
-  .page-blog .bl-wrap { padding-bottom: clamp(48px, 6vw, 90px); }
-  .page-blog .bl-list + .pager { margin-top: 44px; }
+  /* post cards */
+  .page-blog .bl-list { list-style: none; margin: 0 auto; padding: 0; display: flex; flex-direction: column; gap: 20px; max-width: 980px; }
+  .page-blog .bl-list > li[hidden] { display: none; }
+  .page-blog .bl-post { display: grid; grid-template-columns: 1fr; gap: 0; padding: 0; overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+  .page-blog .bl-post:hover { transform: translateY(-4px); box-shadow: var(--e3); border-color: transparent; }
+  @media (min-width: 760px) { .page-blog .bl-post { grid-template-columns: 300px minmax(0, 1fr); gap: 28px; padding: 16px; } }
+  .page-blog .bl-post__img { display: block; aspect-ratio: 16 / 10; overflow: hidden; width: 100%; background: var(--surface-2); }
+  @media (min-width: 760px) { .page-blog .bl-post__img { border-radius: var(--radius-s); aspect-ratio: 3 / 2; } }
+  .page-blog .bl-post__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+  .page-blog .bl-post:hover .bl-post__img img { transform: scale(1.04); }
+  .page-blog .bl-post__body { display: flex; flex-direction: column; gap: 12px; min-width: 0; padding: 20px; }
+  @media (min-width: 760px) { .page-blog .bl-post__body { padding: 10px 16px 8px 0; } }
+  .page-blog .bl-post h2 { font-size: clamp(20px, 1.9vw, 23px); font-weight: 650; line-height: 1.25; letter-spacing: -0.015em; }
+  .page-blog .bl-post h2 a { color: var(--ink); text-decoration: none; background: linear-gradient(var(--pink-100), var(--pink-100)) 0 100% / 0 6px no-repeat; transition: color .2s, background-size .3s var(--ease); }
+  .page-blog .bl-post h2 a:hover, .page-blog .bl-post h2 a:focus-visible { color: var(--pink-700); background-size: 100% 6px; }
+  .page-blog .bl-post__excerpt { font-size: 16px; line-height: 1.6; color: var(--ink-soft); }
+  .page-blog .bl-post__by { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .page-blog .bl-post__by::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); }
+  .page-blog .bl-empty { max-width: 980px; margin: 0 auto; text-align: center; padding: 28px 20px; }
 </style>
 
 <section class="bl-hero">
   <img src="assets/img/blog/hero-flowers.jpg" alt="Close-up of hands of a group of women making colourful paper flowers" width="612" height="408">
-  <h1>All Blog Posts</h1>
+  <div class="container bl-hero__inner">
+    <nav class="breadcrumb bl-hero__crumb" aria-label="Breadcrumb"><a href="#blog">Blog</a> <span aria-hidden="true">/</span> <span aria-current="page">All Blog Posts</span></nav>
+    <h1 class="h-display">All Blog Posts</h1>
+  </div>
 </section>
 
 <div class="container bl-wrap">
-  <nav class="bl-crumb" aria-label="Breadcrumb"><a href="#blog">Blog</a> // <span aria-current="page">All Blog Posts</span></nav>
-
-  <div class="bl-search" role="search">
-    <input id="bl-search-input" type="search" placeholder="Search by organisation, event, etc..." aria-label="Search blog posts" data-search-target="blog">
-    <button type="button" aria-label="Search"><img src="assets/img/blog/search.svg" alt="" width="35" height="35" loading="lazy"></button>
+  <div class="bl-toolbar" role="search">
+    <div class="search search--lg">
+      <input id="bl-search-input" type="search" placeholder="Search by organisation, event, etc..." aria-label="Search blog posts" data-search-target="blog">
+      <button type="button" aria-label="Search"><img src="assets/img/blog/search-ink.svg" alt="" width="35" height="35"></button>
+    </div>
   </div>
 
   <ul class="bl-list" data-paginate="4">
     <li data-filter-item="blog">
-      <article class="bl-post">
+      <article class="bl-post card">
         <a class="bl-post__img" href="#blog-entry" tabindex="-1" aria-hidden="true"><img src="assets/img/blog/culture-month.jpg" alt="" width="720" height="1034" loading="lazy" style="object-position: 50% 31%"></a>
         <div class="bl-post__body">
           <h2><a href="#blog-entry">December is Culture Month for Seniors</a></h2>
@@ -60,7 +66,7 @@
       </article>
     </li>
     <li data-filter-item="blog">
-      <article class="bl-post">
+      <article class="bl-post card">
         <a class="bl-post__img" href="#blog-entry" tabindex="-1" aria-hidden="true"><img src="assets/img/blog/meeting-hub-laak.jpg" alt="" width="639" height="319" loading="lazy"></a>
         <div class="bl-post__body">
           <h2><a href="#blog-entry">New Meeting Hub for Women in Laak</a></h2>
@@ -70,7 +76,7 @@
       </article>
     </li>
     <li data-filter-item="blog">
-      <article class="bl-post">
+      <article class="bl-post card">
         <a class="bl-post__img" href="#blog-entry" tabindex="-1" aria-hidden="true"><img src="assets/img/blog/researchers.jpg" alt="" width="500" height="332" loading="lazy"></a>
         <div class="bl-post__body">
           <h2><a href="#blog-entry">Community of Practice Hiring Researchers for Community Improvement (12h)</a></h2>
@@ -80,7 +86,7 @@
       </article>
     </li>
     <li data-filter-item="blog">
-      <article class="bl-post">
+      <article class="bl-post card">
         <a class="bl-post__img" href="#blog-entry" tabindex="-1" aria-hidden="true"><img src="assets/img/blog/charity-sale.jpg" alt="" width="736" height="981" loading="lazy"></a>
         <div class="bl-post__body">
           <h2><a href="#blog-entry">Charity Sale for Better Neighbourhoods</a></h2>
@@ -90,5 +96,5 @@
       </article>
     </li>
   </ul>
-  <p class="bl-empty" data-empty="blog" hidden>No results</p>
+  <p class="form-note bl-empty" data-empty="blog" hidden>No results</p>
 </div>

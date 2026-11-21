@@ -1,4 +1,8 @@
-# Kracht(vrouwen) in de Wijk — website
+# Kracht(vrouwen) in de Wijk — website (review copy)
+
+> This repository is a working duplicate of `popisoso/PS2COP`, used for a round of UI review and improvements.
+> Changes are made on the `ui-review` branch and merged into `main` through a pull request.
+> Preview of the review copy: https://claude.ai/artifact/UzXwWuDtC5fGoTfooJ8kZ6 (private until shared).
 
 A working website built from the Figma file **"The big PS2 sprints file"**, section *Website prototype*
 (desktop pages) with the *mobile prototype* as the guide for small screens.
@@ -65,7 +69,7 @@ and the classes in `css/site.css`.
   on the next matching Mondays (30 November and 14 December 2026).
 - Events-page filter tags (location, category, demographic) are sample values; adjust the `data-*` attributes
   on the event cards in `pages/events.html`.
-- Live artifact preview: https://claude.ai/artifact/H3i2Hey3RRoHb4DzEnpf8u (private to the owner until shared).
+- Original site preview: https://claude.ai/artifact/H3i2Hey3RRoHb4DzEnpf8u (private to the owner until shared).
 - Forms validate and show a confirmation, but nothing is sent anywhere yet; they need a backend or a form
   service to deliver messages.
 - The language switch (globe) only offers English for now.

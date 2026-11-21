@@ -1,127 +1,172 @@
 <!-- title: Finding a Location -->
+<!-- Generated from one template for all five guide topics. Topic colour: #dd5c90 -->
 <style>
-  /* Topic colour (exact hex from Figma): #dd5c90 */
-  .page-guide-location { --topic: #dd5c90; --topic-ink: #dd5c90; }
-  /* Shared guide-topic template (same class names on every guide-* page). */
-  .page-guide-location .guide-hero { background: var(--topic); color: #fff; min-height: 248px; display: flex; align-items: center; padding-block: 40px; }
-  .page-guide-location .guide-hero h1 { font-size: clamp(30px, 3.4vw, 40px); font-weight: 600; line-height: 1.2; }
+.page-guide-location { --t: #dd5c90; --t-acc: #dd5c90; --t-50: #fdf1f6; --t-100: #f9dce8; --t-ink: #a83565; --t-on: #ffffff; }
+/* header: soft topic tint, ink text, colour lives in accents */
+.page-guide-location .guide-hero { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--t-50) 0%, #fff 100%); border-bottom: 1px solid var(--line); }
+.page-guide-location .guide-hero::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--t); }
+.page-guide-location .guide-hero__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 18px; }
+.page-guide-location .guide-hero .breadcrumb { padding-block: 0; }
+.page-guide-location .guide-hero .breadcrumb a:hover { color: var(--t-ink); }
+.page-guide-location .guide-tools { display: flex; align-items: center; gap: 8px; }
+.page-guide-location .guide-tools .icon-btn { color: var(--ink-soft); text-decoration: none; border-color: var(--line-strong); transition: background .15s, border-color .15s, color .15s, transform .15s var(--ease); }
+.page-guide-location .guide-tools .icon-btn:hover { background: var(--t-50); border-color: var(--t); color: var(--ink); transform: translateY(-1px); }
+.page-guide-location .guide-tools .icon-btn.is-disabled { opacity: .4; box-shadow: none; pointer-events: none; }
+.page-guide-location .guide-tools__sep { width: 1px; height: 28px; background: var(--line-strong); margin-inline: 6px; }
+.page-guide-location .guide-hero__grid { position: relative; display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; padding-block: clamp(28px, 4vw, 48px) clamp(36px, 5vw, 64px); }
+@media (min-width: 900px) { .page-guide-location .guide-hero__grid { grid-template-columns: minmax(0, 1fr) 400px; gap: 56px; } }
+.page-guide-location .guide-hero__text { display: flex; flex-direction: column; gap: 16px; max-width: 640px; }
+.page-guide-location .guide-hero h1 { display: flex; flex-direction: column; gap: 14px; font-size: clamp(34px, 4.2vw, 54px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; color: var(--ink); }
+.page-guide-location .guide-eyebrow { color: var(--t-ink); letter-spacing: .08em; }
+.page-guide-location .guide-eyebrow::before { background: var(--t); width: 10px; height: 10px; }
+.page-guide-location .guide-hero .lead { max-width: 56ch; }
+.page-guide-location .guide-hero__art { position: relative; justify-self: center; width: min(100%, 400px); aspect-ratio: 4 / 3; }
+.page-guide-location .guide-hero__frame { position: absolute; inset: 0; border-radius: var(--radius-l); background: radial-gradient(120% 90% at 50% 100%, var(--t-100) 0%, var(--t-50) 70%, #fff 100%); border: 1px solid var(--t-100); box-shadow: var(--e1); overflow: hidden; display: flex; align-items: flex-end; justify-content: center; padding: 22px 22px 0; z-index: 1; }
+.page-guide-location .guide-hero__frame img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
+.page-guide-location .guide-hero .bubble { z-index: 0; }
+@media (max-width: 899px) { .page-guide-location .guide-hero__art { width: min(100%, 380px); aspect-ratio: 16 / 10; justify-self: start; } .page-guide-location .guide-hero__frame { padding: 16px 16px 0; } .page-guide-location .guide-hero .bubble { transform: scale(.7); } }
+@media (max-width: 480px) { .page-guide-location .guide-hero .bubble { display: none; } }
 
-  .page-guide-location .guide-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding-block: 32px; }
-  .page-guide-location .guide-crumbs { display: flex; flex-wrap: wrap; gap: 10px; font-size: 15px; }
-  .page-guide-location .guide-crumbs a { text-decoration: none; }
-  .page-guide-location .guide-crumbs a:hover { color: var(--topic-ink); text-decoration: underline; }
-  .page-guide-location .guide-crumbs [aria-current] { font-weight: 700; }
-  .page-guide-location .guide-bar__nav { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-  .page-guide-location .guide-bar__list { margin-right: 46px; }
-  .page-guide-location .guide-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 41px; border-radius: 14px; background: var(--topic); transition: transform .15s, filter .15s; }
-  .page-guide-location .guide-icon-btn:hover { transform: translateY(-2px); filter: brightness(.92); }
-  .page-guide-location .guide-icon-btn img { width: 35px; height: 35px; }
-  .page-guide-location .guide-icon-btn--plain { background: none; }
-  .page-guide-location .guide-icon-btn--plain img { width: 50px; height: 41px; }
+/* body layout: sticky section index + article */
+.page-guide-location .guide-layout { display: grid; grid-template-columns: 1fr; gap: 32px; padding-block: clamp(32px, 5vw, 64px) clamp(64px, 8vw, 112px); }
+@media (min-width: 1000px) { .page-guide-location .guide-layout { grid-template-columns: 260px minmax(0, 720px); justify-content: space-between; gap: 64px; } }
+.page-guide-location .guide-toc { align-self: start; }
+@media (min-width: 1000px) { .page-guide-location .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
+.page-guide-location .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+.page-guide-location .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-location .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
+.page-guide-location .guide-toc li { counter-increment: toc; }
+.page-guide-location .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
+.page-guide-location .guide-toc ol a::before { content: counter(toc, decimal-leading-zero); font-size: 12px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }
+.page-guide-location .guide-toc ol a:hover { background: var(--t-50); color: var(--ink); }
+.page-guide-location .guide-toc ol a:hover::before { color: var(--t-ink); }
+.page-guide-location .guide-print { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: 4px; padding: 8px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); background: #fff; color: var(--ink); font-size: 15px; font-weight: 600; text-decoration: none; transition: background .15s, border-color .15s; }
+.page-guide-location .guide-print svg { color: var(--t-ink); }
+.page-guide-location .guide-print:hover { background: var(--t-50); border-color: var(--t); }
+@media (max-width: 999px) {
+  .page-guide-location .guide-toc ol { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .page-guide-location .guide-toc ol a { padding: 7px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); font-size: 15px; }
+  .page-guide-location .guide-toc ol a::before { display: none; }
+}
 
-  .page-guide-location .guide-layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-bottom: clamp(60px, 8vw, 130px); }
-  @media (min-width: 1000px) { .page-guide-location .guide-layout { grid-template-columns: 255px minmax(0, 745px); justify-content: space-between; gap: 60px; } }
+/* article */
+.page-guide-location .guide-article { min-width: 0; display: flex; flex-direction: column; gap: clamp(48px, 6vw, 72px); font-size: 18px; line-height: 1.7; color: var(--ink-soft); }
+.page-guide-location .guide-section { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: calc(var(--header-h) + 24px); }
+.page-guide-location .guide-section > h2 { display: flex; flex-direction: column; gap: 14px; font-size: clamp(26px, 2.6vw, 32px); font-weight: 650; line-height: 1.2; color: var(--ink); }
+.page-guide-location .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
+.page-guide-location .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
+.page-guide-location .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
+.page-guide-location .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-location .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.page-guide-location .guide-bullets li { position: relative; padding-left: 26px; }
+.page-guide-location .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
+.page-guide-location .guide-small { font-size: 15px; color: var(--muted); }
+.page-guide-location .guide-bullets strong, .page-guide-location .guide-article strong { color: var(--ink); font-weight: 650; }
 
-  .page-guide-location .guide-toc__inner { display: flex; flex-direction: column; gap: 22px; }
-  @media (min-width: 1000px) { .page-guide-location .guide-toc__inner { position: sticky; top: calc(var(--header-h) + 36px); padding-top: 36px; } }
-  .page-guide-location .guide-toc__title { background: var(--topic); color: #fff; border-radius: 22px; min-height: 37px; padding: 6px 20px; font-size: 20px; font-weight: 700; line-height: 1.25; }
-  .page-guide-location .guide-toc ul { list-style: none; margin: 0; padding: 0 15px 0 20px; display: flex; flex-direction: column; gap: 15px; }
-  .page-guide-location .guide-toc ul a { font-size: 18px; font-weight: 700; text-decoration: none; }
-  .page-guide-location .guide-toc ul a:hover { color: var(--topic-ink); text-decoration: underline; }
-  .page-guide-location .guide-print { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 37px; border: 3px solid var(--topic); border-radius: 22px; color: var(--topic-ink); font-size: 20px; font-weight: 700; text-decoration: none; transition: background .15s; }
-  .page-guide-location .guide-print:hover { background: var(--lavender); }
-  .page-guide-location .guide-print img { width: 24px; height: 24px; }
-  .page-guide-location .guide-toc__art { display: none; height: auto; }
-  @media (min-width: 1000px) { .page-guide-location .guide-toc__art { display: block; margin-top: 48px; } }
+/* steps: numbered timeline */
+.page-guide-location .guide-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.page-guide-location .guide-step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; padding-bottom: 26px; }
+.page-guide-location .guide-step:last-child { padding-bottom: 0; }
+.page-guide-location .guide-step::before { content: ""; position: absolute; left: 21px; top: 48px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--t-100); }
+.page-guide-location .guide-step:last-child::before { display: none; }
+.page-guide-location .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
+.page-guide-location .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
+.page-guide-location .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
+.page-guide-location .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-location .guide-step p { font-size: 17px; line-height: 1.65; }
 
-  .page-guide-location .guide-article { display: flex; flex-direction: column; gap: clamp(64px, 8vw, 110px); font-size: clamp(18px, 1.6vw, 20px); line-height: 1.25; min-width: 0; }
-  .page-guide-location .guide-article section { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: calc(var(--header-h) + 24px); }
-  .page-guide-location .guide-article h2 { font-size: clamp(26px, 2.6vw, 32px); font-weight: 700; line-height: 1.2; }
-  .page-guide-location .guide-article h3 { font-size: clamp(21px, 2vw, 24px); font-weight: 700; line-height: 1.2; }
-  .page-guide-location .guide-question { font-weight: 600; font-style: italic; }
-  .page-guide-location .guide-label { font-weight: 700; }
-  .page-guide-location .guide-small { font-size: 16px; }
-  .page-guide-location .guide-bullets { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 1.25em; }
-  .page-guide-location .guide-bullets li::marker { content: "•  "; }
-  .page-guide-location .guide-bullets--tight { gap: 1.25em; }
+/* checklist: native checkboxes in calm rows */
+.page-guide-location .guide-checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.page-guide-location .guide-check { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-s); cursor: pointer; transition: background .15s, border-color .15s, box-shadow .15s; }
+.page-guide-location .guide-check:hover { border-color: var(--t-100); box-shadow: var(--e1); }
+.page-guide-location .guide-check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--t-acc); cursor: pointer; }
+.page-guide-location .guide-check:has(input:checked) { background: var(--t-50); border-color: var(--t-100); }
+.page-guide-location .guide-check:has(input:focus-visible) { box-shadow: var(--ring); }
+.page-guide-location .guide-check__text { display: flex; flex-direction: column; gap: 4px; }
+.page-guide-location .guide-check__q { font-size: 17px; font-weight: 600; line-height: 1.45; color: var(--ink); }
+.page-guide-location .guide-check__note { font-size: 15px; line-height: 1.55; color: var(--muted); }
 
-  .page-guide-location .guide-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-location .guide-steps li { display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-location .guide-steps p { max-width: 652px; }
+/* do's and don'ts */
+.page-guide-location .guide-dos { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.page-guide-location .guide-dos__card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.page-guide-location .guide-dos__card h3 { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; letter-spacing: .08em; color: var(--ink); }
+.page-guide-location .guide-dos__card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.page-guide-location .guide-dos__card li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 14px; align-items: start; font-size: 17px; line-height: 1.6; }
+.page-guide-location .guide-mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; margin-top: 1px; }
+.page-guide-location .guide-mark--do { background: #e5f4e8; color: #23733a; }
+.page-guide-location .guide-mark--dont { background: #fde8ea; color: #b4233a; }
+.page-guide-location .guide-dos__card h3 .guide-mark { width: 28px; height: 28px; }
 
-  .page-guide-location .guide-checklist, .page-guide-location .guide-dos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-location .guide-check { display: grid; grid-template-columns: 25px minmax(0, 1fr); gap: clamp(18px, 3vw, 42px); align-items: center; cursor: pointer; }
-  .page-guide-location .guide-check input { appearance: none; -webkit-appearance: none; width: 25px; height: 25px; margin: 0; border: 3px solid var(--topic); border-radius: 0; background: #fff; display: grid; place-content: center; cursor: pointer; transition: background .15s; }
-  .page-guide-location .guide-check input::before { content: ""; width: 12px; height: 7px; border-left: 3px solid #fff; border-bottom: 3px solid #fff; transform: translateY(-2px) rotate(-45deg); opacity: 0; }
-  .page-guide-location .guide-check input:checked { background: var(--topic); }
-  .page-guide-location .guide-check input:checked::before { opacity: 1; }
-  .page-guide-location .guide-check input:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
-  .page-guide-location .guide-check:hover input:not(:checked) { background: var(--lavender); }
-
-  .page-guide-location .guide-dos-group { display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-location .guide-dos-group + .guide-dos-group { margin-top: 10px; }
-  .page-guide-location .guide-dos-group h3 { font-size: 20px; }
-  .page-guide-location .guide-dos li { display: grid; grid-template-columns: 25px minmax(0, 1fr); gap: clamp(18px, 3vw, 42px); align-items: center; }
-  .page-guide-location .guide-dos li img { width: 25px; height: 25px; }
-
-  .page-guide-location .guide-pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
-  .page-guide-location .guide-btn { display: inline-flex; align-items: center; justify-content: center; gap: 20px; width: 205px; min-height: 52px; padding: 0 16px; border-radius: 35px; white-space: nowrap; background: var(--topic); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none; transition: transform .15s, filter .15s; }
-  .page-guide-location .guide-btn:hover { transform: translateY(-2px); filter: brightness(.92); }
-  .page-guide-location .guide-btn--next { gap: 30px; }
-  .page-guide-location .guide-btn--back { gap: 30px; }
-  .page-guide-location .guide-btn img { flex: none; }
-  .page-guide-location .guide-btn__arrow { width: 31px; height: auto; }
-  .page-guide-location .guide-btn__arrow--prev { transform: scaleX(-1); }
-  @media (max-width: 719px) { .page-guide-location .guide-btn { width: 100%; } .page-guide-location .guide-bar__list { margin-right: 0; } }
-  .page-guide-location .guide-gap { margin-top: 20px; }
-  .page-guide-location .guide-dos-section { max-width: 597px; }
-  .page-guide-location .guide-toc__art--wide { width: 100%; max-width: 100%; align-self: flex-end; }
-  @media (min-width: 1240px) { .page-guide-location .guide-toc__art--wide { width: var(--art-w); max-width: none; } }
-  .page-guide-location .guide-toc__art--location { --art-w: 359px; }
+/* pager */
+.page-guide-location .guide-pager { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid var(--line); }
+.page-guide-location .guide-pager__links { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .page-guide-location .guide-pager__links { grid-template-columns: 1fr 1fr; } .page-guide-location .guide-pager__next { grid-column: 2; } }
+.page-guide-location .guide-pager__card { position: relative; display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); text-decoration: none; overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+.page-guide-location .guide-pager__card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--pc); }
+.page-guide-location .guide-pager__card:hover { transform: translateY(-3px); box-shadow: var(--e3); border-color: transparent; }
+.page-guide-location .guide-pager__next { justify-content: flex-end; text-align: right; }
+.page-guide-location .guide-pager__txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.page-guide-location .guide-pager__lbl { font-size: 13px; font-weight: 600; color: var(--muted); }
+.page-guide-location .guide-pager__ttl { font-size: 17px; font-weight: 650; line-height: 1.3; color: var(--ink); }
+.page-guide-location .guide-pager__arrow { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--pc-50); color: var(--ink); transition: transform .2s var(--ease); }
+.page-guide-location .guide-pager__prev:hover .guide-pager__arrow { transform: translateX(-3px); }
+.page-guide-location .guide-pager__next:hover .guide-pager__arrow { transform: translateX(3px); }
+.page-guide-location .guide-pager .btn { align-self: flex-start; }
+.page-guide-location .guide-pager .btn svg { color: var(--t-ink); }
 </style>
 
 <header class="guide-hero">
-  <div class="container"><h1>Guide 1: Finding a Location</h1></div>
-</header>
-
-<div class="container guide-bar">
-  <nav class="guide-crumbs" aria-label="Breadcrumb">
-    <span>Resources</span>
-    <span aria-hidden="true">//</span>
-    <a href="#guide">Step by Step Guides</a>
-    <span aria-hidden="true">//</span>
-    <span aria-current="page">Finding a Location</span>
-  </nav>
-  <div class="guide-bar__nav">
-    <a class="guide-icon-btn guide-bar__list" href="#guide" aria-label="Back to all step-by-step guides"><img src="assets/img/guide-location/list-icon.svg" alt="" width="35" height="35"></a>
-    <a class="guide-icon-btn guide-icon-btn--plain" href="#guide-structure" aria-label="Next guide: Organizational Structure"><img src="assets/img/guide-location/next-top-btn.svg" alt="" width="50" height="41"></a>
+  <div class="container">
+    <div class="guide-hero__top">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <span>Resources</span> <span aria-hidden="true">//</span> <a href="#guide">Step by Step Guides</a> <span aria-hidden="true">//</span> <span aria-current="page">Finding a Location</span>
+      </nav>
+      <div class="guide-tools">
+        <a class="icon-btn" href="#guide" aria-label="Back to all step-by-step guides" title="Back to list"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <span class="guide-tools__sep" aria-hidden="true"></span>
+        <span class="icon-btn is-disabled" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span>
+        <a class="icon-btn" href="#guide-structure" aria-label="Next guide: Organizational Structure" title="Next guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="guide-hero__grid">
+      <div class="guide-hero__text">
+        <h1><span class="eyebrow guide-eyebrow">Guide 1<span class="sr-only">:</span></span> <span>Finding a Location</span></h1>
+        <p class="lead">How to find an affordable location suitable for activities and your target group.</p>
+      </div>
+      <div class="guide-hero__art" aria-hidden="true">
+        <span class="bubble" style="width:92px;height:92px;right:-30px;top:-34px;--dur:11s;--dx:-6px;--dy:10px"></span>
+        <span class="bubble" style="width:54px;height:54px;left:-28px;bottom:30px;--dur:8s;--delay:-3s"></span>
+        <div class="guide-hero__frame"><img src="assets/img/guide-location/side-illustration.svg" alt="" width="359" height="272"></div>
+      </div>
+    </div>
   </div>
-</div>
+</header>
 
 <div class="container guide-layout">
   <aside class="guide-toc" aria-label="Sections">
-    <div class="guide-toc__inner">
+    <div class="guide-toc__card">
       <h2 class="guide-toc__title">Sections</h2>
-      <ul>
-        <li><a href="#guide-location" data-scroll="location-challenge">The Challenge</a></li>
-        <li><a href="#guide-location" data-scroll="location-experience">What (Not) To Do</a></li>
-        <li><a href="#guide-location" data-scroll="location-steps">Step-By-Step Plan</a></li>
-        <li><a href="#guide-location" data-scroll="location-checklist">Checklist</a></li>
-        <li><a href="#guide-location" data-scroll="location-dos">Do’s And Don’t’s</a></li>
-      </ul>
-      <a class="guide-print" href="https://www.dehaagsehogeschool.nl/media/krachtvrouwen-de-wijk-een-community-practice-van-en-voor-haagse-vrouwenorganisaties" target="_blank" rel="noopener"><img src="assets/img/guide-location/printer-pink.svg" alt="" width="24" height="24">Print this Chapter</a>
-      <img class="guide-toc__art guide-toc__art--wide guide-toc__art--location" src="assets/img/guide-location/side-illustration.svg" alt="" width="359" height="272" loading="lazy">
+      <nav aria-label="Sections">
+        <ol>
+          <li><a href="#guide-location" data-scroll="location-challenge">The Challenge</a></li>
+          <li><a href="#guide-location" data-scroll="location-experience">What (Not) To Do</a></li>
+          <li><a href="#guide-location" data-scroll="location-steps">Step-By-Step Plan</a></li>
+          <li><a href="#guide-location" data-scroll="location-checklist">Checklist</a></li>
+          <li><a href="#guide-location" data-scroll="location-dos">Do’s And Don’t’s</a></li>
+        </ol>
+      </nav>
+      <a class="guide-print" href="https://www.dehaagsehogeschool.nl/media/stappenplan-1-het-vinden-van-een-locatie" target="_blank" rel="noopener" aria-label="Print this Chapter: Download printable step-by-step plan 1 (opens in a new tab)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/><circle cx="17.5" cy="12" r=".6" fill="currentColor"/></svg>Print this Chapter</a>
     </div>
   </aside>
 
   <article class="guide-article">
-    <section id="location-challenge" aria-labelledby="location-challenge-h">
+    <section class="guide-section" id="location-challenge" aria-labelledby="location-challenge-h">
       <h2 id="location-challenge-h">The Challenge</h2>
       <p>How can your organization find a location that is not only suitable for your activities and target audience, but also affordable? This is one of the biggest challenges many organizations face. Yet, several members of the Community of Practice have managed to find suitable and affordable locations in various ways.</p>
-      <p class="guide-question">How do you make sure you find a fitting location?</p>
+      <p class="guide-question"><span class="guide-question__icon"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 4.4"/><circle cx="12" cy="18" r=".9" fill="currentColor" stroke="none"/></svg></span><span>How do you make sure you find a fitting location?</span></p>
     </section>
 
-    <section id="location-experience" aria-labelledby="location-experience-h">
+    <section class="guide-section" id="location-experience" aria-labelledby="location-experience-h">
       <h2 id="location-experience-h">From Experience: What (Not) To Do</h2>
       <ul class="guide-bullets">
         <li>Few organizations manage to have their own building. It often costs a lot of money.</li>
@@ -132,70 +177,56 @@
       </ul>
     </section>
 
-    <section id="location-steps" aria-labelledby="location-steps-h">
+    <section class="guide-section" id="location-steps" aria-labelledby="location-steps-h">
       <h2 id="location-steps-h">Step-By-Step Plan</h2>
       <ol class="guide-steps">
-        <li>
-          <h3>Step 1: Create a search profile</h3>
-          <p>First, clarify exactly what you are looking for. The help questions can assist you with this. To find a space more quickly, it may be useful to offer different activities at different locations.</p>
-        </li>
-        <li>
-          <h3>Step 2: Reach out</h3>
-          <p>Contact the Community Builder, neighborhood manager, or WJP representative in the neighborhood where you are organizing the activity. They can connect you with local contacts and provide information about available spaces and subsidies.</p>
-        </li>
-        <li>
-          <h3>Step 3: Look into community rooms</h3>
-          <p>Find out if there are any community rooms in the neighborhood or district. Ask if you can use them. Community rooms are often not suitable for large activities or gatherings, but they are suitable for meetings.</p>
-        </li>
-        <li>
-          <h3>Step 4: Join meetings</h3>
-          <p>Join neighborhood meetings to stay informed, discuss your needs, and connect with neighborhood organizations.</p>
-        </li>
-        <li>
-          <h3>Step 5: Create an overview</h3>
-          <p>Make an overview of neighborhood organizations and community centers with their own buildings. Search online or visit them, introduce yourself, and inquire about rentals and prices.</p>
-        </li>
-        <li>
-          <h3>Step 6: Location found</h3>
-          <p>Once you have found a suitable location, make sure you know immediately who the manager is who also has the keys/access. This will save time when your activity or meeting is about to start.</p>
-        </li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">1</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 1<span class="sr-only">:</span></span> <span>Create a search profile</span></h3><p>First, clarify exactly what you are looking for. The help questions can assist you with this. To find a space more quickly, it may be useful to offer different activities at different locations.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">2</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 2<span class="sr-only">:</span></span> <span>Reach out</span></h3><p>Contact the Community Builder, neighborhood manager, or WJP representative in the neighborhood where you are organizing the activity. They can connect you with local contacts and provide information about available spaces and subsidies.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">3</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 3<span class="sr-only">:</span></span> <span>Look into community rooms</span></h3><p>Find out if there are any community rooms in the neighborhood or district. Ask if you can use them. Community rooms are often not suitable for large activities or gatherings, but they are suitable for meetings.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">4</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 4<span class="sr-only">:</span></span> <span>Join meetings</span></h3><p>Join neighborhood meetings to stay informed, discuss your needs, and connect with neighborhood organizations.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">5</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 5<span class="sr-only">:</span></span> <span>Create an overview</span></h3><p>Make an overview of neighborhood organizations and community centers with their own buildings. Search online or visit them, introduce yourself, and inquire about rentals and prices.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">6</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 6<span class="sr-only">:</span></span> <span>Location found</span></h3><p>Once you have found a suitable location, make sure you know immediately who the manager is who also has the keys/access. This will save time when your activity or meeting is about to start.</p></div></li>
       </ol>
     </section>
 
-    <section id="location-checklist" aria-labelledby="location-checklist-h">
+    <section class="guide-section" id="location-checklist" aria-labelledby="location-checklist-h">
       <h2 id="location-checklist-h">Checklist</h2>
       <ul class="guide-checklist">
-        <li><label class="guide-check"><input type="checkbox"><span><strong>What type(s) of activity or meeting are you going to organize?</strong><br><span class="guide-small">What kind of hall or room do you need for that?<br>How many halls or rooms do you need?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>Which target group(s) are you focusing on?</strong><br><span class="guide-small">(For example: young children, teenagers, adults?)</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>How many people are involved?</strong></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>What do you need for your meeting?</strong><br><span class="guide-small">Think of items such as a projector, flip chart, sound system, etc.</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>Does the location also need to be wheelchair accessible?</strong><br><span class="guide-small">Does the location also need to have an elevator?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>Is it important that the location is easily accessible by public transport?</strong><br><span class="guide-small">Or do you find it important that there are enough parking spaces nearby for cars, bicycles, etc?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>Is your organization tied to a specific neighborhood or district?</strong><br><span class="guide-small">Or are you active in multiple parts of the city?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span><strong>Does the activity or meeting need to take place in a specific neighborhood or district?</strong><br><span class="guide-small">Or does that not matter?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">What type(s) of activity or meeting are you going to organize?</span> <span class="guide-check__note">What kind of hall or room do you need for that?<br/>How many halls or rooms do you need?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Which target group(s) are you focusing on?</span> <span class="guide-check__note">(For example: young children, teenagers, adults?)</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">How many people are involved?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">What do you need for your meeting?</span> <span class="guide-check__note">Think of items such as a projector, flip chart, sound system, etc.</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Does the location also need to be wheelchair accessible?</span> <span class="guide-check__note">Does the location also need to have an elevator?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Is it important that the location is easily accessible by public transport?</span> <span class="guide-check__note">Or do you find it important that there are enough parking spaces nearby for cars, bicycles, etc?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Is your organization tied to a specific neighborhood or district?</span> <span class="guide-check__note">Or are you active in multiple parts of the city?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Does the activity or meeting need to take place in a specific neighborhood or district?</span> <span class="guide-check__note">Or does that not matter?</span></span></label></li>
       </ul>
     </section>
 
-    <section id="location-dos" aria-labelledby="location-dos-h">
+    <section class="guide-section" id="location-dos" aria-labelledby="location-dos-h">
       <h2 id="location-dos-h">Do’s And Don’t’s</h2>
-      <div class="guide-dos-group">
-        <h3>DO</h3>
-        <ul class="guide-dos">
-          <li><img src="assets/img/guide-location/tick.svg" alt="Do:" width="25" height="25" loading="lazy"><p>Create a cost overview of your ideal location in advance.<br>Think about rent, insurance, gas/water/electricity, and renovation. The clearer and more concrete you are, the better the manager/landlord/subsidy provider will understand you.</p></li>
-          <li><img src="assets/img/guide-location/tick.svg" alt="Do:" width="25" height="25" loading="lazy"><p>Make your search profile as specific as possible: What are your requirements? How big should the location be? How much can you pay? And what is its intended purpose?<br><span class="guide-small">(Tip: if it has a cultural purpose, you may qualify for specific subsidies such as the cultural incubator subsidy, and you can even apply for funding for the first months of rent and renovation.)</span></p></li>
-        </ul>
-      </div>
-      <div class="guide-dos-group">
-        <h3>DON’T</h3>
-        <ul class="guide-dos">
-          <li><img src="assets/img/guide-location/cross.svg" alt="Don’t:" width="25" height="25" loading="lazy"><p>Renting locations that are far beyond your budget or for which you would have to take out a loan.</p></li>
-        </ul>
+      <div class="guide-dos">
+        <div class="guide-dos__card guide-dos__card--do">
+          <h3><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>DO</h3>
+          <ul>
+            <li><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span><span class="sr-only">Do: </span>Create a cost overview of your ideal location in advance.<br/>Think about rent, insurance, gas/water/electricity, and renovation. The clearer and more concrete you are, the better the manager/landlord/subsidy provider will understand you.</span></li>
+            <li><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span><span class="sr-only">Do: </span>Make your search profile as specific as possible: What are your requirements? How big should the location be? How much can you pay? And what is its intended purpose?<br/><span class="guide-small">(Tip: if it has a cultural purpose, you may qualify for specific subsidies such as the cultural incubator subsidy, and you can even apply for funding for the first months of rent and renovation.)</span></span></li>
+          </ul>
+        </div>
+        <div class="guide-dos__card guide-dos__card--dont">
+          <h3><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>DON’T</h3>
+          <ul>
+            <li><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span><span><span class="sr-only">Don’t: </span>Renting locations that are far beyond your budget or for which you would have to take out a loan.</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <nav class="guide-pager" aria-label="Guide navigation">
-      <a class="guide-btn guide-btn--back" href="#guide"><img src="assets/img/guide-location/arrow-left-white.svg" alt="" width="26" height="21" loading="lazy">Back To List</a>
-      <a class="guide-btn guide-btn--next" href="#guide-structure">Next Guide<img class="guide-btn__arrow" src="assets/img/guide-location/arrow-right-white.svg" alt="" width="33" height="22" loading="lazy"></a>
+      <div class="guide-pager__links">
+        <a class="guide-pager__card guide-pager__next" href="#guide-structure" style="--pc:#39abba;--pc-50:#edf8fa"><span class="guide-pager__txt"><span class="guide-pager__lbl">Next Guide</span><span class="guide-pager__ttl">Organizational Structure</span></span><span class="guide-pager__arrow"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+      <a class="btn btn--outline btn--sm" href="#guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg>Back To List</a>
     </nav>
   </article>
 </div>

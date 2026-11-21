@@ -1,140 +1,182 @@
 <!-- title: Organizational Structure -->
+<!-- Generated from one template for all five guide topics. Topic colour: #39abba -->
 <style>
-  /* Topic colour (exact hex from Figma): #39abba */
-  .page-guide-structure { --topic: #39abba; --topic-ink: #39abba; }
-  /* Shared guide-topic template (same class names on every guide-* page). */
-  .page-guide-structure .guide-hero { background: var(--topic); color: #fff; min-height: 248px; display: flex; align-items: center; padding-block: 40px; }
-  .page-guide-structure .guide-hero h1 { font-size: clamp(30px, 3.4vw, 40px); font-weight: 600; line-height: 1.2; }
+.page-guide-structure { --t: #39abba; --t-acc: #2b9aa9; --t-50: #edf8fa; --t-100: #cfecf0; --t-ink: #1b6c77; --t-on: #10343a; }
+/* header: soft topic tint, ink text, colour lives in accents */
+.page-guide-structure .guide-hero { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--t-50) 0%, #fff 100%); border-bottom: 1px solid var(--line); }
+.page-guide-structure .guide-hero::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--t); }
+.page-guide-structure .guide-hero__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 18px; }
+.page-guide-structure .guide-hero .breadcrumb { padding-block: 0; }
+.page-guide-structure .guide-hero .breadcrumb a:hover { color: var(--t-ink); }
+.page-guide-structure .guide-tools { display: flex; align-items: center; gap: 8px; }
+.page-guide-structure .guide-tools .icon-btn { color: var(--ink-soft); text-decoration: none; border-color: var(--line-strong); transition: background .15s, border-color .15s, color .15s, transform .15s var(--ease); }
+.page-guide-structure .guide-tools .icon-btn:hover { background: var(--t-50); border-color: var(--t); color: var(--ink); transform: translateY(-1px); }
+.page-guide-structure .guide-tools .icon-btn.is-disabled { opacity: .4; box-shadow: none; pointer-events: none; }
+.page-guide-structure .guide-tools__sep { width: 1px; height: 28px; background: var(--line-strong); margin-inline: 6px; }
+.page-guide-structure .guide-hero__grid { position: relative; display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; padding-block: clamp(28px, 4vw, 48px) clamp(36px, 5vw, 64px); }
+@media (min-width: 900px) { .page-guide-structure .guide-hero__grid { grid-template-columns: minmax(0, 1fr) 400px; gap: 56px; } }
+.page-guide-structure .guide-hero__text { display: flex; flex-direction: column; gap: 16px; max-width: 640px; }
+.page-guide-structure .guide-hero h1 { display: flex; flex-direction: column; gap: 14px; font-size: clamp(34px, 4.2vw, 54px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; color: var(--ink); }
+.page-guide-structure .guide-eyebrow { color: var(--t-ink); letter-spacing: .08em; }
+.page-guide-structure .guide-eyebrow::before { background: var(--t); width: 10px; height: 10px; }
+.page-guide-structure .guide-hero .lead { max-width: 56ch; }
+.page-guide-structure .guide-hero__art { position: relative; justify-self: center; width: min(100%, 400px); aspect-ratio: 4 / 3; }
+.page-guide-structure .guide-hero__frame { position: absolute; inset: 0; border-radius: var(--radius-l); background: radial-gradient(120% 90% at 50% 100%, var(--t-100) 0%, var(--t-50) 70%, #fff 100%); border: 1px solid var(--t-100); box-shadow: var(--e1); overflow: hidden; display: flex; align-items: flex-end; justify-content: center; padding: 22px 22px 0; z-index: 1; }
+.page-guide-structure .guide-hero__frame img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
+.page-guide-structure .guide-hero .bubble { z-index: 0; }
+@media (max-width: 899px) { .page-guide-structure .guide-hero__art { width: min(100%, 380px); aspect-ratio: 16 / 10; justify-self: start; } .page-guide-structure .guide-hero__frame { padding: 16px 16px 0; } .page-guide-structure .guide-hero .bubble { transform: scale(.7); } }
+@media (max-width: 480px) { .page-guide-structure .guide-hero .bubble { display: none; } }
 
-  .page-guide-structure .guide-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding-block: 32px; }
-  .page-guide-structure .guide-crumbs { display: flex; flex-wrap: wrap; gap: 10px; font-size: 15px; }
-  .page-guide-structure .guide-crumbs a { text-decoration: none; }
-  .page-guide-structure .guide-crumbs a:hover { color: var(--topic-ink); text-decoration: underline; }
-  .page-guide-structure .guide-crumbs [aria-current] { font-weight: 700; }
-  .page-guide-structure .guide-bar__nav { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-  .page-guide-structure .guide-bar__list { margin-right: 46px; }
-  .page-guide-structure .guide-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 41px; border-radius: 14px; background: var(--topic); transition: transform .15s, filter .15s; }
-  .page-guide-structure .guide-icon-btn:hover { transform: translateY(-2px); filter: brightness(.92); }
-  .page-guide-structure .guide-icon-btn img { width: 35px; height: 35px; }
-  .page-guide-structure .guide-icon-btn--plain { background: none; }
-  .page-guide-structure .guide-icon-btn--plain img { width: 50px; height: 41px; }
+/* body layout: sticky section index + article */
+.page-guide-structure .guide-layout { display: grid; grid-template-columns: 1fr; gap: 32px; padding-block: clamp(32px, 5vw, 64px) clamp(64px, 8vw, 112px); }
+@media (min-width: 1000px) { .page-guide-structure .guide-layout { grid-template-columns: 260px minmax(0, 720px); justify-content: space-between; gap: 64px; } }
+.page-guide-structure .guide-toc { align-self: start; }
+@media (min-width: 1000px) { .page-guide-structure .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
+.page-guide-structure .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+.page-guide-structure .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-structure .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
+.page-guide-structure .guide-toc li { counter-increment: toc; }
+.page-guide-structure .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
+.page-guide-structure .guide-toc ol a::before { content: counter(toc, decimal-leading-zero); font-size: 12px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }
+.page-guide-structure .guide-toc ol a:hover { background: var(--t-50); color: var(--ink); }
+.page-guide-structure .guide-toc ol a:hover::before { color: var(--t-ink); }
+.page-guide-structure .guide-print { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: 4px; padding: 8px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); background: #fff; color: var(--ink); font-size: 15px; font-weight: 600; text-decoration: none; transition: background .15s, border-color .15s; }
+.page-guide-structure .guide-print svg { color: var(--t-ink); }
+.page-guide-structure .guide-print:hover { background: var(--t-50); border-color: var(--t); }
+@media (max-width: 999px) {
+  .page-guide-structure .guide-toc ol { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .page-guide-structure .guide-toc ol a { padding: 7px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); font-size: 15px; }
+  .page-guide-structure .guide-toc ol a::before { display: none; }
+}
 
-  .page-guide-structure .guide-layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-bottom: clamp(60px, 8vw, 130px); }
-  @media (min-width: 1000px) { .page-guide-structure .guide-layout { grid-template-columns: 255px minmax(0, 745px); justify-content: space-between; gap: 60px; } }
+/* article */
+.page-guide-structure .guide-article { min-width: 0; display: flex; flex-direction: column; gap: clamp(48px, 6vw, 72px); font-size: 18px; line-height: 1.7; color: var(--ink-soft); }
+.page-guide-structure .guide-section { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: calc(var(--header-h) + 24px); }
+.page-guide-structure .guide-section > h2 { display: flex; flex-direction: column; gap: 14px; font-size: clamp(26px, 2.6vw, 32px); font-weight: 650; line-height: 1.2; color: var(--ink); }
+.page-guide-structure .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
+.page-guide-structure .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
+.page-guide-structure .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
+.page-guide-structure .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-structure .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.page-guide-structure .guide-bullets li { position: relative; padding-left: 26px; }
+.page-guide-structure .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
+.page-guide-structure .guide-small { font-size: 15px; color: var(--muted); }
+.page-guide-structure .guide-bullets strong, .page-guide-structure .guide-article strong { color: var(--ink); font-weight: 650; }
 
-  .page-guide-structure .guide-toc__inner { display: flex; flex-direction: column; gap: 22px; }
-  @media (min-width: 1000px) { .page-guide-structure .guide-toc__inner { position: sticky; top: calc(var(--header-h) + 36px); padding-top: 36px; } }
-  .page-guide-structure .guide-toc__title { background: var(--topic); color: #fff; border-radius: 22px; min-height: 37px; padding: 6px 20px; font-size: 20px; font-weight: 700; line-height: 1.25; }
-  .page-guide-structure .guide-toc ul { list-style: none; margin: 0; padding: 0 15px 0 20px; display: flex; flex-direction: column; gap: 15px; }
-  .page-guide-structure .guide-toc ul a { font-size: 18px; font-weight: 700; text-decoration: none; }
-  .page-guide-structure .guide-toc ul a:hover { color: var(--topic-ink); text-decoration: underline; }
-  .page-guide-structure .guide-print { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 37px; border: 3px solid var(--topic); border-radius: 22px; color: var(--topic-ink); font-size: 20px; font-weight: 700; text-decoration: none; transition: background .15s; }
-  .page-guide-structure .guide-print:hover { background: var(--lavender); }
-  .page-guide-structure .guide-print img { width: 24px; height: 24px; }
-  .page-guide-structure .guide-toc__art { display: none; height: auto; }
-  @media (min-width: 1000px) { .page-guide-structure .guide-toc__art { display: block; margin-top: 48px; } }
+/* steps: numbered timeline */
+.page-guide-structure .guide-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.page-guide-structure .guide-step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; padding-bottom: 26px; }
+.page-guide-structure .guide-step:last-child { padding-bottom: 0; }
+.page-guide-structure .guide-step::before { content: ""; position: absolute; left: 21px; top: 48px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--t-100); }
+.page-guide-structure .guide-step:last-child::before { display: none; }
+.page-guide-structure .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
+.page-guide-structure .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
+.page-guide-structure .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
+.page-guide-structure .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-structure .guide-step p { font-size: 17px; line-height: 1.65; }
 
-  .page-guide-structure .guide-article { display: flex; flex-direction: column; gap: clamp(64px, 8vw, 110px); font-size: clamp(18px, 1.6vw, 20px); line-height: 1.25; min-width: 0; }
-  .page-guide-structure .guide-article section { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: calc(var(--header-h) + 24px); }
-  .page-guide-structure .guide-article h2 { font-size: clamp(26px, 2.6vw, 32px); font-weight: 700; line-height: 1.2; }
-  .page-guide-structure .guide-article h3 { font-size: clamp(21px, 2vw, 24px); font-weight: 700; line-height: 1.2; }
-  .page-guide-structure .guide-question { font-weight: 600; font-style: italic; }
-  .page-guide-structure .guide-label { font-weight: 700; }
-  .page-guide-structure .guide-small { font-size: 16px; }
-  .page-guide-structure .guide-bullets { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 1.25em; }
-  .page-guide-structure .guide-bullets li::marker { content: "•  "; }
-  .page-guide-structure .guide-bullets--tight { gap: 1.25em; }
+/* checklist: native checkboxes in calm rows */
+.page-guide-structure .guide-checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.page-guide-structure .guide-check { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-s); cursor: pointer; transition: background .15s, border-color .15s, box-shadow .15s; }
+.page-guide-structure .guide-check:hover { border-color: var(--t-100); box-shadow: var(--e1); }
+.page-guide-structure .guide-check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--t-acc); cursor: pointer; }
+.page-guide-structure .guide-check:has(input:checked) { background: var(--t-50); border-color: var(--t-100); }
+.page-guide-structure .guide-check:has(input:focus-visible) { box-shadow: var(--ring); }
+.page-guide-structure .guide-check__text { display: flex; flex-direction: column; gap: 4px; }
+.page-guide-structure .guide-check__q { font-size: 17px; font-weight: 600; line-height: 1.45; color: var(--ink); }
+.page-guide-structure .guide-check__note { font-size: 15px; line-height: 1.55; color: var(--muted); }
 
-  .page-guide-structure .guide-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-structure .guide-steps li { display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-structure .guide-steps p { max-width: 652px; }
+/* do's and don'ts */
+.page-guide-structure .guide-dos { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.page-guide-structure .guide-dos__card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.page-guide-structure .guide-dos__card h3 { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; letter-spacing: .08em; color: var(--ink); }
+.page-guide-structure .guide-dos__card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.page-guide-structure .guide-dos__card li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 14px; align-items: start; font-size: 17px; line-height: 1.6; }
+.page-guide-structure .guide-mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; margin-top: 1px; }
+.page-guide-structure .guide-mark--do { background: #e5f4e8; color: #23733a; }
+.page-guide-structure .guide-mark--dont { background: #fde8ea; color: #b4233a; }
+.page-guide-structure .guide-dos__card h3 .guide-mark { width: 28px; height: 28px; }
 
-  .page-guide-structure .guide-checklist, .page-guide-structure .guide-dos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-structure .guide-check { display: grid; grid-template-columns: 25px minmax(0, 1fr); gap: clamp(18px, 3vw, 42px); align-items: center; cursor: pointer; }
-  .page-guide-structure .guide-check input { appearance: none; -webkit-appearance: none; width: 25px; height: 25px; margin: 0; border: 3px solid var(--topic); border-radius: 0; background: #fff; display: grid; place-content: center; cursor: pointer; transition: background .15s; }
-  .page-guide-structure .guide-check input::before { content: ""; width: 12px; height: 7px; border-left: 3px solid #fff; border-bottom: 3px solid #fff; transform: translateY(-2px) rotate(-45deg); opacity: 0; }
-  .page-guide-structure .guide-check input:checked { background: var(--topic); }
-  .page-guide-structure .guide-check input:checked::before { opacity: 1; }
-  .page-guide-structure .guide-check input:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
-  .page-guide-structure .guide-check:hover input:not(:checked) { background: var(--lavender); }
-
-  .page-guide-structure .guide-dos-group { display: flex; flex-direction: column; gap: 20px; }
-  .page-guide-structure .guide-dos-group + .guide-dos-group { margin-top: 10px; }
-  .page-guide-structure .guide-dos-group h3 { font-size: 20px; }
-  .page-guide-structure .guide-dos li { display: grid; grid-template-columns: 25px minmax(0, 1fr); gap: clamp(18px, 3vw, 42px); align-items: center; }
-  .page-guide-structure .guide-dos li img { width: 25px; height: 25px; }
-
-  .page-guide-structure .guide-pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
-  .page-guide-structure .guide-btn { display: inline-flex; align-items: center; justify-content: center; gap: 20px; width: 205px; min-height: 52px; padding: 0 16px; border-radius: 35px; white-space: nowrap; background: var(--topic); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none; transition: transform .15s, filter .15s; }
-  .page-guide-structure .guide-btn:hover { transform: translateY(-2px); filter: brightness(.92); }
-  .page-guide-structure .guide-btn--next { gap: 30px; }
-  .page-guide-structure .guide-btn--back { gap: 30px; }
-  .page-guide-structure .guide-btn img { flex: none; }
-  .page-guide-structure .guide-btn__arrow { width: 31px; height: auto; }
-  .page-guide-structure .guide-btn__arrow--prev { transform: scaleX(-1); }
-  @media (max-width: 719px) { .page-guide-structure .guide-btn { width: 100%; } .page-guide-structure .guide-bar__list { margin-right: 0; } }
-  .page-guide-structure .guide-gap { margin-top: 20px; }
-  .page-guide-structure .guide-dos-section { max-width: 597px; }
-  .page-guide-structure .guide-toc__art--wide { width: 100%; max-width: 100%; align-self: flex-end; }
-  @media (min-width: 1240px) { .page-guide-structure .guide-toc__art--wide { width: var(--art-w); max-width: none; } }
-  /* Figma crop: image is 140% of the frame width, shifted left 36.92% */
-  .page-guide-structure .guide-toc__art--structure { --art-w: 325px; aspect-ratio: 325 / 253; overflow: hidden; }
-  .page-guide-structure .guide-toc__art--structure img { width: 140%; max-width: none; height: auto; margin-left: -36.92%; }
+/* pager */
+.page-guide-structure .guide-pager { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid var(--line); }
+.page-guide-structure .guide-pager__links { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .page-guide-structure .guide-pager__links { grid-template-columns: 1fr 1fr; } .page-guide-structure .guide-pager__next { grid-column: 2; } }
+.page-guide-structure .guide-pager__card { position: relative; display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); text-decoration: none; overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+.page-guide-structure .guide-pager__card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--pc); }
+.page-guide-structure .guide-pager__card:hover { transform: translateY(-3px); box-shadow: var(--e3); border-color: transparent; }
+.page-guide-structure .guide-pager__next { justify-content: flex-end; text-align: right; }
+.page-guide-structure .guide-pager__txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.page-guide-structure .guide-pager__lbl { font-size: 13px; font-weight: 600; color: var(--muted); }
+.page-guide-structure .guide-pager__ttl { font-size: 17px; font-weight: 650; line-height: 1.3; color: var(--ink); }
+.page-guide-structure .guide-pager__arrow { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--pc-50); color: var(--ink); transition: transform .2s var(--ease); }
+.page-guide-structure .guide-pager__prev:hover .guide-pager__arrow { transform: translateX(-3px); }
+.page-guide-structure .guide-pager__next:hover .guide-pager__arrow { transform: translateX(3px); }
+.page-guide-structure .guide-pager .btn { align-self: flex-start; }
+.page-guide-structure .guide-pager .btn svg { color: var(--t-ink); }
 </style>
 
 <header class="guide-hero">
-  <div class="container"><h1>Guide 2: Organizational Structure</h1></div>
-</header>
-
-<div class="container guide-bar">
-  <nav class="guide-crumbs" aria-label="Breadcrumb">
-    <span>Resources</span>
-    <span aria-hidden="true">//</span>
-    <a href="#guide">Step by Step Guides</a>
-    <span aria-hidden="true">//</span>
-    <span aria-current="page">Organizational Structure</span>
-  </nav>
-  <div class="guide-bar__nav">
-    <a class="guide-icon-btn guide-bar__list" href="#guide" aria-label="Back to all step-by-step guides"><img src="assets/img/guide-structure/list-icon.svg" alt="" width="35" height="35"></a>
-    <a class="guide-icon-btn guide-icon-btn--plain" href="#guide-location" aria-label="Previous guide: Finding a Location"><img src="assets/img/guide-structure/prev-top-btn.svg" alt="" width="50" height="41"></a>
-    <a class="guide-icon-btn guide-icon-btn--plain" href="#guide-frictions" aria-label="Next guide: Preventing Internal Friction"><img src="assets/img/guide-structure/next-top-btn.svg" alt="" width="50" height="41"></a>
+  <div class="container">
+    <div class="guide-hero__top">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <span>Resources</span> <span aria-hidden="true">//</span> <a href="#guide">Step by Step Guides</a> <span aria-hidden="true">//</span> <span aria-current="page">Organizational Structure</span>
+      </nav>
+      <div class="guide-tools">
+        <a class="icon-btn" href="#guide" aria-label="Back to all step-by-step guides" title="Back to list"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <span class="guide-tools__sep" aria-hidden="true"></span>
+        <a class="icon-btn" href="#guide-location" aria-label="Previous guide: Finding a Location" title="Previous guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+        <a class="icon-btn" href="#guide-frictions" aria-label="Next guide: Preventing Internal Friction" title="Next guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="guide-hero__grid">
+      <div class="guide-hero__text">
+        <h1><span class="eyebrow guide-eyebrow">Guide 2<span class="sr-only">:</span></span> <span>Organizational Structure</span></h1>
+        <p class="lead">The steps you need to follow when starting a new organization. Actions, considerations, and processes involved in setting it up successfully.</p>
+      </div>
+      <div class="guide-hero__art" aria-hidden="true">
+        <span class="bubble" style="width:92px;height:92px;right:-30px;top:-34px;--dur:11s;--dx:-6px;--dy:10px"></span>
+        <span class="bubble" style="width:54px;height:54px;left:-28px;bottom:30px;--dur:8s;--delay:-3s"></span>
+        <div class="guide-hero__frame"><img src="assets/img/guide-structure/side-illustration.webp" alt="" width="1932" height="1114"></div>
+      </div>
+    </div>
   </div>
-</div>
+</header>
 
 <div class="container guide-layout">
   <aside class="guide-toc" aria-label="Sections">
-    <div class="guide-toc__inner">
+    <div class="guide-toc__card">
       <h2 class="guide-toc__title">Sections</h2>
-      <ul>
-        <li><a href="#guide-structure" data-scroll="structure-challenge">The Challenge</a></li>
-        <li><a href="#guide-structure" data-scroll="structure-experience">What (Not) To Do</a></li>
-        <li><a href="#guide-structure" data-scroll="structure-steps">Step-By-Step Plan</a></li>
-        <li><a href="#guide-structure" data-scroll="structure-checklist">Checklist</a></li>
-        <li><a href="#guide-structure" data-scroll="structure-dos">Do’s And Don’t’s</a></li>
-      </ul>
-      <a class="guide-print" href="https://www.dehaagsehogeschool.nl/media/krachtvrouwen-de-wijk-een-community-practice-van-en-voor-haagse-vrouwenorganisaties" target="_blank" rel="noopener"><img src="assets/img/guide-structure/printer-teal.svg" alt="" width="24" height="24">Print this Chapter</a>
-      <div class="guide-toc__art guide-toc__art--wide guide-toc__art--structure"><img src="assets/img/guide-structure/side-illustration.webp" alt="" width="1932" height="1114" loading="lazy"></div>
+      <nav aria-label="Sections">
+        <ol>
+          <li><a href="#guide-structure" data-scroll="structure-challenge">The Challenge</a></li>
+          <li><a href="#guide-structure" data-scroll="structure-experience">What (Not) To Do</a></li>
+          <li><a href="#guide-structure" data-scroll="structure-steps">Step-By-Step Plan</a></li>
+          <li><a href="#guide-structure" data-scroll="structure-checklist">Checklist</a></li>
+          <li><a href="#guide-structure" data-scroll="structure-dos">Do’s And Don’t’s</a></li>
+        </ol>
+      </nav>
+      <a class="guide-print" href="https://www.dehaagsehogeschool.nl/media/stappenplan-2-organisatievorm" target="_blank" rel="noopener" aria-label="Print this Chapter: Download printable step-by-step plan 2 (opens in a new tab)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/><circle cx="17.5" cy="12" r=".6" fill="currentColor"/></svg>Print this Chapter</a>
     </div>
   </aside>
 
   <article class="guide-article">
-    <section id="structure-challenge" aria-labelledby="structure-challenge-h">
+    <section class="guide-section" id="structure-challenge" aria-labelledby="structure-challenge-h">
       <h2 id="structure-challenge-h">The Challenge</h2>
       <p>A group of women in the neighborhood come together and notice that there are few activities for women. They start working with limited resources and become successful. Now the question is: how do we move forward as an organization?</p>
-      <p class="guide-question">What does setting up an organization involve?</p>
+      <p class="guide-question"><span class="guide-question__icon"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 4.4"/><circle cx="12" cy="18" r=".9" fill="currentColor" stroke="none"/></svg></span><span>What does setting up an organization involve?</span></p>
     </section>
 
-    <section id="structure-experience" aria-labelledby="structure-experience-h">
+    <section class="guide-section" id="structure-experience" aria-labelledby="structure-experience-h">
       <h2 id="structure-experience-h">From Experience: What (Not) To Do</h2>
-      <p>At PEP, a lot of information is available about how to establish a foundation, but in practice, the implementation can be challenging.<br>Members of the CoP have identified various advantages and disadvantages of starting a foundation:</p>
-      <p class="guide-label guide-gap">Disadvantages:</p>
-      <ul class="guide-bullets guide-bullets--tight">
+      <p>At PEP, a lot of information is available about how to establish a foundation, but in practice, the implementation can be challenging.<br/>Members of the CoP have identified various advantages and disadvantages of starting a foundation:</p>
+      <p class="guide-label">Disadvantages:</p>
+      <ul class="guide-bullets">
         <li>Establishing a foundation takes time and commitment. This can be demanding if you’re doing it voluntarily alongside, for example, your job.</li>
         <li>A foundation comes with responsibilities. Not everyone wants to carry that responsibility.</li>
         <li>A foundation can also be vulnerable because it relies on volunteers. Finding replacements for departing board members can be a major challenge.</li>
       </ul>
-      <p class="guide-label guide-gap">Advantages:</p>
-      <ul class="guide-bullets guide-bullets--tight">
+      <p class="guide-label">Advantages:</p>
+      <ul class="guide-bullets">
         <li>Other organizations are more likely to find and connect with you if you are a foundation.</li>
         <li>In practice, as a group, you are taken more seriously and recognized when you are a foundation.</li>
         <li>Access to networks becomes easier when you represent a foundation.</li>
@@ -144,94 +186,68 @@
       <p>Building a strong community in your neighborhood, district, or environment is advantageous before setting up a foundation. That means more people will be willing to support you when you start one.</p>
     </section>
 
-    <section id="structure-steps" aria-labelledby="structure-steps-h">
+    <section class="guide-section" id="structure-steps" aria-labelledby="structure-steps-h">
       <h2 id="structure-steps-h">Step-By-Step Plan</h2>
       <ol class="guide-steps">
-        <li>
-          <h3>Step 1: Volunteer involvement</h3>
-          <p>Involve volunteers in the change process and prepare them for the new organizational structure.</p>
-        </li>
-        <li>
-          <h3>Step 2: Establish a core group</h3>
-          <p>Establish a core group for the establishment of the foundation.</p>
-        </li>
-        <li>
-          <h3>Step 3: Analyze the situation</h3>
-          <p>Analyze the situation: how does it work now and what is going well?</p>
-        </li>
-        <li>
-          <h3>Step 4: The pros and cons</h3>
-          <p>Investigate the pros and cons of establishing a foundation.</p>
-        </li>
-        <li>
-          <h3>Step 5: Paperwork</h3>
-          <p>Take care of the paperwork for the foundation and decide who does what.</p>
-        </li>
-        <li>
-          <h3>Step 6: Mission &amp; vision</h3>
-          <p>Work together to develop a clear vision and mission for the foundation. What do you stand for? What is your goal? What do you want to achieve and why do you want to achieve it? How are you going to achieve your goal?</p>
-        </li>
-        <li>
-          <h3>Step 7: Board members</h3>
-          <p>Discuss what type of organizational board you need and which board members are suitable for it.</p>
-        </li>
-        <li>
-          <h3>Step 8: Costs</h3>
-          <p>Consider how you will cover the start-up costs, such as notary fees.</p>
-        </li>
-        <li>
-          <h3>Step 9: Address registration</h3>
-          <p>Find an address for registration with the Chamber of Commerce.</p>
-        </li>
-        <li>
-          <h3>Step 10: Process supervisor</h3>
-          <p>Consider a process supervisor if it is difficult to reach agreement.</p>
-        </li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">1</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 1<span class="sr-only">:</span></span> <span>Volunteer involvement</span></h3><p>Involve volunteers in the change process and prepare them for the new organizational structure.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">2</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 2<span class="sr-only">:</span></span> <span>Establish a core group</span></h3><p>Establish a core group for the establishment of the foundation.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">3</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 3<span class="sr-only">:</span></span> <span>Analyze the situation</span></h3><p>Analyze the situation: how does it work now and what is going well?</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">4</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 4<span class="sr-only">:</span></span> <span>The pros and cons</span></h3><p>Investigate the pros and cons of establishing a foundation.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">5</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 5<span class="sr-only">:</span></span> <span>Paperwork</span></h3><p>Take care of the paperwork for the foundation and decide who does what.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">6</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 6<span class="sr-only">:</span></span> <span>Mission & vision</span></h3><p>Work together to develop a clear vision and mission for the foundation. What do you stand for? What is your goal? What do you want to achieve and why do you want to achieve it? How are you going to achieve your goal?</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">7</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 7<span class="sr-only">:</span></span> <span>Board members</span></h3><p>Discuss what type of organizational board you need and which board members are suitable for it.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">8</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 8<span class="sr-only">:</span></span> <span>Costs</span></h3><p>Consider how you will cover the start-up costs, such as notary fees.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">9</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 9<span class="sr-only">:</span></span> <span>Address registration</span></h3><p>Find an address for registration with the Chamber of Commerce.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">10</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 10<span class="sr-only">:</span></span> <span>Process supervisor</span></h3><p>Consider a process supervisor if it is difficult to reach agreement.</p></div></li>
       </ol>
     </section>
 
-    <section id="structure-checklist" aria-labelledby="structure-checklist-h">
+    <section class="guide-section" id="structure-checklist" aria-labelledby="structure-checklist-h">
       <h2 id="structure-checklist-h">Checklist</h2>
       <ul class="guide-checklist">
-        <li><label class="guide-check"><input type="checkbox"><span>What is the purpose of your organization?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>What does your organization stand for?<br>And what makes your organization different from other (similar) organizations?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>Why is your organization needed in the neighborhood / district / part of the city / the city?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>Will you achieve your goals better as a foundation? Why or why not?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>Which activities do you want to offer? And which do you already offer?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>And which ones do you already offer?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>How large is your organization and how many visitors attend your activities?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>How many volunteers do you have and what tasks do they perform?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>How are decisions made within the organization?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>Who submits project proposals and who coordinates the meetings?</span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>How often do you hold meetings and who is involved?<br><span class="guide-small">What are the topics of discussion?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>Do you have a leader or spokesperson? <span class="guide-small">Who is it? Is it best for them to work in the board or in the operational activities?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>What are the most important tasks within your organization?<br><span class="guide-small">Which tasks belong to the board?</span></span></label></li>
-        <li><label class="guide-check"><input type="checkbox"><span>Does the board need to perform operational tasks, such as organizing meetings? <span class="guide-small">How often should the board meet?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">What is the purpose of your organization?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">What does your organization stand for?<br/>And what makes your organization different from other (similar) organizations?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Why is your organization needed in the neighborhood / district / part of the city / the city?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Will you achieve your goals better as a foundation? Why or why not?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Which activities do you want to offer? And which do you already offer?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">And which ones do you already offer?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">How large is your organization and how many visitors attend your activities?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">How many volunteers do you have and what tasks do they perform?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">How are decisions made within the organization?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Who submits project proposals and who coordinates the meetings?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">How often do you hold meetings and who is involved?</span> <span class="guide-check__note">What are the topics of discussion?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Do you have a leader or spokesperson?</span> <span class="guide-check__note">Who is it? Is it best for them to work in the board or in the operational activities?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">What are the most important tasks within your organization?</span> <span class="guide-check__note">Which tasks belong to the board?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Does the board need to perform operational tasks, such as organizing meetings?</span> <span class="guide-check__note">How often should the board meet?</span></span></label></li>
       </ul>
     </section>
 
-    <section id="structure-dos" class="guide-dos-section" aria-labelledby="structure-dos-h">
+    <section class="guide-section" id="structure-dos" aria-labelledby="structure-dos-h">
       <h2 id="structure-dos-h">Do’s And Don’t’s</h2>
-      <div class="guide-dos-group">
-        <h3>DO</h3>
-        <ul class="guide-dos">
-          <li><img src="assets/img/guide-structure/tick.svg" alt="Do:" width="25" height="25" loading="lazy"><p>Start a conversation with other foundations that inspire you. How did they approach this process?</p></li>
-          <li><img src="assets/img/guide-structure/tick.svg" alt="Do:" width="25" height="25" loading="lazy"><p>Also research other legal forms, such as a cooperative or an association. Sometimes you can see if your organisation can fall under an existing foundation that shares the same mission. Be sure to make clear agreements in that case.</p></li>
-        </ul>
-      </div>
-      <div class="guide-dos-group">
-        <h3>DON’T</h3>
-        <ul class="guide-dos">
-          <li><img src="assets/img/guide-structure/cross.svg" alt="Don’t:" width="25" height="25" loading="lazy"><p>Don’t assume that everyone can or wants to become a board member.</p></li>
-          <li><img src="assets/img/guide-structure/cross.svg" alt="Don’t:" width="25" height="25" loading="lazy"><p>Don’t become a foundation just because you think it will make it easier to get subsidies.</p></li>
-        </ul>
+      <div class="guide-dos">
+        <div class="guide-dos__card guide-dos__card--do">
+          <h3><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>DO</h3>
+          <ul>
+            <li><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span><span class="sr-only">Do: </span>Start a conversation with other foundations that inspire you. How did they approach this process?</span></li>
+            <li><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span><span class="sr-only">Do: </span>Also research other legal forms, such as a cooperative or an association. Sometimes you can see if your organisation can fall under an existing foundation that shares the same mission. Be sure to make clear agreements in that case.</span></li>
+          </ul>
+        </div>
+        <div class="guide-dos__card guide-dos__card--dont">
+          <h3><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>DON’T</h3>
+          <ul>
+            <li><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span><span><span class="sr-only">Don’t: </span>Don’t assume that everyone can or wants to become a board member.</span></li>
+            <li><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span><span><span class="sr-only">Don’t: </span>Don’t become a foundation just because you think it will make it easier to get subsidies.</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <nav class="guide-pager" aria-label="Guide navigation">
-      <a class="guide-btn guide-btn--back" href="#guide"><img src="assets/img/guide-structure/arrow-left-white.svg" alt="" width="26" height="21" loading="lazy">Back To List</a>
-      <a class="guide-btn guide-btn--prev" href="#guide-location"><img class="guide-btn__arrow guide-btn__arrow--prev" src="assets/img/guide-structure/arrow-right-white.svg" alt="" width="33" height="22" loading="lazy">Previous Guide</a>
-      <a class="guide-btn guide-btn--next" href="#guide-frictions">Next Guide<img class="guide-btn__arrow" src="assets/img/guide-structure/arrow-right-white.svg" alt="" width="33" height="22" loading="lazy"></a>
+      <div class="guide-pager__links">
+        <a class="guide-pager__card guide-pager__prev" href="#guide-location" style="--pc:#dd5c90;--pc-50:#fdf1f6"><span class="guide-pager__arrow"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="guide-pager__txt"><span class="guide-pager__lbl">Previous Guide</span><span class="guide-pager__ttl">Finding a Location</span></span></a>
+        <a class="guide-pager__card guide-pager__next" href="#guide-frictions" style="--pc:#ffa62b;--pc-50:#fff6e9"><span class="guide-pager__txt"><span class="guide-pager__lbl">Next Guide</span><span class="guide-pager__ttl">Preventing Internal Friction</span></span><span class="guide-pager__arrow"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+      <a class="btn btn--outline btn--sm" href="#guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg>Back To List</a>
     </nav>
   </article>
 </div>

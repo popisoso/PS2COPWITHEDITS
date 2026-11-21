@@ -1,109 +1,173 @@
 <!-- title: Uniting Different Generations -->
-<!-- Topic colour: #ccce37 (Figma node 604:4991) -->
+<!-- Generated from one template for all five guide topics. Topic colour: #ccce37 -->
 <style>
-.page-guide-generations { --topic: #ccce37; }
-.page-guide-generations .guide-hero { background: var(--topic); min-height: clamp(160px, 20vw, 248px); display: flex; align-items: center; }
-.page-guide-generations .guide-hero .container { max-width: 1320px; }
-.page-guide-generations .guide-hero h1 { color: #fff; font-size: clamp(28px, 3.4vw, 40px); font-weight: 600; line-height: 1.2; padding-block: 40px; }
-.page-guide-generations .guide-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 32px; }
-.page-guide-generations .guide-bar .breadcrumb { color: #000; padding-block: 0; font-size: 15px; gap: 10px; }
-.page-guide-generations .guide-bar .breadcrumb a { color: #000; }
-.page-guide-generations .guide-bar .breadcrumb span[aria-current] { font-weight: 700; }
-.page-guide-generations .guide-tools { display: flex; align-items: center; gap: 12px; }
-.page-guide-generations .guide-tools .guide-iconbtn:first-child { margin-right: clamp(16px, 4vw, 53px); }
-.page-guide-generations .guide-iconbtn { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 41px; border-radius: 14px; background: var(--topic); transition: filter .15s, transform .15s; }
-.page-guide-generations a.guide-iconbtn:hover { filter: brightness(.92); transform: translateY(-1px); }
-.page-guide-generations .guide-iconbtn img { width: 27px; height: auto; }
-.page-guide-generations .guide-iconbtn img.guide-iconbtn__list { width: 35px; height: 35px; }
-.page-guide-generations .guide-iconbtn.is-disabled { opacity: .4; }
-.page-guide-generations .flip { transform: scaleX(-1); }
-.page-guide-generations .guide-layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-top: 40px; padding-bottom: clamp(64px, 8vw, 140px); }
-@media (min-width: 960px) { .page-guide-generations .guide-layout { grid-template-columns: 255px minmax(0, 745px); justify-content: center; column-gap: clamp(40px, 6vw, 82px); padding-top: 64px; } }
-.page-guide-generations .guide-aside { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; }
-@media (min-width: 960px) { .page-guide-generations .guide-aside { position: sticky; top: calc(var(--header-h) + 24px); align-self: start; gap: 70px; } }
-.page-guide-generations .guide-toc { width: 100%; max-width: 255px; display: flex; flex-direction: column; gap: 22px; }
-.page-guide-generations .guide-toc__title { background: var(--topic); color: #fff; border-radius: 22px; padding: 7px 20px; font-size: 20px; font-weight: 700; line-height: 23px; }
-.page-guide-generations .guide-toc ul { list-style: none; margin: 0; padding: 0 15px 0 20px; display: flex; flex-direction: column; gap: 15px; }
-.page-guide-generations .guide-toc a { font-size: 18px; font-weight: 700; text-decoration: none; }
-.page-guide-generations .guide-toc a:hover { text-decoration: underline; text-decoration-color: var(--topic); text-decoration-thickness: 3px; text-underline-offset: 4px; }
-.page-guide-generations .guide-back { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 37px; border: 3px solid var(--topic); border-radius: 22px; font-size: 20px; font-weight: 700; text-decoration: none; color: #000; transition: background .15s; }
-.page-guide-generations .guide-back:hover { background: var(--topic); color: #fff; }
-.page-guide-generations .guide-aside__art { width: 100%; max-width: 310px; height: auto; align-self: center; }
-@media (min-width: 960px) { .page-guide-generations .guide-aside__art { align-self: flex-end; } }
-.page-guide-generations .guide-article { display: flex; flex-direction: column; gap: clamp(64px, 8vw, 110px); min-width: 0; }
-.page-guide-generations .guide-section { display: flex; flex-direction: column; gap: 20px; }
-.page-guide-generations .guide-section > h2 { font-size: clamp(26px, 2.6vw, 32px); font-weight: 700; line-height: 1.2; scroll-margin-top: calc(var(--header-h) + 24px); }
-.page-guide-generations .guide-section p, .page-guide-generations .guide-section li { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.2; }
-.page-guide-generations .guide-question { font-weight: 600; font-style: italic; }
-.page-guide-generations .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 24px; max-width: 652px; }
-.page-guide-generations .guide-bullets li { position: relative; padding-left: 1em; }
-.page-guide-generations .guide-bullets li::before { content: "•"; position: absolute; left: 0; }
-.page-guide-generations .guide-bullets strong { font-weight: 600; }
-.page-guide-generations .guide-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; max-width: 652px; }
-.page-guide-generations .guide-steps h3 { font-size: clamp(21px, 2vw, 24px); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
-.page-guide-generations .guide-checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-.page-guide-generations .guide-checklist label { display: grid; grid-template-columns: 25px 1fr; gap: clamp(18px, 3vw, 42px); align-items: center; cursor: pointer; }
-.page-guide-generations .guide-checklist input { appearance: none; -webkit-appearance: none; width: 25px; height: 25px; margin: 0; border: 3px solid var(--topic); border-radius: 0; background: #fff center / 17px no-repeat; cursor: pointer; transition: background-color .15s; }
-.page-guide-generations .guide-checklist input:checked { background-color: var(--topic); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 25 25'%3E%3Cpath d='M21.35 1.46 9.9 16.57 3.13 9.8 0 12.92l10.42 10.42L25 4.59z' fill='%23fff'/%3E%3C/svg%3E"); }
-.page-guide-generations .guide-checklist input:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
-.page-guide-generations .guide-check__text { font-size: clamp(18px, 1.6vw, 20px); line-height: 1.2; }
-.page-guide-generations .guide-check__note { font-size: 16px; }
-.page-guide-generations .guide-checklist input:checked + .guide-check__text { color: rgba(0, 0, 0, .55); }
-.page-guide-generations .guide-dos { display: flex; flex-direction: column; gap: 30px; max-width: 597px; }
-.page-guide-generations .guide-dos h3 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-.page-guide-generations .guide-dos ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
-.page-guide-generations .guide-dos li { display: grid; grid-template-columns: 25px 1fr; gap: clamp(18px, 3vw, 42px); align-items: center; }
-.page-guide-generations .guide-dos li span { max-width: 525px; }
-.page-guide-generations .guide-pager { display: flex; flex-wrap: wrap; gap: 20px 50px; }
-.page-guide-generations .guide-pager .guide-btn--next { margin-left: auto; }
-.page-guide-generations .guide-btn { display: inline-flex; align-items: center; justify-content: center; gap: 20px; width: 205px; max-width: 100%; height: 52px; padding: 0 25px; border-radius: 35px; background: var(--topic); color: #fff; font-size: 16px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: filter .15s, transform .15s; }
-.page-guide-generations .guide-btn:hover { filter: brightness(.92); transform: translateY(-1px); }
-.page-guide-generations .guide-btn img { width: 31px; height: auto; flex: none; }
-.page-guide-generations .guide-btn img.guide-btn__back { width: 26px; height: 21px; }
-.page-guide-generations .guide-btn--back, .page-guide-generations .guide-btn--next { gap: 30px; }
-@media (max-width: 700px) { .page-guide-generations .guide-pager { flex-direction: column; align-items: stretch; } .page-guide-generations .guide-pager .guide-btn { width: 100%; } .page-guide-generations .guide-pager .guide-btn--next { margin-left: 0; } }
+.page-guide-generations { --t: #ccce37; --t-acc: #a5a71c; --t-50: #f8f9e4; --t-100: #eceeb8; --t-ink: #5c5e12; --t-on: #2a2b06; }
+/* header: soft topic tint, ink text, colour lives in accents */
+.page-guide-generations .guide-hero { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--t-50) 0%, #fff 100%); border-bottom: 1px solid var(--line); }
+.page-guide-generations .guide-hero::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--t); }
+.page-guide-generations .guide-hero__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 18px; }
+.page-guide-generations .guide-hero .breadcrumb { padding-block: 0; }
+.page-guide-generations .guide-hero .breadcrumb a:hover { color: var(--t-ink); }
+.page-guide-generations .guide-tools { display: flex; align-items: center; gap: 8px; }
+.page-guide-generations .guide-tools .icon-btn { color: var(--ink-soft); text-decoration: none; border-color: var(--line-strong); transition: background .15s, border-color .15s, color .15s, transform .15s var(--ease); }
+.page-guide-generations .guide-tools .icon-btn:hover { background: var(--t-50); border-color: var(--t); color: var(--ink); transform: translateY(-1px); }
+.page-guide-generations .guide-tools .icon-btn.is-disabled { opacity: .4; box-shadow: none; pointer-events: none; }
+.page-guide-generations .guide-tools__sep { width: 1px; height: 28px; background: var(--line-strong); margin-inline: 6px; }
+.page-guide-generations .guide-hero__grid { position: relative; display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; padding-block: clamp(28px, 4vw, 48px) clamp(36px, 5vw, 64px); }
+@media (min-width: 900px) { .page-guide-generations .guide-hero__grid { grid-template-columns: minmax(0, 1fr) 400px; gap: 56px; } }
+.page-guide-generations .guide-hero__text { display: flex; flex-direction: column; gap: 16px; max-width: 640px; }
+.page-guide-generations .guide-hero h1 { display: flex; flex-direction: column; gap: 14px; font-size: clamp(34px, 4.2vw, 54px); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; color: var(--ink); }
+.page-guide-generations .guide-eyebrow { color: var(--t-ink); letter-spacing: .08em; }
+.page-guide-generations .guide-eyebrow::before { background: var(--t); width: 10px; height: 10px; }
+.page-guide-generations .guide-hero .lead { max-width: 56ch; }
+.page-guide-generations .guide-hero__art { position: relative; justify-self: center; width: min(100%, 400px); aspect-ratio: 4 / 3; }
+.page-guide-generations .guide-hero__frame { position: absolute; inset: 0; border-radius: var(--radius-l); background: radial-gradient(120% 90% at 50% 100%, var(--t-100) 0%, var(--t-50) 70%, #fff 100%); border: 1px solid var(--t-100); box-shadow: var(--e1); overflow: hidden; display: flex; align-items: flex-end; justify-content: center; padding: 22px 22px 0; z-index: 1; }
+.page-guide-generations .guide-hero__frame img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
+.page-guide-generations .guide-hero .bubble { z-index: 0; }
+@media (max-width: 899px) { .page-guide-generations .guide-hero__art { width: min(100%, 380px); aspect-ratio: 16 / 10; justify-self: start; } .page-guide-generations .guide-hero__frame { padding: 16px 16px 0; } .page-guide-generations .guide-hero .bubble { transform: scale(.7); } }
+@media (max-width: 480px) { .page-guide-generations .guide-hero .bubble { display: none; } }
+
+/* body layout: sticky section index + article */
+.page-guide-generations .guide-layout { display: grid; grid-template-columns: 1fr; gap: 32px; padding-block: clamp(32px, 5vw, 64px) clamp(64px, 8vw, 112px); }
+@media (min-width: 1000px) { .page-guide-generations .guide-layout { grid-template-columns: 260px minmax(0, 720px); justify-content: space-between; gap: 64px; } }
+.page-guide-generations .guide-toc { align-self: start; }
+@media (min-width: 1000px) { .page-guide-generations .guide-toc { position: sticky; top: calc(var(--header-h) + 28px); } }
+.page-guide-generations .guide-toc__card { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--t); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 20px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+.page-guide-generations .guide-toc__title { padding-inline: 8px; font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-generations .guide-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: toc; }
+.page-guide-generations .guide-toc li { counter-increment: toc; }
+.page-guide-generations .guide-toc ol a { display: flex; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 16px; font-weight: 500; line-height: 1.35; color: var(--ink-soft); text-decoration: none; transition: background .15s, color .15s; }
+.page-guide-generations .guide-toc ol a::before { content: counter(toc, decimal-leading-zero); font-size: 12px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }
+.page-guide-generations .guide-toc ol a:hover { background: var(--t-50); color: var(--ink); }
+.page-guide-generations .guide-toc ol a:hover::before { color: var(--t-ink); }
+.page-guide-generations .guide-print { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: 4px; padding: 8px 16px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); background: #fff; color: var(--ink); font-size: 15px; font-weight: 600; text-decoration: none; transition: background .15s, border-color .15s; }
+.page-guide-generations .guide-print svg { color: var(--t-ink); }
+.page-guide-generations .guide-print:hover { background: var(--t-50); border-color: var(--t); }
+@media (max-width: 999px) {
+  .page-guide-generations .guide-toc ol { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .page-guide-generations .guide-toc ol a { padding: 7px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-pill); font-size: 15px; }
+  .page-guide-generations .guide-toc ol a::before { display: none; }
+}
+
+/* article */
+.page-guide-generations .guide-article { min-width: 0; display: flex; flex-direction: column; gap: clamp(48px, 6vw, 72px); font-size: 18px; line-height: 1.7; color: var(--ink-soft); }
+.page-guide-generations .guide-section { display: flex; flex-direction: column; gap: 18px; scroll-margin-top: calc(var(--header-h) + 24px); }
+.page-guide-generations .guide-section > h2 { display: flex; flex-direction: column; gap: 14px; font-size: clamp(26px, 2.6vw, 32px); font-weight: 650; line-height: 1.2; color: var(--ink); }
+.page-guide-generations .guide-section > h2::before { content: ""; width: 40px; height: 4px; border-radius: 4px; background: var(--t); }
+.page-guide-generations .guide-question { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: var(--radius-s); background: var(--t-50); border: 1px solid var(--t-100); color: var(--ink); font-size: 19px; font-weight: 600; line-height: 1.45; }
+.page-guide-generations .guide-question__icon { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--t); color: var(--t-on); margin-top: -3px; }
+.page-guide-generations .guide-label { margin-top: 6px; font-size: 14px; font-weight: 650; text-transform: uppercase; letter-spacing: .07em; color: var(--ink); }
+.page-guide-generations .guide-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.page-guide-generations .guide-bullets li { position: relative; padding-left: 26px; }
+.page-guide-generations .guide-bullets li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--t); box-shadow: 0 0 0 4px var(--t-50); }
+.page-guide-generations .guide-small { font-size: 15px; color: var(--muted); }
+.page-guide-generations .guide-bullets strong, .page-guide-generations .guide-article strong { color: var(--ink); font-weight: 650; }
+
+/* steps: numbered timeline */
+.page-guide-generations .guide-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.page-guide-generations .guide-step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 18px; padding-bottom: 26px; }
+.page-guide-generations .guide-step:last-child { padding-bottom: 0; }
+.page-guide-generations .guide-step::before { content: ""; position: absolute; left: 21px; top: 48px; bottom: 4px; width: 2px; border-radius: 2px; background: var(--t-100); }
+.page-guide-generations .guide-step:last-child::before { display: none; }
+.page-guide-generations .guide-step__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 2px solid var(--t); color: var(--t-ink); font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; box-shadow: 0 0 0 5px var(--t-50); }
+.page-guide-generations .guide-step__body { display: flex; flex-direction: column; gap: 6px; padding-top: 2px; }
+.page-guide-generations .guide-step h3 { display: flex; flex-direction: column; gap: 4px; font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
+.page-guide-generations .guide-step__label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .08em; color: var(--t-ink); }
+.page-guide-generations .guide-step p { font-size: 17px; line-height: 1.65; }
+
+/* checklist: native checkboxes in calm rows */
+.page-guide-generations .guide-checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.page-guide-generations .guide-check { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 14px; align-items: start; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-s); cursor: pointer; transition: background .15s, border-color .15s, box-shadow .15s; }
+.page-guide-generations .guide-check:hover { border-color: var(--t-100); box-shadow: var(--e1); }
+.page-guide-generations .guide-check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--t-acc); cursor: pointer; }
+.page-guide-generations .guide-check:has(input:checked) { background: var(--t-50); border-color: var(--t-100); }
+.page-guide-generations .guide-check:has(input:focus-visible) { box-shadow: var(--ring); }
+.page-guide-generations .guide-check__text { display: flex; flex-direction: column; gap: 4px; }
+.page-guide-generations .guide-check__q { font-size: 17px; font-weight: 600; line-height: 1.45; color: var(--ink); }
+.page-guide-generations .guide-check__note { font-size: 15px; line-height: 1.55; color: var(--muted); }
+
+/* do's and don'ts */
+.page-guide-generations .guide-dos { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.page-guide-generations .guide-dos__card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 14px; }
+.page-guide-generations .guide-dos__card h3 { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; letter-spacing: .08em; color: var(--ink); }
+.page-guide-generations .guide-dos__card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.page-guide-generations .guide-dos__card li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 14px; align-items: start; font-size: 17px; line-height: 1.6; }
+.page-guide-generations .guide-mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; margin-top: 1px; }
+.page-guide-generations .guide-mark--do { background: #e5f4e8; color: #23733a; }
+.page-guide-generations .guide-mark--dont { background: #fde8ea; color: #b4233a; }
+.page-guide-generations .guide-dos__card h3 .guide-mark { width: 28px; height: 28px; }
+
+/* pager */
+.page-guide-generations .guide-pager { display: flex; flex-direction: column; gap: 16px; padding-top: 32px; border-top: 1px solid var(--line); }
+.page-guide-generations .guide-pager__links { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .page-guide-generations .guide-pager__links { grid-template-columns: 1fr 1fr; } .page-guide-generations .guide-pager__next { grid-column: 2; } }
+.page-guide-generations .guide-pager__card { position: relative; display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m); box-shadow: var(--e1); text-decoration: none; overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+.page-guide-generations .guide-pager__card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--pc); }
+.page-guide-generations .guide-pager__card:hover { transform: translateY(-3px); box-shadow: var(--e3); border-color: transparent; }
+.page-guide-generations .guide-pager__next { justify-content: flex-end; text-align: right; }
+.page-guide-generations .guide-pager__txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.page-guide-generations .guide-pager__lbl { font-size: 13px; font-weight: 600; color: var(--muted); }
+.page-guide-generations .guide-pager__ttl { font-size: 17px; font-weight: 650; line-height: 1.3; color: var(--ink); }
+.page-guide-generations .guide-pager__arrow { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--pc-50); color: var(--ink); transition: transform .2s var(--ease); }
+.page-guide-generations .guide-pager__prev:hover .guide-pager__arrow { transform: translateX(-3px); }
+.page-guide-generations .guide-pager__next:hover .guide-pager__arrow { transform: translateX(3px); }
+.page-guide-generations .guide-pager .btn { align-self: flex-start; }
+.page-guide-generations .guide-pager .btn svg { color: var(--t-ink); }
 </style>
 
-<section class="guide-hero">
-  <div class="container"><h1>Guide 5: Uniting Different Generations</h1></div>
-</section>
-
-<div class="container guide-bar">
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <span>Resources</span> <span aria-hidden="true">//</span> <a href="#guide">Step by Step Guides</a> <span aria-hidden="true">//</span> <span aria-current="page">Uniting Different Generations</span>
-  </nav>
-  <div class="guide-tools">
-    <a class="guide-iconbtn" href="#guide" aria-label="Back to the list of guides" title="Back to list"><img class="guide-iconbtn__list" src="assets/img/guide-generations/list.svg" alt="" width="35" height="35"></a>
-    <a class="guide-iconbtn" href="#guide-balance" aria-label="Previous guide" title="Previous guide"><img class="flip" src="assets/img/guide-generations/arrow.svg" alt="" width="33" height="22"></a>
-    <span class="guide-iconbtn is-disabled" aria-hidden="true"><img src="assets/img/guide-generations/arrow.svg" alt="" width="33" height="22"></span>
+<header class="guide-hero">
+  <div class="container">
+    <div class="guide-hero__top">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <span>Resources</span> <span aria-hidden="true">//</span> <a href="#guide">Step by Step Guides</a> <span aria-hidden="true">//</span> <span aria-current="page">Uniting Different Generations</span>
+      </nav>
+      <div class="guide-tools">
+        <a class="icon-btn" href="#guide" aria-label="Back to all step-by-step guides" title="Back to list"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <span class="guide-tools__sep" aria-hidden="true"></span>
+        <a class="icon-btn" href="#guide-balance" aria-label="Previous guide: Finding A Balance For Your Organization" title="Previous guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+        <span class="icon-btn is-disabled" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+    </div>
+    <div class="guide-hero__grid">
+      <div class="guide-hero__text">
+        <h1><span class="eyebrow guide-eyebrow">Guide 5<span class="sr-only">:</span></span> <span>Uniting Different Generations</span></h1>
+        <p class="lead">How to connect different generations and bring them together.</p>
+      </div>
+      <div class="guide-hero__art" aria-hidden="true">
+        <span class="bubble" style="width:92px;height:92px;right:-30px;top:-34px;--dur:11s;--dx:-6px;--dy:10px"></span>
+        <span class="bubble" style="width:54px;height:54px;left:-28px;bottom:30px;--dur:8s;--delay:-3s"></span>
+        <div class="guide-hero__frame"><img src="assets/img/guide-generations/illustration.webp" alt="" width="1024" height="787"></div>
+      </div>
+    </div>
   </div>
-</div>
+</header>
 
 <div class="container guide-layout">
-  <aside class="guide-aside">
-    <nav class="guide-toc" aria-label="Sections">
-      <p class="guide-toc__title">Sections</p>
-      <ul>
-        <li><a href="#guide-generations" data-scroll="generations-challenge">The Challenge</a></li>
-        <li><a href="#guide-generations" data-scroll="generations-experience">What (Not) To Do</a></li>
-        <li><a href="#guide-generations" data-scroll="generations-steps">Step-By-Step Plan</a></li>
-        <li><a href="#guide-generations" data-scroll="generations-checklist">Checklist</a></li>
-        <li><a href="#guide-generations" data-scroll="generations-dos">Do’s And Don’t’s</a></li>
-      </ul>
-      <a class="guide-back" href="#guide">Back to guide</a>
-    </nav>
-    <img class="guide-aside__art" src="assets/img/guide-generations/illustration.webp" alt="Illustration of an older and a younger woman together" width="1024" height="787" loading="lazy">
+  <aside class="guide-toc" aria-label="Sections">
+    <div class="guide-toc__card">
+      <h2 class="guide-toc__title">Sections</h2>
+      <nav aria-label="Sections">
+        <ol>
+          <li><a href="#guide-generations" data-scroll="generations-challenge">The Challenge</a></li>
+          <li><a href="#guide-generations" data-scroll="generations-experience">What (Not) To Do</a></li>
+          <li><a href="#guide-generations" data-scroll="generations-steps">Step-By-Step Plan</a></li>
+          <li><a href="#guide-generations" data-scroll="generations-checklist">Checklist</a></li>
+          <li><a href="#guide-generations" data-scroll="generations-dos">Do’s And Don’t’s</a></li>
+        </ol>
+      </nav>
+      <a class="guide-print" href="https://www.dehaagsehogeschool.nl/media/stappenplan-5-samenbrengen-verschillende-generaties" target="_blank" rel="noopener" aria-label="Print this Chapter: Download printable step-by-step plan 5 (opens in a new tab)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3.5h10V9"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v6.5H7z"/><circle cx="17.5" cy="12" r=".6" fill="currentColor"/></svg>Print this Chapter</a>
+    </div>
   </aside>
 
   <article class="guide-article">
-    <section class="guide-section" aria-labelledby="generations-challenge">
-      <h2 id="generations-challenge">The Challenge</h2>
+    <section class="guide-section" id="generations-challenge" aria-labelledby="generations-challenge-h">
+      <h2 id="generations-challenge-h">The Challenge</h2>
       <p>Some members of the Community of Practice, ‘Kracht(vrouwen) in de wijk’, work not only with adult women but also with young girls. Often, these are mothers and their daughters from the same neighborhood. Through this direct involvement, participants gain valuable insights into the living environments of both generations. At the same time, several members notice that a gap is emerging between these two worlds. Differences in values, expectations, and communication cause tension or misunderstandings. As a professional working with both groups, you find yourself right in the middle of these generations.</p>
-      <p class="guide-question">How do you unite different generations?</p>
+      <p class="guide-question"><span class="guide-question__icon"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 9a3 3 0 0 1 5.8 1c0 2-3 2.6-3 4.4"/><circle cx="12" cy="18" r=".9" fill="currentColor" stroke="none"/></svg></span><span>How do you unite different generations?</span></p>
     </section>
 
-    <section class="guide-section" aria-labelledby="generations-experience">
-      <h2 id="generations-experience">From Experience: What (Not) To Do</h2>
+    <section class="guide-section" id="generations-experience" aria-labelledby="generations-experience-h">
+      <h2 id="generations-experience-h">From Experience: What (Not) To Do</h2>
       <ul class="guide-bullets">
         <li>Participants of ‘Kracht(vrouwen) in de wijk’ see in their work that young people often have questions their parents are unaware of. Whether or not the parents are informed, they often don’t know how to address these topics.</li>
         <li>A gap between parents and growing adolescents has always existed. However, issues such as social media, influencers, the COVID-19 pandemic, and growing up with discrimination make this era different. The challenges parents and young people face have changed accordingly.</li>
@@ -117,55 +181,57 @@
       </ul>
     </section>
 
-    <section class="guide-section" aria-labelledby="generations-steps">
-      <h2 id="generations-steps">Step-By-Step Plan</h2>
+    <section class="guide-section" id="generations-steps" aria-labelledby="generations-steps-h">
+      <h2 id="generations-steps-h">Step-By-Step Plan</h2>
       <ol class="guide-steps">
-        <li><h3>Step 1: Starting point</h3><p>The questions for help will clarify where you stand as an organization. What does the gap between young people and their parents look like within your organization? Is your organization a place where people can go if they are struggling with something or need help? The most important question is whether you want to be/become an organization that provides support. Discuss this with your teammates.</p></li>
-        <li><h3>Step 2: Set boundaries</h3><p>If people often come to you for a listening ear or confide in you, it is important to set boundaries. Sometimes certain issues can affect you deeply. And sometimes you end up spending much more time on them than you had anticipated. Set your own boundaries when it comes to your time and energy. It is okay to say no sometimes.</p></li>
-        <li><h3>Step 3: Create a safe environment</h3><p>Give people the space to tell their story. Above all, listen. Do not judge or condemn. Think together about how you prefer to interact and communicate with each other. You can draw up a number of rules together. For example: if you do not understand someone's story, ask questions and do not fill in the blanks for them.</p></li>
-        <li><h3>Step 4: Team building</h3><p>To bridge the gap between young people and their parents and strengthen the bond between them, you could organize more relaxed activities for both groups. These could include cooking together or a city trip in the Netherlands.</p></li>
-        <li><h3>Step 5: Coaches and sparring partners</h3><p>Are you often seen as a confidant, but do you sometimes find this role difficult? Then find a coach or sparring partner in your network who can help you with this.</p></li>
-        <li><h3>Step 6: Collaboration with professionals</h3><p>Sometimes it is useful to collaborate with the Municipal Health Service (GGD), a youth care nurse, or other care and support professionals. It is important to make clear agreements with each other. What kind of collaboration are you entering into? What exactly are you going to do? What exactly do you want to achieve? Who will perform which tasks? How much time will this take? And very importantly: what about financial compensation? Make sure you create as many agreements as possible.</p></li>
-        <li><h3>Step 7: Long term</h3><p>Bridging a gap and building trust is a process and takes time. Trial and error is part of that process. Don't be too hard on yourself if things don't go as you had hoped.</p></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">1</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 1<span class="sr-only">:</span></span> <span>Starting point</span></h3><p>The questions for help will clarify where you stand as an organization. What does the gap between young people and their parents look like within your organization? Is your organization a place where people can go if they are struggling with something or need help? The most important question is whether you want to be/become an organization that provides support. Discuss this with your teammates.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">2</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 2<span class="sr-only">:</span></span> <span>Set boundaries</span></h3><p>If people often come to you for a listening ear or confide in you, it is important to set boundaries. Sometimes certain issues can affect you deeply. And sometimes you end up spending much more time on them than you had anticipated. Set your own boundaries when it comes to your time and energy. It is okay to say no sometimes.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">3</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 3<span class="sr-only">:</span></span> <span>Create a safe environment</span></h3><p>Give people the space to tell their story. Above all, listen. Do not judge or condemn. Think together about how you prefer to interact and communicate with each other. You can draw up a number of rules together. For example: if you do not understand someone's story, ask questions and do not fill in the blanks for them.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">4</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 4<span class="sr-only">:</span></span> <span>Team building</span></h3><p>To bridge the gap between young people and their parents and strengthen the bond between them, you could organize more relaxed activities for both groups. These could include cooking together or a city trip in the Netherlands.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">5</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 5<span class="sr-only">:</span></span> <span>Coaches and sparring partners</span></h3><p>Are you often seen as a confidant, but do you sometimes find this role difficult? Then find a coach or sparring partner in your network who can help you with this.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">6</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 6<span class="sr-only">:</span></span> <span>Collaboration with professionals</span></h3><p>Sometimes it is useful to collaborate with the Municipal Health Service (GGD), a youth care nurse, or other care and support professionals. It is important to make clear agreements with each other. What kind of collaboration are you entering into? What exactly are you going to do? What exactly do you want to achieve? Who will perform which tasks? How much time will this take? And very importantly: what about financial compensation? Make sure you create as many agreements as possible.</p></div></li>
+        <li class="guide-step"><span class="guide-step__disc" aria-hidden="true">7</span><div class="guide-step__body"><h3><span class="guide-step__label">Step 7<span class="sr-only">:</span></span> <span>Long term</span></h3><p>Bridging a gap and building trust is a process and takes time. Trial and error is part of that process. Don't be too hard on yourself if things don't go as you had hoped.</p></div></li>
       </ol>
     </section>
 
-    <section class="guide-section" aria-labelledby="generations-checklist">
-      <h2 id="generations-checklist">Checklist</h2>
+    <section class="guide-section" id="generations-checklist" aria-labelledby="generations-checklist-h">
+      <h2 id="generations-checklist-h">Checklist</h2>
       <ul class="guide-checklist">
-        <li><label><input type="checkbox"><span class="guide-check__text">Who is your target group? <span class="guide-check__note">Do you focus only on adults, or also on young people?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">If you also work with young people: how many young people are involved? <span class="guide-check__note">Which age group are they mostly in?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">What kind of activities do you organize for the young people?<br><span class="guide-check__note">And what kind of activities for the adults?<br>Do you also organize activities for both young people and adults together? Why or why not?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">Do you also receive questions about parenting (and growing up)? <span class="guide-check__note">What do you do with them?<br>Do you also organize meetings, activities, or discussions about the themes of parenting (and growing up)?<br>Which challenges are mainly discussed? What else would you like to do with this topic?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">Do you also receive questions about mental health?<br><span class="guide-check__note">What do you do with them? Do you also organize meetings, activities, or discussions about mental health? Which challenges are mainly discussed? What else would you like to do with this topic?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">Can young people also come to you if they have certain questions or problems?<br><span class="guide-check__note">What kind of questions or problems do they usually have? Who do they usually turn to? What do you do with that?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">Do you also receive requests for help?<br><span class="guide-check__note">This can be about filling out forms, but also, for example, debts. If so: what kind of help requests are they? Do you see that the number of help requests is increasing? What do you do with these requests? Do you also refer people to organizations that can help them further?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">Do you also collaborate with aid or care organizations?<br>Which organizations do you work with? <span class="guide-check__note">What does that collaboration look like?<br>Do you do projects together? Have you made agreements with each other about the collaboration?</span></span></label></li>
-        <li><label><input type="checkbox"><span class="guide-check__text">Do you also collaborate with organizations that focus on young people?<br><span class="guide-check__note">Which organizations are these? What does that collaboration look like?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Who is your target group?</span> <span class="guide-check__note">Do you focus only on adults, or also on young people?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">If you also work with young people: how many young people are involved?</span> <span class="guide-check__note">Which age group are they mostly in?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">What kind of activities do you organize for the young people?</span> <span class="guide-check__note">And what kind of activities for the adults?<br/>Do you also organize activities for both young people and adults together? Why or why not?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Do you also receive questions about parenting (and growing up)?</span> <span class="guide-check__note">What do you do with them?<br/>Do you also organize meetings, activities, or discussions about the themes of parenting (and growing up)?<br/>Which challenges are mainly discussed? What else would you like to do with this topic?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Do you also receive questions about mental health?</span> <span class="guide-check__note">What do you do with them? Do you also organize meetings, activities, or discussions about mental health? Which challenges are mainly discussed? What else would you like to do with this topic?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Can young people also come to you if they have certain questions or problems?</span> <span class="guide-check__note">What kind of questions or problems do they usually have? Who do they usually turn to? What do you do with that?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Do you also receive requests for help?</span> <span class="guide-check__note">This can be about filling out forms, but also, for example, debts. If so: what kind of help requests are they? Do you see that the number of help requests is increasing? What do you do with these requests? Do you also refer people to organizations that can help them further?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Do you also collaborate with aid or care organizations?<br/>Which organizations do you work with?</span> <span class="guide-check__note">What does that collaboration look like?<br/>Do you do projects together? Have you made agreements with each other about the collaboration?</span></span></label></li>
+        <li><label class="guide-check"><input type="checkbox"><span class="guide-check__text"><span class="guide-check__q">Do you also collaborate with organizations that focus on young people?</span> <span class="guide-check__note">Which organizations are these? What does that collaboration look like?</span></span></label></li>
       </ul>
     </section>
 
-    <section class="guide-section" aria-labelledby="generations-dos">
-      <h2 id="generations-dos">Do’s And Don’t’s</h2>
+    <section class="guide-section" id="generations-dos" aria-labelledby="generations-dos-h">
+      <h2 id="generations-dos-h">Do’s And Don’t’s</h2>
       <div class="guide-dos">
-        <div>
-          <h3>DO</h3>
+        <div class="guide-dos__card guide-dos__card--do">
+          <h3><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>DO</h3>
           <ul>
-            <li><img src="assets/img/guide-generations/tick.svg" alt="Do" width="25" height="25" loading="lazy"><span>Fouten maken mag. Bied daar ook de ruimte voor binnen je organisatie.</span></li>
+            <li><span class="guide-mark guide-mark--do"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span><span><span class="sr-only">Do: </span>Fouten maken mag. Bied daar ook de ruimte voor binnen je organisatie.</span></li>
           </ul>
         </div>
-        <div>
-          <h3>DON’T</h3>
+        <div class="guide-dos__card guide-dos__card--dont">
+          <h3><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>DON’T</h3>
           <ul>
-            <li><img src="assets/img/guide-generations/cross.svg" alt="Don’t" width="25" height="25" loading="lazy"><span>Je eigen normen en waarden als uitgangspunt nemen en daarmee anderen veroordelen.</span></li>
+            <li><span class="guide-mark guide-mark--dont"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span><span><span class="sr-only">Don’t: </span>Je eigen normen en waarden als uitgangspunt nemen en daarmee anderen veroordelen.</span></li>
           </ul>
         </div>
       </div>
     </section>
 
     <nav class="guide-pager" aria-label="Guide navigation">
-      <a class="guide-btn guide-btn--back" href="#guide"><img class="guide-btn__back" src="assets/img/guide-generations/back-to-list.svg" alt="" width="26" height="21" loading="lazy">Back To List</a>
-      <a class="guide-btn guide-btn--prev" href="#guide-balance"><img class="flip" src="assets/img/guide-generations/arrow.svg" alt="" width="33" height="22" loading="lazy">Previous Guide</a>
+      <div class="guide-pager__links">
+        <a class="guide-pager__card guide-pager__prev" href="#guide-balance" style="--pc:#c1a4e9;--pc-50:#faf7ff"><span class="guide-pager__arrow"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="guide-pager__txt"><span class="guide-pager__lbl">Previous Guide</span><span class="guide-pager__ttl">Finding A Balance For Your Organization</span></span></a>
+      </div>
+      <a class="btn btn--outline btn--sm" href="#guide"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg>Back To List</a>
     </nav>
   </article>
 </div>

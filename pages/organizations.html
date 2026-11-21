@@ -1,72 +1,96 @@
 <!-- title: All Organizations -->
 <style>
-.page-organizations .org-hero { position: relative; height: clamp(220px, 27vw, 388px); display: grid; place-items: center; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); }
-.page-organizations .org-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-.page-organizations .org-hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.35); }
-.page-organizations .org-hero h1 { position: relative; z-index: 1; color: #fffbf7; font-size: clamp(32px, 3.4vw, 43px); font-weight: 700; text-align: center; padding-inline: 16px; }
-.page-organizations .breadcrumb { color: #000; font-size: 15px; padding-block: 37px 37px; gap: 10px; }
-.page-organizations .breadcrumb a { color: #000; }
-.page-organizations .breadcrumb span[aria-current] { font-weight: 700; }
-.page-organizations .org-layout { display: grid; grid-template-columns: 1fr; gap: 40px; padding-bottom: clamp(48px, 6vw, 92px); align-items: start; }
-@media (min-width: 900px) { .page-organizations .org-layout { grid-template-columns: 240px minmax(0, 1fr); gap: 50px; } }
-.page-organizations .org-col-title { font-size: 28px; font-weight: 700; line-height: 1.2; }
-.page-organizations .org-filter { display: flex; flex-direction: column; gap: 24px; }
-@media (min-width: 900px) { .page-organizations .org-filter { gap: 40px; } }
-.page-organizations .org-filter__all { align-self: flex-start; }
-.page-organizations .org-filter__panel { background: #eddae2; border-radius: 5px; padding: 40px 20px; }
-.page-organizations .org-filter__panel > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 22px; font-weight: 700; }
+.page-organizations .org-top { position: relative; overflow: hidden; padding-bottom: 8px; }
+.page-organizations .org-hero { position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-l); min-height: clamp(260px, 26vw, 360px); display: flex; align-items: flex-end; box-shadow: var(--e2); background: var(--lavender-100); }
+.page-organizations .org-hero > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+.page-organizations .org-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(30, 27, 38, .72) 0%, rgba(30, 27, 38, .38) 48%, rgba(30, 27, 38, .06) 80%), linear-gradient(0deg, rgba(30, 27, 38, .45), rgba(30, 27, 38, 0) 60%); }
+.page-organizations .org-hero__text { display: flex; flex-direction: column; gap: 12px; padding: clamp(24px, 4vw, 48px); max-width: 640px; }
+.page-organizations .org-hero .eyebrow { color: #fff; }
+.page-organizations .org-hero .eyebrow::before { background: var(--green); }
+.page-organizations .org-hero h1 { color: #fff; }
+.page-organizations .org-hero .bubble { z-index: 0; }
+.page-organizations .org-layout { display: grid; grid-template-columns: 1fr; gap: 32px; padding-block: clamp(32px, 4vw, 48px) clamp(56px, 7vw, 96px); align-items: start; }
+@media (min-width: 900px) { .page-organizations .org-layout { grid-template-columns: 272px minmax(0, 1fr); gap: 40px; } }
+.page-organizations .org-col-title { color: var(--ink); }
+.page-organizations .org-filter { display: flex; flex-direction: column; gap: 14px; }
+.page-organizations .org-filter > * { flex-shrink: 0; }
+@media (min-width: 900px) { .page-organizations .org-filter { position: sticky; top: calc(var(--header-h) + 20px); max-height: calc(100vh - var(--header-h) - 40px); overflow-y: auto; padding: 2px 4px 4px 2px; margin: -2px -4px -4px -2px; scrollbar-width: thin; } }
+.page-organizations .org-filter__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.page-organizations .org-filter__head .eyebrow { margin-bottom: 4px; }
+.page-organizations .org-filter__panel { padding: 0; overflow: hidden; }
+.page-organizations .org-filter__panel > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 18px; font-size: 16px; font-weight: 650; color: var(--ink); transition: background .15s; }
+.page-organizations .org-filter__panel > summary:hover { background: var(--surface-2); }
 .page-organizations .org-filter__panel > summary::-webkit-details-marker { display: none; }
-.page-organizations .org-filter__panel > summary img { width: 12px; height: 24px; transform: rotate(-90deg); transition: transform .2s; flex: none; }
-.page-organizations .org-filter__panel:not([open]) > summary img { transform: rotate(90deg); }
-.page-organizations .org-filter__list { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 15px; }
-.page-organizations .org-filter .chip { background: none; border: 0; padding: 0; border-radius: 0; color: #000; font-size: 18px; font-weight: 400; line-height: 1; gap: 15px; justify-content: flex-start; text-align: left; min-height: 22px; }
-.page-organizations .org-filter .chip::before { content: ""; flex: none; width: 22px; height: 22px; border: 1px solid var(--pink); border-radius: 5px; background: rgba(221, 92, 144, 0.1); transition: background .15s; }
-.page-organizations .org-filter .chip:hover { background: none; color: #000; }
-.page-organizations .org-filter .chip:hover::before { background: rgba(221, 92, 144, 0.3); }
-.page-organizations .org-filter .chip.is-active, .page-organizations .org-filter .chip[aria-pressed="true"] { background: none; color: #000; font-weight: 600; }
-.page-organizations .org-filter .chip.is-active::before, .page-organizations .org-filter .chip[aria-pressed="true"]::before { background: var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6 11.5l3.5 3.5L16 8' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat; }
-.page-organizations .org-filter .org-filter__all.chip { padding: 10px 20px; border-radius: var(--radius-l); background: var(--lavender); color: var(--chip-text); font-size: 16px; font-weight: 500; }
-.page-organizations .org-filter .org-filter__all.chip::before { display: none; }
-.page-organizations .org-filter .org-filter__all.chip.is-active, .page-organizations .org-filter .org-filter__all.chip[aria-pressed="true"] { background: var(--pink); color: #fff; }
-.page-organizations .org-filter__more { margin-top: 15px; }
-.page-organizations .org-filter__more > summary { list-style: none; cursor: pointer; text-align: center; text-decoration: underline; font-size: 16px; padding-top: 5px; }
+.page-organizations .org-filter__panel > summary::after { content: ""; flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--pill) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%234a4556' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat; transition: transform .25s var(--ease), background-color .2s; }
+.page-organizations .org-filter__panel[open] > summary::after { transform: rotate(180deg); background-color: var(--pink-50); }
+.page-organizations .org-filter__panel > summary img { display: none; }
+.page-organizations .org-filter__body { padding: 0 18px 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+.page-organizations .org-filter__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.page-organizations .org-filter .chip { min-height: 34px; padding: 5px 13px; font-size: 14px; }
+.page-organizations .org-filter .chip.is-active::before, .page-organizations .org-filter .chip[aria-pressed="true"]::before { width: 12px; height: 12px; }
+.page-organizations .org-count { margin-left: -4px; color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+.page-organizations .chip.is-active .org-count, .page-organizations .chip[aria-pressed="true"] .org-count { color: var(--pink-600); }
+.page-organizations .org-filter__more { margin-top: 8px; }
+.page-organizations .org-filter__more > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 6px 2px; font-size: 14px; font-weight: 600; color: var(--pink-700); border-radius: 8px; }
+.page-organizations .org-filter__more > summary::before { content: "+"; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--pink-50); font-size: 14px; line-height: 1; }
+.page-organizations .org-filter__more > summary:hover { text-decoration: underline; text-underline-offset: 3px; }
 .page-organizations .org-filter__more > summary::-webkit-details-marker { display: none; }
 .page-organizations .org-filter__more[open] > summary { display: none; }
-.page-organizations .org-filter__more .org-filter__list { margin-top: 0; }
-.page-organizations .org-list-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 40px; }
-.page-organizations .org-list-head .search { width: 260px; }
-.page-organizations .org-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 27px 25px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.page-organizations .org-list-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 24px; margin-bottom: 28px; }
+.page-organizations .org-list-head .section-head { gap: 8px; }
+.page-organizations .org-list-head .search { width: 320px; }
+@media (max-width: 640px) { .page-organizations .org-list-head .search { width: 100%; } }
+.page-organizations .org-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
 .page-organizations .org-grid > li[hidden] { display: none; }
-.page-organizations .org-card { display: flex; flex-direction: column; height: 100%; border-radius: 10px; filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.25)); color: #000; }
-.page-organizations .org-card.card--link:hover { box-shadow: none; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.3)); }
-.page-organizations .org-card__img { width: 100%; height: 174px; object-fit: cover; border-radius: 10px 10px 0 0; background: #fff; }
-.page-organizations .org-card__img--blank { background: #eb9cb9; }
-.page-organizations .org-card__body { flex: 1; display: flex; flex-direction: column; gap: 15px; min-height: 200px; padding: 20px; background: #fffbf7; border-radius: 0 0 10px 10px; }
-.page-organizations .org-card__tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-.page-organizations .org-card__tags li { display: inline-flex; align-items: center; height: 28px; padding: 5px; border-radius: 20px; background: #eb9cb9; font-size: 16px; line-height: 1; }
-.page-organizations .org-card__name { font-size: 22px; font-weight: 700; line-height: 1.2; }
-.page-organizations .org-card.card--link:hover .org-card__name { color: var(--pink-dark); }
-.page-organizations .org-card__desc { font-size: 16px; line-height: 1.15; }
-.page-organizations .org-empty { padding: 40px 0; font-size: 18px; color: var(--muted); }
+.page-organizations .org-card { display: flex; flex-direction: column; height: 100%; padding: 0; overflow: hidden; color: var(--ink); position: relative; }
+.page-organizations .org-card__img { width: 100%; aspect-ratio: 16 / 10; height: auto; object-fit: cover; background: #fff; border-bottom: 1px solid var(--line); transition: transform .5s var(--ease); }
+.page-organizations .card--link:hover .org-card__img { transform: scale(1.03); }
+.page-organizations .org-card__img--blank { position: relative; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 1px 1px, rgba(168, 53, 101, .12) 1px, transparent 1.5px) 0 0 / 16px 16px, linear-gradient(140deg, var(--pink-50), var(--lavender-100)); }
+.page-organizations .org-card__img--lav { background: radial-gradient(circle at 1px 1px, rgba(107, 74, 168, .13) 1px, transparent 1.5px) 0 0 / 16px 16px, linear-gradient(140deg, var(--lavender-50), var(--lavender-100)); }
+.page-organizations .org-card__img--lime { background: radial-gradient(circle at 1px 1px, rgba(92, 94, 18, .14) 1px, transparent 1.5px) 0 0 / 16px 16px, linear-gradient(140deg, var(--lime-50), var(--lime-100)); }
+.page-organizations .org-card__img--blank::before, .page-organizations .org-card__img--blank::after { content: ""; position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .55); border: 1px solid rgba(255, 255, 255, .8); }
+.page-organizations .org-card__img--blank::before { width: 120px; height: 120px; right: -30px; top: -40px; }
+.page-organizations .org-card__img--blank::after { width: 64px; height: 64px; left: 18px; bottom: -22px; }
+.page-organizations .org-card__initials { position: relative; z-index: 1; width: 76px; height: 76px; display: grid; place-items: center; font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: var(--pink-700); }
+.page-organizations .org-card__img--lav .org-card__initials { color: var(--purple-700); }
+.page-organizations .org-card__img--lime .org-card__initials { color: var(--lime-800); }
+.page-organizations .org-card__body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 18px 20px 22px; background: #fff; position: relative; }
+.page-organizations .org-card__tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.page-organizations .org-card__name { color: var(--ink); transition: color .2s; }
+.page-organizations .card--link:hover .org-card__name { color: var(--pink-700); }
+.page-organizations .org-card__desc { font-size: 15px; line-height: 1.55; color: var(--ink-soft); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.page-organizations .org-card__go { margin-top: auto; padding-top: 6px; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--pink-700); }
+.page-organizations .org-card__go::after { content: ""; width: 30px; height: 30px; border-radius: 50%; background: var(--pink-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9M8.5 4.5L12 8l-3.5 3.5' fill='none' stroke='%23a83565' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; transition: transform .2s var(--ease), background-color .2s; }
+.page-organizations .card--link:hover .org-card__go::after { transform: translateX(3px); background-color: var(--pink-100); }
+.page-organizations .org-empty { padding: 40px 24px; text-align: center; font-size: 17px; color: var(--muted); background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: var(--radius-m); }
 </style>
-
-<header class="org-hero">
-  <img src="assets/img/organizations/hero.jpg" alt="" width="945" height="532">
-  <h1>All Organizations</h1>
-</header>
 
 <div class="container">
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="#organizations">Organizations</a> <span aria-hidden="true">//</span> <span aria-current="page">All Organizations</span>
   </nav>
 
+  <header class="org-hero">
+    <img src="assets/img/organizations/hero.jpg" alt="" width="945" height="532">
+    <span class="bubble" aria-hidden="true" style="width: 110px; height: 110px; right: 4%; top: -18px; --dur: 10s;"></span>
+    <span class="bubble" aria-hidden="true" style="width: 54px; height: 54px; right: 15%; top: 40px; --dur: 8s; --delay: -3s; --dx: -8px;"></span>
+    <span class="bubble" aria-hidden="true" style="width: 30px; height: 30px; right: 6%; top: 128px; --dur: 7s; --delay: -1.5s;"></span>
+    <div class="org-hero__text">
+      <span class="eyebrow">Organizations</span>
+      <h1 class="h-display">All Organizations</h1>
+    </div>
+  </header>
+
   <div class="org-layout">
     <aside class="org-filter" aria-labelledby="org-filter-title" data-filter-group="orgs">
-      <h2 class="org-col-title" id="org-filter-title">Filter</h2>
-      <button type="button" class="chip org-filter__all is-active" data-filter="all">All Organizations</button>
+      <div class="org-filter__head">
+        <h2 class="h-sub org-col-title" id="org-filter-title">Filter</h2>
+        <button type="button" class="chip org-filter__all is-active" data-filter="all">All Organizations</button>
+      </div>
 
-      <details class="org-filter__panel" open>
+      <details class="card org-filter__panel" open>
         <summary>Locations <img src="assets/img/organizations/arrow-filled.svg" alt="" width="12" height="24"></summary>
+        <div class="org-filter__body">
         <ul class="org-filter__list">
           <li><button type="button" class="chip" data-filter="loc-binckhorst">Binckhorst</button></li>
           <li><button type="button" class="chip" data-filter="loc-laak">Laak</button></li>
@@ -82,182 +106,191 @@
             <li><button type="button" class="chip" data-filter="loc-rijswijk">Rijswijk</button></li>
           </ul>
         </details>
+        </div>
       </details>
 
-      <details class="org-filter__panel" open>
+      <details class="card org-filter__panel" open>
         <summary>Categories <img src="assets/img/organizations/arrow-filled.svg" alt="" width="12" height="24"></summary>
+        <div class="org-filter__body">
         <ul class="org-filter__list">
-          <li><button type="button" class="chip" data-filter="cat-social">Social (1)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-motherhood">Motherhood (2)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-courses">Courses (1)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-culture">Culture (3)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-activities">Activities (2)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-coaching">Coaching (1)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-women">Women (2)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-health">Health (1)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-children">Children (1)</button></li>
-          <li><button type="button" class="chip" data-filter="cat-growth">Growth (1)</button></li>
+          <li><button type="button" class="chip" data-filter="cat-social">Social <span class="org-count">(1)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-motherhood">Motherhood <span class="org-count">(2)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-courses">Courses <span class="org-count">(1)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-culture">Culture <span class="org-count">(3)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-activities">Activities <span class="org-count">(2)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-coaching">Coaching <span class="org-count">(1)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-women">Women <span class="org-count">(2)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-health">Health <span class="org-count">(1)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-children">Children <span class="org-count">(1)</span></button></li>
+          <li><button type="button" class="chip" data-filter="cat-growth">Growth <span class="org-count">(1)</span></button></li>
         </ul>
         <details class="org-filter__more">
           <summary>See more</summary>
           <ul class="org-filter__list">
-            <li><button type="button" class="chip" data-filter="cat-advice">Advice (1)</button></li>
+            <li><button type="button" class="chip" data-filter="cat-advice">Advice <span class="org-count">(1)</span></button></li>
           </ul>
         </details>
+        </div>
       </details>
 
-      <details class="org-filter__panel" open>
+      <details class="card org-filter__panel" open>
         <summary>Demographic <img src="assets/img/organizations/arrow-filled.svg" alt="" width="12" height="24"></summary>
+        <div class="org-filter__body">
         <ul class="org-filter__list">
           <li><button type="button" class="chip" data-filter="demo-children">Children</button></li>
           <li><button type="button" class="chip" data-filter="demo-youth">Youth</button></li>
           <li><button type="button" class="chip" data-filter="demo-adults">Adults</button></li>
           <li><button type="button" class="chip" data-filter="demo-seniors">Seniors</button></li>
         </ul>
+        </div>
       </details>
     </aside>
 
     <section class="min0" aria-labelledby="org-list-title">
       <div class="org-list-head">
-        <h2 class="org-col-title" id="org-list-title">Partner Organizations</h2>
-        <div class="search">
+        <div class="section-head">
+          <h2 class="h-section org-col-title" id="org-list-title">Partner Organizations</h2>
+        </div>
+        <div class="search search--lg">
           <input type="search" placeholder="Search" aria-label="Search organizations" data-search-target="orgs">
           <button type="button" aria-label="Search"><img src="assets/icons/search.svg" alt="" width="18" height="18"></button>
         </div>
       </div>
       <ul class="org-grid">
       <li data-filter-item="orgs" data-tags="cat-courses cat-social loc-laak demo-adults">
-        <a class="org-card card--link" href="#org-vbl">
+        <a class="card card--link org-card" href="#org-vbl">
           <img class="org-card__img" src="assets/img/organizations/vrouwenbuurtlab.jpg" alt="VrouwenBuurtLab Laak logo" width="225" height="225" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Curssusen</li><li>Social</li></ul>
-            <h3 class="org-card__name">VrouwenBuurtLab</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Curssusen</li><li class="tag tag--pink">Social</li></ul>
+            <h3 class="h-card org-card__name">VrouwenBuurtLab</h3>
             <p class="org-card__desc">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
+            <span class="org-card__go" aria-hidden="true"></span>
           </div>
         </a>
       </li>
       <li data-filter-item="orgs" data-tags="cat-motherhood cat-courses loc-segbroek demo-youth demo-adults">
-        <a class="org-card card--link" href="#org-reva">
+        <a class="card card--link org-card" href="#org-reva">
           <img class="org-card__img" src="assets/img/organizations/reva-moeders.png" alt="Group photo of the women of ReVa Moeders" width="280" height="202" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Motherhood</li><li>Courses</li></ul>
-            <h3 class="org-card__name">ReVa Moeders</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Motherhood</li><li class="tag tag--pink">Courses</li></ul>
+            <h3 class="h-card org-card__name">ReVa Moeders</h3>
             <p class="org-card__desc">Het gaat deze groep om de belangenbehartiging en emancipatie van een grote...</p>
+            <span class="org-card__go" aria-hidden="true"></span>
           </div>
         </a>
       </li>
       <li data-filter-item="orgs" data-tags="cat-culture cat-activities">
-        <article class="org-card">
-          <div class="org-card__img org-card__img--blank" aria-hidden="true"></div>
+        <article class="card org-card">
+          <div class="org-card__img org-card__img--blank" aria-hidden="true"><span class="logo-dot org-card__initials">SJ</span></div>
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Culture</li><li>Activities</li></ul>
-            <h3 class="org-card__name">Stichting Jemeniyaat</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Culture</li><li class="tag tag--pink">Activities</li></ul>
+            <h3 class="h-card org-card__name">Stichting Jemeniyaat</h3>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-women cat-health loc-centrum demo-adults">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/cooperatie-eva.jpg" alt="Coöperatie Eva logo" width="549" height="348" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Women</li><li>Health</li></ul>
-            <h3 class="org-card__name">Coöperatie Eva</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Women</li><li class="tag tag--pink">Health</li></ul>
+            <h3 class="h-card org-card__name">Coöperatie Eva</h3>
             <p class="org-card__desc">Coöperatie Eva ondersteunt vrouwen op weg naar economische zelfstandigheid.</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-coaching loc-escamp">
-        <article class="org-card">
-          <div class="org-card__img org-card__img--blank" aria-hidden="true"></div>
+        <article class="card org-card">
+          <div class="org-card__img org-card__img--blank org-card__img--lav" aria-hidden="true"><span class="logo-dot org-card__initials">AC</span></div>
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Coaching</li></ul>
-            <h3 class="org-card__name">Amal Coaching</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Coaching</li></ul>
+            <h3 class="h-card org-card__name">Amal Coaching</h3>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-women demo-adults">
-        <article class="org-card">
-          <div class="org-card__img org-card__img--blank" aria-hidden="true"></div>
+        <article class="card org-card">
+          <div class="org-card__img org-card__img--blank org-card__img--lime" aria-hidden="true"><span class="logo-dot org-card__initials">WH</span></div>
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Women</li></ul>
-            <h3 class="org-card__name">Wijkz / Happy women</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Women</li></ul>
+            <h3 class="h-card org-card__name">Wijkz / Happy women</h3>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-children cat-activities loc-centrum demo-children">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/talentenklup.jpg" alt="Stichting de Talentenklup logo" width="578" height="345" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Children</li><li>Activities</li></ul>
-            <h3 class="org-card__name">Talentenklup</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Children</li><li class="tag tag--pink">Activities</li></ul>
+            <h3 class="h-card org-card__name">Talentenklup</h3>
             <p class="org-card__desc">Stichting de Talentenklup biedt peuteropvang aan voor alle kinderen in de leeftijd van 2,5 tot 4 jaar.</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-social cat-activities loc-rijswijk">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/wijkz.jpg" alt="Wijkz logo" width="369" height="182" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Social</li><li>Activities</li></ul>
-            <h3 class="org-card__name">Wijkz</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Social</li><li class="tag tag--pink">Activities</li></ul>
+            <h3 class="h-card org-card__name">Wijkz</h3>
             <p class="org-card__desc">We zetten ons met veel enthousiasme en deskundigheid in om je te informeren, advies te geven en je alvast een stukje ...</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-women cat-culture loc-segbroek demo-adults">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/polka.jpg" alt="POLKA logo" width="792" height="336" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Women</li><li>Culture</li></ul>
-            <h3 class="org-card__name">POLKA</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Women</li><li class="tag tag--pink">Culture</li></ul>
+            <h3 class="h-card org-card__name">POLKA</h3>
             <p class="org-card__desc">We organiseren themabijeenkomsten, workshops, trainingen, rondleidingen door de stad, maar ook sport...</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-activities cat-health">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/zwemvereniging-mar.jpg" alt="Zwemvereniging MAR logo" width="824" height="494" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Activities</li><li>Health</li></ul>
-            <h3 class="org-card__name">Zwemvereniging MAR</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Activities</li><li class="tag tag--pink">Health</li></ul>
+            <h3 class="h-card org-card__name">Zwemvereniging MAR</h3>
             <p class="org-card__desc">Bij Zwemvereniging MAR kunt u zwemlessen volgen of vrij zwemmen in zwembad De Houtzagerij en De Zuiderpark.</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-culture cat-activities demo-children">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/stichting-joury.jpg" alt="Stichting Joury logo" width="531" height="326" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Culture</li><li>Activities</li></ul>
-            <h3 class="org-card__name">Stichting Joury</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Culture</li><li class="tag tag--pink">Activities</li></ul>
+            <h3 class="h-card org-card__name">Stichting Joury</h3>
             <p class="org-card__desc">Stichting Joury wil een veilige en vertrouwde omgeving creëren voor kinderen, ...</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-culture cat-advice loc-laak">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/bulgaarse-club-laak.png" alt="Bulgaarse Club Laak logo" width="280" height="202" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Culture</li><li>Advice</li></ul>
-            <h3 class="org-card__name">Bulgaarse Club Laak</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Culture</li><li class="tag tag--pink">Advice</li></ul>
+            <h3 class="h-card org-card__name">Bulgaarse Club Laak</h3>
             <p class="org-card__desc">Als Bulgaarse Club Laak willen wij een plek zijn voor de Bulgaarse gemeenschap in...</p>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-motherhood cat-children loc-moerwijk demo-children demo-adults">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/moerwijk-moeders.png" alt="Moerwijk Moeders logo" width="280" height="202" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Motherhood</li><li>Children</li></ul>
-            <h3 class="org-card__name">Moerwijk Moeders</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Motherhood</li><li class="tag tag--pink">Children</li></ul>
+            <h3 class="h-card org-card__name">Moerwijk Moeders</h3>
           </div>
         </article>
       </li>
       <li data-filter-item="orgs" data-tags="cat-women cat-growth loc-laak demo-adults">
-        <article class="org-card">
+        <article class="card org-card">
           <img class="org-card__img" src="assets/img/organizations/laak-ladies-united.png" alt="Women of Laak Ladies United posing on a sports field" width="280" height="202" loading="lazy">
           <div class="org-card__body">
-            <ul class="org-card__tags" aria-label="Categories"><li>Women</li><li>Growth</li></ul>
-            <h3 class="org-card__name">Laak Ladies United</h3>
+            <ul class="org-card__tags" aria-label="Categories"><li class="tag tag--pink">Women</li><li class="tag tag--pink">Growth</li></ul>
+            <h3 class="h-card org-card__name">Laak Ladies United</h3>
             <p class="org-card__desc">Ladies United staat voor het in beweging brengen van vrouwen door...</p>
           </div>
         </article>

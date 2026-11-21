@@ -367,11 +367,14 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--pink); }
 mark { background: var(--lime-100); padding: 0 2px; border-radius: 3px; }
 
 /* carousel (data-carousel controls placed right after the list they drive) */
-.carousel-ctrl button { background: rgba(255, 255, 255, .9); cursor: pointer; padding: 0; color: inherit; border-radius: 50%; transition: transform .15s var(--ease), background .15s; }
-.carousel-ctrl button:hover { background: #fff; transform: scale(1.06); }
+/* default suits light backgrounds; add .carousel-ctrl--on-dark on saturated or dark bands */
+.carousel-ctrl button { background: #fff; border: 1px solid var(--line-strong); cursor: pointer; padding: 0; color: inherit; border-radius: 50%; box-shadow: var(--e1); transition: transform .15s var(--ease), border-color .15s, width .2s var(--ease); }
+.carousel-ctrl button:hover { border-color: var(--pink); transform: scale(1.06); }
 .carousel-ctrl__dots { display: flex; gap: 10px; align-items: center; }
-.carousel-ctrl__dots button { width: 12px; height: 12px; border: 0; border-radius: 50%; display: block; background: rgba(255, 255, 255, .55); }
-.carousel-ctrl__dots button[aria-current="true"] { background: #fff; width: 28px; border-radius: 12px; }
+.carousel-ctrl__dots button { width: 12px; height: 12px; border: 0; border-radius: 50%; display: block; background: var(--line-strong); box-shadow: none; }
+.carousel-ctrl__dots button[aria-current="true"] { background: var(--pink); width: 28px; border-radius: 12px; }
+.carousel-ctrl--on-dark .carousel-ctrl__dots button { background: rgba(255, 255, 255, .55); }
+.carousel-ctrl--on-dark .carousel-ctrl__dots button[aria-current="true"] { background: #fff; }
 .carousel-ctrl__dots img { display: none; }
 .carousel-track.is-moving > * { animation: carousel-in .4s var(--ease); }
 @keyframes carousel-in { from { opacity: .25; transform: translateX(18px); } to { opacity: 1; transform: none; } }

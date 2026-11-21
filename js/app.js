@@ -387,6 +387,15 @@
       go(0, false);
     });
 
+    // linked highlight: hovering/focusing one [data-hl] element highlights all with the same key
+    $$("[data-hl]", root).forEach(function (el) {
+      var on = function (v) { $$('[data-hl="' + el.dataset.hl + '"]', root).forEach(function (x) { x.classList.toggle("is-hl", v); }); };
+      el.addEventListener("mouseenter", function () { on(true); });
+      el.addEventListener("mouseleave", function () { on(false); });
+      el.addEventListener("focus", function () { on(true); });
+      el.addEventListener("blur", function () { on(false); });
+    });
+
     // tabs
     $$("[data-tabs]", root).forEach(function (wrap) {
       var tabs = $$("[data-tab]", wrap);

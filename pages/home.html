@@ -1,178 +1,215 @@
 <!-- title: Home -->
 <style>
-.page-home .hero { position: relative; overflow: hidden; }
-.page-home .hero__photo { width: 100%; height: clamp(240px, 39.4vw, 567px); object-fit: cover; }
-.page-home .hero__dot { position: absolute; pointer-events: none; }
-.page-home .hero__dot--a { width: clamp(140px, 21.9vw, 315px); left: -5.6%; top: calc(-1 * clamp(30px, 4.4vw, 63px)); }
-.page-home .hero__dot--b { width: clamp(56px, 8.2vw, 118px); left: 15.8%; top: clamp(90px, 12.7vw, 183px); }
-.page-home .hero__band { position: relative; background: var(--lavender); box-shadow: 0 4px 5px 1px rgba(0, 0, 0, 0.25); }
-.page-home .hero__band .container { padding-block: clamp(36px, 4vw, 57px) clamp(44px, 5vw, 70px); }
-.page-home .hero__text { position: relative; z-index: 2; max-width: 959px; display: flex; flex-direction: column; gap: clamp(20px, 3vw, 42px); }
-.page-home .hero__line { width: min(669px, 100%); height: auto; }
-.page-home .hero__circle { position: absolute; z-index: 1; right: -4.2%; top: clamp(150px, 21.7vw, 313px); width: clamp(220px, 37.7vw, 543px); pointer-events: none; }
-.page-home .hero__circle img:first-child { width: 100%; height: auto; }
-.page-home .hero__hands { position: absolute; width: 34.3%; left: 6.8%; top: 76.4%; height: auto; }
-@media (max-width: 899px) {
-  .page-home .hero__circle { right: -18%; opacity: .55; }
-}
+/* ---- hero: photo with glass bubbles, text card overlapping the photo ---- */
+.page-home .hero { position: relative; background: var(--lime-50); }
+@media (max-width: 640px) { .page-home .map-legend { display: none; } }
+.page-home .hero__media { position: relative; height: clamp(300px, 40vw, 560px); overflow: hidden; }
+.page-home .hero__photo { width: 100%; height: 100%; object-fit: cover; }
+.page-home .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 27, 38, .08) 0%, rgba(30, 27, 38, 0) 35%, rgba(46, 30, 80, .35) 100%); pointer-events: none; }
+.page-home .hero__hands { position: absolute; z-index: 2; right: clamp(16px, 7vw, 120px); top: clamp(24px, 5vw, 70px); width: clamp(96px, 12vw, 170px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; animation: bubble-float 10s ease-in-out infinite; --dy: -10px; }
+.page-home .hero__hands img { width: 78%; height: auto; filter: drop-shadow(0 6px 12px rgba(168, 53, 101, .3)); }
+.page-home .hero__card-wrap { position: relative; z-index: 3; margin-top: clamp(-140px, -9vw, -60px); }
+.page-home .hero__card { background: #fff; border-radius: var(--radius-l); box-shadow: var(--e3); padding: clamp(24px, 4vw, 52px); display: grid; gap: clamp(16px, 2.4vw, 24px); max-width: 960px; }
+.page-home .hero__line { width: min(420px, 70%); height: auto; opacity: .85; }
+.page-home .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
 
-.page-home .who__grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
-@media (min-width: 1000px) { .page-home .who__grid { grid-template-columns: minmax(0, 675px) minmax(0, 439px); justify-content: space-between; } }
-.page-home .who__cluster { position: relative; width: 100%; max-width: 608px; aspect-ratio: 608 / 295; margin-inline: auto; }
-.page-home .who__lines { position: absolute; left: 2.709%; top: 25.48%; width: 94.65%; height: 45.04%; max-width: none; }
-.page-home .who__logo { position: absolute; height: auto; max-width: none; transition: transform .2s; }
-.page-home .who__logo:hover { transform: scale(1.06); }
-.page-home .who__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 5vw, 75px); text-align: center; margin-top: 14px; }
-.page-home .who__stats .stat__label { font-size: clamp(15px, 1.6vw, 20px); }
+/* ---- who we are ---- */
+.page-home .who__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 1000px) { .page-home .who__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
+.page-home .network { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-l); box-shadow: var(--e2); padding: clamp(18px, 3vw, 36px); overflow: hidden; }
+.page-home .network::before { content: ""; position: absolute; width: 60%; aspect-ratio: 1; right: -18%; bottom: -40%; border-radius: 50%; background: radial-gradient(circle, var(--lime-100), transparent 70%); }
+.page-home .network__map { position: relative; width: 100%; aspect-ratio: 608 / 295; }
+.page-home .network__lines { position: absolute; left: 2.709%; top: 25.48%; width: 94.65%; height: 45.04%; max-width: none; opacity: .22; }
+.page-home .network__logo { position: absolute; height: auto; max-width: none; transition: transform .3s var(--ease), box-shadow .3s; animation: bubble-float var(--dur, 8s) ease-in-out infinite; animation-delay: var(--delay, 0s); --dy: -5px; --dx: 0px; }
+.page-home .network__logo:hover { scale: 1.08; box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--pink-100), 0 14px 28px -10px rgba(46, 30, 80, .4); animation-play-state: paused; }
 
-.page-home .collab__grid { display: grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
-@media (min-width: 1000px) { .page-home .collab__grid { grid-template-columns: minmax(0, 582px) minmax(0, 531px); justify-content: space-between; } }
-.page-home .collab__logos { display: flex; flex-direction: column; gap: 23px; align-items: flex-end; }
-.page-home .collab__pill { display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 102px 0 0 102px; height: clamp(150px, 14.2vw, 204px); width: min(531px, 100%); margin-right: calc(-1 * max(16px, (100vw - 1140px) / 2)); padding: 16px 40px; text-decoration: none; transition: transform .2s; }
-.page-home .collab__pill:hover { transform: translateX(-6px); }
-.page-home .collab__pill img { max-height: 100%; width: auto; object-fit: contain; }
-@media (max-width: 999px) { .page-home .collab__pill { margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px))); } }
+/* ---- collaborators ---- */
+.page-home .collab__grid { display: grid; gap: clamp(28px, 4vw, 56px); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 1000px) { .page-home .collab__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+.page-home .collab__cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .page-home .collab__cards { grid-template-columns: 1fr 1fr; } }
+.page-home .partner { display: flex; flex-direction: column; gap: 14px; padding: 20px; text-decoration: none; }
+.page-home .partner__logo { height: 128px; display: grid; place-items: center; background: var(--surface-2); border-radius: var(--radius-s); padding: 16px; }
+.page-home .partner__logo img { max-height: 96px; width: auto; object-fit: contain; }
+.page-home .partner__name { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.page-home .partner__link { font-size: 13px; color: var(--pink-700); font-weight: 600; margin-top: auto; }
 
-.page-home .find__map { position: relative; width: 100%; max-width: 1141px; margin-inline: auto; aspect-ratio: 1141 / 625; border-radius: var(--radius-l); overflow: hidden; background: #e9e6df; }
-.page-home .find__map > img.map { position: absolute; width: 178.1%; max-width: none; left: -42.6%; top: -105.8%; height: auto; }
-.page-home .pin { position: absolute; width: 5.26%; aspect-ratio: 1; transform: translate(0, 0); transition: transform .2s; }
-.page-home .pin img { position: absolute; inset: -16.67%; width: 133.3%; height: 133.3%; max-width: none; }
-.page-home .pin:hover { transform: scale(1.18); z-index: 2; }
+/* ---- find organizations ---- */
+.page-home .find__top { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: end; justify-content: space-between; }
+.page-home .map-card { position: relative; border-radius: var(--radius-l); overflow: hidden; background: var(--lavender-50); border: 1px solid var(--line); box-shadow: var(--e2); aspect-ratio: 1141 / 625; }
+.page-home .map-card__img { position: absolute; width: 178.1%; max-width: none; left: -42.6%; top: -105.8%; height: auto; filter: grayscale(.85) saturate(.7) contrast(.92) brightness(1.08); }
+.page-home .map-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(246, 239, 255, .55), rgba(193, 164, 233, .22) 60%, rgba(221, 92, 144, .14)); pointer-events: none; }
+.page-home .map-legend { position: absolute; z-index: 3; left: 16px; top: 16px; border-radius: var(--radius-m); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; }
+.page-home .map-legend b { font-size: 22px; letter-spacing: -0.02em; }
+.page-home .map-legend span { font-size: 13px; color: var(--ink-soft); font-weight: 500; }
+.page-home .pin { position: absolute; z-index: 2; width: clamp(34px, 4.6vw, 56px); transform: translate(-50%, -50%); display: block; border-radius: 50%; text-decoration: none; }
+.page-home .pin::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--pink); opacity: 0; transform: scale(.8); transition: opacity .2s, transform .3s var(--ease); }
+.page-home .pin img { width: 100%; height: auto; transition: transform .25s var(--ease); }
+.page-home .pin__label { position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translate(-50%, 4px); white-space: nowrap; background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: var(--radius-pill); opacity: 0; pointer-events: none; transition: opacity .15s, transform .2s var(--ease); box-shadow: var(--e2); }
+.page-home .pin:hover, .page-home .pin:focus-visible, .page-home .pin.is-hl { z-index: 4; }
+.page-home .pin:hover img, .page-home .pin:focus-visible img, .page-home .pin.is-hl img { transform: scale(1.12); }
+.page-home .pin:hover::before, .page-home .pin:focus-visible::before, .page-home .pin.is-hl::before { opacity: 1; transform: scale(1); }
+.page-home .pin:hover .pin__label, .page-home .pin:focus-visible .pin__label, .page-home .pin.is-hl .pin__label { opacity: 1; transform: translate(-50%, 0); }
+.page-home .chip.is-hl { border-color: var(--pink); color: var(--ink); box-shadow: var(--e1); }
 
-.page-home .media__grid { display: grid; gap: 25px; grid-template-columns: 1fr 1fr; align-items: end; }
-.page-home .media__grid img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-s); }
-.page-home .media__col { display: grid; gap: 25px; }
+/* ---- media ---- */
+.page-home .media__grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+.page-home .media__grid figure { margin: 0; border-radius: var(--radius-m); overflow: hidden; box-shadow: var(--e1); }
+.page-home .media__grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.page-home .media__grid figure:hover img { transform: scale(1.04); }
 @media (min-width: 900px) {
-  .page-home .media__grid { grid-template-columns: 367fr 409fr 314fr; justify-content: space-between; gap: 25px; }
-  .page-home .media__col img { aspect-ratio: 367.5 / 275.6; }
-  .page-home .media__tall { aspect-ratio: 409 / 545; height: auto; }
-  .page-home .media__tall2 { aspect-ratio: 314 / 499; height: auto; }
+  .page-home .media__grid { grid-template-columns: 1.1fr 1.2fr 1fr; grid-template-rows: 1fr 1fr; height: 560px; gap: 20px; }
+  .page-home .media__a { grid-column: 1; grid-row: 1; }
+  .page-home .media__b { grid-column: 1; grid-row: 2; }
+  .page-home .media__c { grid-column: 2; grid-row: 1 / 3; }
+  .page-home .media__d { grid-column: 3; grid-row: 1 / 3; }
 }
-@media (max-width: 899px) {
-  .page-home .media__col { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
-  .page-home .media__col img, .page-home .media__tall, .page-home .media__tall2 { aspect-ratio: 4 / 3; }
-}
+@media (max-width: 899px) { .page-home .media__grid figure { aspect-ratio: 4 / 3; } }
 </style>
 
 <section class="hero" aria-labelledby="home-title">
-  <img class="hero__photo" src="assets/img/home/hero.jpg" alt="Members of women's organizations in The Hague working together around a table" width="1600" height="1067">
-  <img class="hero__dot hero__dot--a" src="assets/img/home/hero-circle-1.svg" alt="" width="315" height="315">
-  <img class="hero__dot hero__dot--b" src="assets/img/home/hero-circle-2.svg" alt="" width="118" height="118">
-  <div class="hero__circle" aria-hidden="true">
-    <img src="assets/img/home/hero-circle-big.svg" alt="" width="543" height="543">
-    <img class="hero__hands" src="assets/img/home/hero-circle-small.png" alt="" width="451" height="451">
+  <div class="hero__media">
+    <img class="hero__photo" src="assets/img/home/hero.jpg" alt="Members of women's organizations in The Hague working together around a table" width="1600" height="1067">
+    <span class="bubble" style="width:clamp(140px,20vw,300px);height:clamp(140px,20vw,300px);left:-4%;top:-12%;--dur:11s"></span>
+    <span class="bubble" style="width:clamp(56px,7vw,110px);height:clamp(56px,7vw,110px);left:15%;top:46%;--dur:8s;--delay:-2s;--dy:-18px"></span>
+    <span class="bubble" style="width:clamp(70px,9vw,150px);height:clamp(70px,9vw,150px);right:24%;bottom:14%;--dur:12s;--delay:-5s;--dx:-10px"></span>
+    <span class="hero__hands glass" aria-hidden="true"><img src="assets/img/home/hero-circle-small.png" alt="" width="451" height="451"></span>
   </div>
-  <div class="hero__band">
-    <div class="container">
-      <div class="hero__text">
-        <h1 class="h-display" id="home-title">Kracht(vrouwen) in de Wijk</h1>
-        <p class="lead">Kracht(vrouwen) in de Wijk is a Community of Practice for and by women's organizations in The Hague. In this learning environment, organizations come together to share knowledge, learn from each other, and strengthen their impact. By pooling experiences, tackling challenges together, and developing practical solutions, we are building a sustainable network that supports and connects women in The Hague.</p>
-        <img class="hero__line" src="assets/img/home/hero-line.svg" alt="" width="669" height="16">
+  <div class="container hero__card-wrap">
+    <div class="hero__card">
+      <span class="eyebrow">Community of Practice · The Hague</span>
+      <h1 class="h-display" id="home-title">Kracht(vrouwen) in de Wijk</h1>
+      <p class="lead">Kracht(vrouwen) in de Wijk is a Community of Practice for and by women's organizations in The Hague. In this learning environment, organizations come together to share knowledge, learn from each other, and strengthen their impact. By pooling experiences, tackling challenges together, and developing practical solutions, we are building a sustainable network that supports and connects women in The Hague.</p>
+      <img class="hero__line" src="assets/img/home/hero-line.svg" alt="" width="669" height="16">
+      <div class="hero__ctas">
+        <a class="btn" href="#organizations">Find Organizations <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--outline" href="#events">Upcoming Events</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="band band--green" aria-labelledby="who-title">
-  <div class="container section--tight stack" style="--gap:21px">
-    <h2 class="h-section" id="who-title">Who We Are</h2>
+<section class="band band--lime-soft" aria-labelledby="who-title">
+  <div class="container section">
     <div class="who__grid">
-      <div>
-        <div class="who__cluster" role="img" aria-label="Logos of the member organizations, connected in one network">
-          <img class="who__lines" src="assets/img/home/who-lines.svg" alt="" width="576" height="133">
-          <img class="who__logo" src="assets/img/home/who-logo-4.png" alt="" width="125" height="125" style="left:-1.32%;top:5.42%;width:20.56%">
-          <img class="who__logo" src="assets/img/home/who-logo-7.png" alt="" width="118" height="118" style="left:0.0%;top:51.19%;width:19.41%">
-          <img class="who__logo" src="assets/img/home/who-logo-3.png" alt="" width="117" height="117" style="left:19.57%;top:29.83%;width:19.24%">
-          <img class="who__logo" src="assets/img/home/who-logo-2.png" alt="" width="142" height="142" style="left:39.14%;top:2.71%;width:23.36%">
-          <img class="who__logo" src="assets/img/home/who-logo-1.png" alt="" width="157" height="157" style="left:34.54%;top:50.17%;width:25.82%">
-          <img class="who__logo" src="assets/img/home/who-logo-5.png" alt="" width="104" height="104" style="left:62.01%;top:33.22%;width:17.11%">
-          <img class="who__logo" src="assets/img/home/who-logo-6.png" alt="" width="151" height="151" style="left:75.16%;top:-3.39%;width:24.84%">
-          <img class="who__logo" src="assets/img/home/who-logo-8.png" alt="" width="134" height="134" style="left:79.61%;top:49.15%;width:22.04%">
+      <div class="stack min0" style="--gap:22px">
+        <span class="eyebrow eyebrow--lime">Since January 2024</span>
+        <h2 class="h-section" id="who-title">Who We Are</h2>
+        <div class="body">
+          <p>Kracht(vrouwen) in de wijk is a Community of Practice (CoP) that arose from the need of women's organizations in The Hague to learn together and become stronger together.</p>
+          <p>There are dozens of women's organizations active in The Hague, each with their own background, goals, and approach. Although they differ from each other, they surprisingly often encounter the same questions: How do we find a good space? How can we grow? How do we make our impact visible?</p>
         </div>
-        <div class="who__stats">
+        <div class="stat-panel" style="margin-top:6px">
           <div><p class="stat__num">10</p><p class="stat__label">Organizations</p></div>
           <div><p class="stat__num">250</p><p class="stat__label">Total Members</p></div>
           <div><p class="stat__num">300</p><p class="stat__label">Activities</p></div>
         </div>
       </div>
-      <div class="body min0">
-        <p>Kracht(vrouwen) in de wijk is a Community of Practice (CoP) that arose from the need of women's organizations in The Hague to learn together and become stronger together.</p>
-        <p>There are dozens of women's organizations active in The Hague, each with their own background, goals, and approach. Although they differ from each other, they surprisingly often encounter the same questions: How do we find a good space? How can we grow? How do we make our impact visible?</p>
+      <div class="network">
+        <div class="network__map" role="img" aria-label="Logos of the member organizations, connected in one network">
+          <img class="network__lines" src="assets/img/home/who-lines.svg" alt="" width="576" height="133">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="105" height="105" style="left:0.33%;top:8.81%;width:17.27%;--dur:9s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="118" height="118" style="left:0;top:51.19%;width:19.41%;--dur:10s;--delay:-3s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="97" height="97" style="left:21.22%;top:33.22%;width:15.95%;--dur:8s;--delay:-1s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="122" height="122" style="left:40.79%;top:6.1%;width:20.07%;--dur:11s;--delay:-4s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="137" height="137" style="left:36.18%;top:53.56%;width:22.53%;--dur:9.5s;--delay:-2s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="96" height="96" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="131" height="131" style="left:76.81%;top:0;width:21.55%;--dur:10.5s;--delay:-1.5s">
+          <img class="network__logo logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="114" height="114" style="left:81.25%;top:52.54%;width:18.75%;--dur:9s;--delay:-6s">
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="band band--pink" aria-labelledby="collab-title" style="overflow:hidden">
-  <div class="container section stack" style="--gap:50px">
-    <h2 class="h-section" id="collab-title">Collaborators</h2>
+<section class="band band--pink-soft" aria-labelledby="collab-title">
+  <div class="container section">
     <div class="collab__grid">
-      <p class="lead min0" style="line-height:1.25">The Hague University of Applied Sciences, together with women's organizations in The Hague and the municipality of The Hague, combined this shared need into a sustainable learning environment. Since January 1, 2024, organizations from different neighborhoods—such as Laak, Escamp, and Schilderswijk—have been meeting regularly to share experiences, knowledge, and practical solutions. In this way, we are gradually building a strong, connected network in which women's organizations inspire, support, and strengthen each other.</p>
-      <div class="collab__logos">
-        <a class="collab__pill" href="https://www.dehaagsehogeschool.nl/" target="_blank" rel="noopener" aria-label="The Hague University of Applied Sciences (opens in a new tab)">
-          <img src="assets/img/home/logo-hhs.png" alt="The Hague University of Applied Sciences" width="413" height="147" style="width:min(413px,100%);height:auto">
+      <div class="stack min0" style="--gap:18px">
+        <span class="eyebrow">Partners</span>
+        <h2 class="h-section" id="collab-title">Collaborators</h2>
+        <p class="body">The Hague University of Applied Sciences, together with women's organizations in The Hague and the municipality of The Hague, combined this shared need into a sustainable learning environment. Since January 1, 2024, organizations from different neighborhoods—such as Laak, Escamp, and Schilderswijk—have been meeting regularly to share experiences, knowledge, and practical solutions. In this way, we are gradually building a strong, connected network in which women's organizations inspire, support, and strengthen each other.</p>
+      </div>
+      <div class="collab__cards">
+        <a class="card card--link partner" href="https://www.dehaagsehogeschool.nl/" target="_blank" rel="noopener">
+          <span class="partner__logo"><img src="assets/img/home/logo-hhs.png" alt="" width="413" height="147"></span>
+          <span class="partner__name">The Hague University of Applied Sciences</span>
+          <span class="partner__link">Visit website ↗</span>
         </a>
-        <a class="collab__pill" href="https://www.denhaag.nl/" target="_blank" rel="noopener" aria-label="Municipality of The Hague (opens in a new tab)">
-          <img src="assets/img/home/logo-gemeente.webp" alt="Municipality of The Hague" width="181" height="170" style="height:min(170px,100%)">
+        <a class="card card--link partner" href="https://www.denhaag.nl/" target="_blank" rel="noopener">
+          <span class="partner__logo"><img src="assets/img/home/logo-gemeente.webp" alt="" width="181" height="170"></span>
+          <span class="partner__name">Municipality of The Hague</span>
+          <span class="partner__link">Visit website ↗</span>
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="find-title" style="padding-bottom:0">
-  <div class="container stack" style="--gap:20px">
-    <h2 class="h-section" id="find-title">Find Organizations</h2>
-    <form class="search" role="search" data-site-search>
-      <label class="sr-only" for="home-org-search">Search organizations</label>
-      <input id="home-org-search" type="search" placeholder="Search">
-      <button type="submit" aria-label="Search"><img src="assets/icons/search.svg" alt="" width="18" height="18"></button>
-    </form>
-    <div class="chips" style="margin-bottom:30px">
-      <a class="chip" href="#org-vbl">VrouwenBuurtLab Laak</a>
-      <a class="chip" href="#organizations">Amal Coaching</a>
-      <a class="chip" href="#organizations">Wijkz</a>
-      <a class="chip" href="#organizations">Stichting POLKA</a>
-      <a class="chip" href="#organizations">Coöperatie Eva</a>
-      <a class="chip" href="#organizations">Stichting de Talenten ”klup”</a>
-      <a class="chip" href="#org-reva">ReVa Moeders</a>
+<section class="section" aria-labelledby="find-title">
+  <div class="container stack" style="--gap:28px">
+    <div class="find__top">
+      <div class="section-head">
+        <span class="eyebrow eyebrow--purple">Across The Hague</span>
+        <h2 class="h-section" id="find-title">Find Organizations</h2>
+      </div>
+      <form class="search search--lg" role="search">
+        <label class="sr-only" for="home-org-search">Search organizations</label>
+        <input id="home-org-search" type="search" placeholder="Search organizations" data-search-target="home-orgs" autocomplete="off">
+        <button type="button" aria-label="Search" tabindex="-1"><img src="assets/icons/search.svg" alt="" width="18" height="18"></button>
+      </form>
     </div>
-    <div class="find__map" role="img" aria-label="Map of The Hague showing where the member organizations are based">
-      <img class="map" src="assets/img/home/map.webp" alt="" width="2032" height="1660">
-      <span class="pin" style="left:29.1%;top:16.2%"><img src="assets/img/home/pin-1.png" alt="" width="80" height="80"></span>
-      <span class="pin" style="left:24.3%;top:24.3%"><img src="assets/img/home/pin-2.png" alt="" width="80" height="80"></span>
-      <span class="pin" style="left:42.9%;top:31.5%"><img src="assets/img/home/pin-3.png" alt="" width="80" height="80"></span>
-      <span class="pin" style="left:47.4%;top:41.1%"><img src="assets/img/home/pin-4.png" alt="" width="80" height="80"></span>
-      <span class="pin" style="left:31.7%;top:80.8%"><img src="assets/img/home/pin-5.png" alt="" width="80" height="80"></span>
-      <span class="pin" style="left:52.8%;top:68.8%"><img src="assets/img/home/pin-6.png" alt="" width="80" height="80"></span>
-      <span class="pin" style="left:77.5%;top:71.2%"><img src="assets/img/home/pin-7.png" alt="" width="80" height="80"></span>
+    <div class="chips">
+      <a class="chip" href="#org-vbl" data-filter-item="home-orgs" data-hl="vbl"><img class="chip__logo" src="assets/img/home/pin-6-c.png" alt="" width="24" height="24">VrouwenBuurtLab Laak</a>
+      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="amal"><img class="chip__logo" src="assets/img/home/pin-5-c.png" alt="" width="24" height="24">Amal Coaching</a>
+      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="wijkz"><img class="chip__logo" src="assets/img/home/pin-7-c.png" alt="" width="24" height="24">Wijkz</a>
+      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="polka"><img class="chip__logo" src="assets/img/home/pin-1-c.png" alt="" width="24" height="24">Stichting POLKA</a>
+      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="eva"><img class="chip__logo" src="assets/img/home/pin-3-c.png" alt="" width="24" height="24">Coöperatie Eva</a>
+      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="klup"><img class="chip__logo" src="assets/img/home/pin-4-c.png" alt="" width="24" height="24">Stichting de Talenten ”klup”</a>
+      <a class="chip" href="#org-reva" data-filter-item="home-orgs" data-hl="reva"><img class="chip__logo" src="assets/img/home/pin-2-c.png" alt="" width="24" height="24">ReVa Moeders</a>
+    </div>
+    <p class="muted small" data-empty="home-orgs" hidden>No organizations match that search.</p>
+    <div class="map-card">
+      <img class="map-card__img" src="assets/img/home/map.webp" alt="" width="2032" height="1660" loading="lazy">
+      <div class="map-legend glass" aria-hidden="true"><b>7</b><span>organizations on the map</span></div>
+      <a class="pin" href="#organizations" data-hl="polka" style="left:31.7%;top:21.1%"><img class="logo-dot" src="assets/img/home/pin-1-c.png" alt="" width="60" height="60"><span class="pin__label">Stichting POLKA</span></a>
+      <a class="pin" href="#org-reva" data-hl="reva" style="left:26.9%;top:29.1%"><img class="logo-dot" src="assets/img/home/pin-2-c.png" alt="" width="60" height="60"><span class="pin__label">ReVa Moeders</span></a>
+      <a class="pin" href="#organizations" data-hl="eva" style="left:45.5%;top:36.3%"><img class="logo-dot" src="assets/img/home/pin-3-c.png" alt="" width="60" height="60"><span class="pin__label">Coöperatie Eva</span></a>
+      <a class="pin" href="#organizations" data-hl="klup" style="left:50.0%;top:45.9%"><img class="logo-dot" src="assets/img/home/pin-4-c.png" alt="" width="60" height="60"><span class="pin__label">Stichting de Talenten ”klup”</span></a>
+      <a class="pin" href="#organizations" data-hl="amal" style="left:34.4%;top:85.6%"><img class="logo-dot" src="assets/img/home/pin-5-c.png" alt="" width="60" height="60"><span class="pin__label">Amal Coaching</span></a>
+      <a class="pin" href="#org-vbl" data-hl="vbl" style="left:55.4%;top:73.6%"><img class="logo-dot" src="assets/img/home/pin-6-c.png" alt="" width="60" height="60"><span class="pin__label">VrouwenBuurtLab Laak</span></a>
+      <a class="pin" href="#organizations" data-hl="wijkz" style="left:80.1%;top:76.0%"><img class="logo-dot" src="assets/img/home/pin-7-c.png" alt="" width="60" height="60"><span class="pin__label">Wijkz</span></a>
     </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="cal-title">
-  <div class="container stack" style="--gap:30px">
-    <h2 class="h-section" id="cal-title">Calendar</h2>
+<section class="band band--lavender-soft" aria-labelledby="cal-title">
+  <div class="container section stack" style="--gap:28px">
+    <div class="find__top">
+      <div class="section-head">
+        <span class="eyebrow eyebrow--purple">What's on</span>
+        <h2 class="h-section" id="cal-title">Calendar</h2>
+      </div>
+      <a class="btn" href="#events">All Events <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
     <div data-mount="calendar"></div>
-    <div class="row" style="justify-content:flex-end">
-      <a class="btn btn--wide" href="#events" style="min-width:min(348px,100%);min-height:60px;font-size:20px">ALL EVENTS</a>
-    </div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="media-title" style="padding-top:0">
-  <div class="container stack" style="--gap:25px">
-    <h2 class="h-section" id="media-title">Media</h2>
-    <div class="media__grid">
-      <div class="media__col">
-        <img src="assets/img/home/media-1.jpg" alt="Women sitting together around a table during a meeting" width="1600" height="1200" loading="lazy" data-lightbox>
-        <img src="assets/img/home/media-2.jpg" alt="Participants working on materials at a shared table" width="1600" height="1200" loading="lazy" data-lightbox>
+<section class="section" aria-labelledby="media-title">
+  <div class="container stack" style="--gap:28px">
+    <div class="find__top">
+      <div class="section-head">
+        <span class="eyebrow">Moments together</span>
+        <h2 class="h-section" id="media-title">Media</h2>
       </div>
-      <img class="media__tall" src="assets/img/home/media-3.jpg" alt="Members gathered during a community activity" width="1500" height="2000" loading="lazy" data-lightbox>
-      <img class="media__tall2" src="assets/img/home/media-4.jpg" alt="Two members posing together at an event" width="1200" height="1600" loading="lazy" data-lightbox>
+      <a class="btn btn--outline" href="#media">View More <span class="arrow" aria-hidden="true">→</span></a>
     </div>
-    <div class="row" style="justify-content:center;margin-top:24px">
-      <a class="btn btn--outline" href="#media" style="min-width:199px;min-height:64px">View More</a>
+    <div class="media__grid">
+      <figure class="media__a"><img src="assets/img/home/media-1.jpg" alt="Women sitting together around a table during a meeting" width="1600" height="1200" loading="lazy" data-lightbox></figure>
+      <figure class="media__b"><img src="assets/img/home/media-2.jpg" alt="Participants working on materials at a shared table" width="1600" height="1200" loading="lazy" data-lightbox></figure>
+      <figure class="media__c"><img src="assets/img/home/media-3.jpg" alt="Members gathered during a community activity" width="1350" height="1800" loading="lazy" data-lightbox></figure>
+      <figure class="media__d"><img src="assets/img/home/media-4.jpg" alt="Two members posing together at an event" width="1200" height="1600" loading="lazy" data-lightbox></figure>
     </div>
   </div>
 </section>

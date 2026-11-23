@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ORDER = [
-    "home", "organizations", "org-vbl", "org-reva", "events", "blog", "blog-entry",
+    "home", "organizations", "map", "org-vbl", "org-reva", "events", "blog", "blog-entry",
     "guide", "guide-location", "guide-structure", "guide-frictions", "guide-balance",
     "guide-generations", "faq", "contact", "media", "about",
 ]

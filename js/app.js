@@ -6,6 +6,7 @@
   var NAV = [
     { route: "home", label: "Home" },
     { route: "organizations", label: "Organizations", match: ["org-vbl", "org-reva"] },
+    { route: "map", label: "Map" },
     { label: "Resources", children: [
       { route: "guide", label: "Guide", match: ["guide-location", "guide-structure", "guide-frictions", "guide-balance", "guide-generations"] },
       { route: "faq", label: "FAQ" },
@@ -16,7 +17,7 @@
     { route: "blog", label: "Blog", match: ["blog-entry"] }
   ];
   var FOOTER_LINKS = [
-    ["home", "Home"], ["organizations", "Organizations"], ["guide", "Tools & Downloads"],
+    ["home", "Home"], ["organizations", "Organizations"], ["map", "Community Map"], ["guide", "Tools & Downloads"],
     ["about", "About Us"], ["blog", "Blog"], ["contact", "Contact Us"]
   ];
 
@@ -154,9 +155,10 @@
     $$("[data-legal]").forEach(function (a) {
       a.addEventListener("click", function (e) {
         e.preventDefault();
-        openModal('<h2 class="h-sub" style="margin-bottom:12px">' + esc(a.dataset.legal) + '</h2><p class="body">This page is not part of the design yet. ' +
-          (a.dataset.legal === "Cookie Settings" ? "This site does not set tracking cookies; it only remembers nothing beyond the page you are on." : "Contact the Kracht(vrouwen) in de Wijk team for the full text.") +
-          '</p><p style="margin-top:20px"><a class="btn btn--sm" href="#contact" data-modal-close>Contact us</a></p>');
+        openModal('<h2 class="h-sub" style="margin-bottom:12px">' + esc(a.dataset.legal) + '</h2>' +
+          (a.dataset.legal === "Cookie Settings" ? '<p class="body">This site does not set tracking cookies.</p><p class="body" style="margin-top:10px">' : '<p class="body">') +
+          '<span class="ph" title="Missing: ' + esc(a.dataset.legal) + ' text">[text]</span></p>' +
+          '<p style="margin-top:20px"><a class="btn btn--sm" href="#contact" data-modal-close>Contact us</a></p>');
       });
     });
   }
@@ -424,27 +426,7 @@
     });
 
     // forms
-    $$("form[data-form]", root).forEach(function (form) {
-      form.setAttribute("novalidate", "");
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var bad = $$("input, textarea, select", form).filter(function (f) { return !f.checkValidity(); });
-        $$(".field-error", form).forEach(function (n) { n.remove(); });
-        bad.forEach(function (f) {
-          f.setAttribute("aria-invalid", "true");
-          var msg = document.createElement("p");
-          msg.className = "field-error small"; msg.style.color = "#b0174f";
-          msg.textContent = f.validity.valueMissing ? "Please fill in this field." : f.validity.typeMismatch ? "Please enter a valid " + (f.type === "email" ? "email address." : "value.") : f.validationMessage;
-          f.insertAdjacentElement("afterend", msg);
-          f.addEventListener("input", function once() { f.removeAttribute("aria-invalid"); if (msg.parentNode) msg.remove(); f.removeEventListener("input", once); });
-        });
-        if (bad.length) { bad[0].focus(); return; }
-        var ok = $("[data-form-success]", form);
-        $$(":scope > *", form).forEach(function (c) { if (c !== ok) c.hidden = true; });
-        if (ok) { ok.hidden = false; ok.setAttribute("role", "status"); ok.setAttribute("tabindex", "-1"); ok.focus(); }
-        else toast("Thank you! Your message has been received.");
-      });
-    });
+    $$("form[data-form]", root).forEach(bindForm);
 
     // lightbox
     $$("img[data-lightbox]", root).forEach(function (img) {
@@ -473,6 +455,32 @@
     // mounts
     $$('[data-mount="calendar"]', root).forEach(mountCalendar);
     $$('[data-mount="upcoming"]', root).forEach(mountUpcoming);
+    if (window.KVOrgMap) $$('[data-mount="org-map"]', root).forEach(function (el) {
+      window.KVOrgMap(el, { esc: esc, openModal: openModal, toast: toast, bindForm: bindForm });
+    });
+  }
+
+  function bindForm(form) {
+    form.setAttribute("novalidate", "");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var bad = $$("input, textarea, select", form).filter(function (f) { return !f.checkValidity(); });
+      $$(".field-error", form).forEach(function (n) { n.remove(); });
+      bad.forEach(function (f) {
+        f.setAttribute("aria-invalid", "true");
+        var msg = document.createElement("p");
+        msg.className = "field-error small"; msg.style.color = "#b0174f";
+        msg.textContent = f.validity.valueMissing ? (f.type === "checkbox" ? "Please tick this box to continue." : "Please fill in this field.") : f.validity.typeMismatch ? "Please enter a valid " + (f.type === "email" ? "email address." : "value.") : f.validationMessage;
+        (f.type === "checkbox" && f.closest("label") ? f.closest("label") : f).insertAdjacentElement("afterend", msg);
+        var evt = f.type === "checkbox" ? "change" : "input";
+        f.addEventListener(evt, function once() { f.removeAttribute("aria-invalid"); if (msg.parentNode) msg.remove(); f.removeEventListener(evt, once); });
+      });
+      if (bad.length) { bad[0].focus(); return; }
+      var ok = $("[data-form-success]", form);
+      $$(":scope > *", form).forEach(function (c) { if (c !== ok) c.hidden = true; });
+      if (ok) { ok.hidden = false; ok.setAttribute("role", "status"); ok.setAttribute("tabindex", "-1"); ok.focus(); }
+      else toast("Thank you! Your message has been received.");
+    });
   }
 
   function fallbackCopy(text) {

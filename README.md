@@ -22,6 +22,7 @@ Kracht(vrouwen) in de Wijk is a Community of Practice for and by women's organiz
 | --- | --- | --- |
 | Home | `#home` | HOME PAGE |
 | Organizations | `#organizations` | ORGANIZATIONS |
+| Community Map | `#map` | Find your community (interactive flower map, list, profile, contact, success stories) |
 | VrouwenBuurtLab Laak | `#org-vbl` | SINGLE ORGANIZATION |
 | ReVa Moeders | `#org-reva` | SINGLE ORGANIZATION |
 | Events | `#events` | EVENTS PAGE |
@@ -47,6 +48,8 @@ pages/<route>.html      one HTML fragment per page
 css/site.css            design tokens and shared components (colours, type, buttons, chips, cards…)
 js/app.js               header, footer, router, search, calendar and other behaviors
 js/events.js            calendar events and organizations — edit this to add events
+js/orgs.js              organizations on the Community Map — edit this to add or update an organization
+js/map.js               the Community Map (illustrative neighbourhood shapes, flowers, filters, views)
 assets/                 images and icons exported from Figma
 scripts/build.py        assembles index.html and artifact.html from src/ and pages/
 scripts/optimize_images.py  compresses exported images
@@ -61,12 +64,19 @@ scripts/check_assets.py     reports missing or unused images
 Page fragments use data attributes instead of inline scripts — see the comments at the top of `js/app.js`
 and the classes in `css/site.css`.
 
+## Placeholders
+
+Content that is not available yet is shown as a highlighted `[text]` placeholder
+(`<span class="ph" title="Missing: …">[text]</span>`; hover it to see what is missing). In `js/orgs.js`, any field left
+as `null` renders a placeholder automatically. Search the site for `[text]` to find everything that still needs filling in.
+
+Organization facts were checked against public sources (the organizations' own websites, Sociale Kaart Den Haag,
+Gemeente Den Haag, De Haagse Hogeschool) in November 2026; the sources are listed per organization in `js/orgs.js`.
+
 ## Notes
 
-- Content, names and events are the sample content from the designs. The calendar opens on the current month
-  (set `KV_CALENDAR_START` in `js/events.js` to e.g. `"2026-01"` to open on the month shown in the designs).
-  Weekly activities repeat automatically; the designs give no year, so "Communal Meal" and "Turns Pink" are placed
-  on the next matching Mondays (30 November and 14 December 2026).
+- Events are the weekly activities published by the organizations (see the comments in `js/events.js`). The calendar
+  opens on the current month; weekly activities repeat automatically.
 - Events-page filter tags (location, category, demographic) are sample values; adjust the `data-*` attributes
   on the event cards in `pages/events.html`.
 - Original site preview: https://claude.ai/artifact/H3i2Hey3RRoHb4DzEnpf8u (private to the owner until shared).

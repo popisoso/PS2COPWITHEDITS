@@ -73,6 +73,8 @@
   /* calendar section (widget itself is styled globally) */
   .page-events .ev-cal { border-top: 1px solid var(--lavender-100); }
   .page-events .ev-cal__head { margin-bottom: clamp(24px, 3vw, 36px); }
+  .page-events .ev-org { font-size: 13px; font-weight: 650; color: var(--pink-700); margin-bottom: -8px; }
+  .page-events .ev-card__media--blank { display: grid; place-items: center; background: radial-gradient(circle at 1px 1px, rgba(107, 74, 168, .13) 1px, transparent 1.5px) 0 0 / 16px 16px, linear-gradient(140deg, var(--lavender-50), var(--lavender-100)); }
 </style>
 
 <section class="ev-hero">
@@ -95,27 +97,23 @@
         <details class="ev-fbox card" open>
           <summary>Locations</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="binckhorst"><span>Binckhorst</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="laak"><span>Laak</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="moerwijk"><span>Moerwijk</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="scheveningen"><span>Scheveningen</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="location" value="segbroek"><span>Segbroek</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="laak"><span>Laak</span><span class="ev-count">(6)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="segbroek"><span>Segbroek</span><span class="ev-count">(2)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="centrum"><span>Centrum</span><span class="ev-count">(2)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="location" value="escamp"><span>Escamp / Moerwijk</span><span class="ev-count">(2)</span></label></li>
           </ul>
-          <button type="button" class="ev-more" data-scroll="events-calendar">See more</button>
         </details>
 
         <details class="ev-fbox card" open>
           <summary>Categories</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="activities"><span>Activities</span><span class="ev-count">(10)</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="advice"><span>Advice</span><span class="ev-count">(5)</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="children"><span>Children</span><span class="ev-count">(8)</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="coaching"><span>Coaching</span><span class="ev-count">(7)</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="courses"><span>Courses</span><span class="ev-count">(9)</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="culture"><span>Culture</span><span class="ev-count">(13)</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="category" value="education"><span>Education</span><span class="ev-count">(5)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="activities"><span>Activities</span><span class="ev-count">(5)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="advice"><span>Advice</span><span class="ev-count">(2)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="courses"><span>Courses</span><span class="ev-count">(4)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="culture"><span>Culture</span><span class="ev-count">(2)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="health"><span>Health &amp; sport</span><span class="ev-count">(4)</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="category" value="education"><span>Education</span><span class="ev-count">(2)</span></label></li>
           </ul>
-          <button type="button" class="ev-more" data-scroll="events-calendar">See more</button>
         </details>
 
         <details class="ev-fbox card" open>
@@ -126,21 +124,19 @@
             <li><label class="ev-check"><input type="checkbox" name="demographic" value="adults"><span>Adults</span></label></li>
             <li><label class="ev-check"><input type="checkbox" name="demographic" value="seniors"><span>Seniors</span></label></li>
           </ul>
-          <button type="button" class="ev-more" data-scroll="events-calendar">See more</button>
         </details>
 
         <details class="ev-fbox card" open>
           <summary>Organization</summary>
           <ul>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="amal"><span>Amal Coaching</span></label></li>
             <li><label class="ev-check"><input type="checkbox" name="organization" value="bulgaarse-club"><span>Bulgaarse Club Laak</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="eva"><span>Coöperatie Eva</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="laak-ladies"><span>Laak ladies United</span></label></li>
             <li><label class="ev-check"><input type="checkbox" name="organization" value="moerwijk-moeders"><span>Moerwijk Moeders</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="polka"><span>POLKA</span></label></li>
             <li><label class="ev-check"><input type="checkbox" name="organization" value="reva"><span>ReVa Moeders</span></label></li>
-            <li><label class="ev-check"><input type="checkbox" name="organization" value="jemeniyaat"><span>Stichting Jemeniyaat</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="vbl"><span>VrouwenBuurtLab Laak</span></label></li>
+            <li><label class="ev-check"><input type="checkbox" name="organization" value="mar"><span>Zwemvereniging MAR</span></label></li>
           </ul>
-          <a class="ev-more" href="#organizations">See more</a>
+          <a class="ev-more" href="#organizations">See all organizations</a>
         </details>
       </div>
     </aside>
@@ -149,121 +145,156 @@
       <h2 id="ev-list-title" class="sr-only">Events</h2>
       <p class="form-note ev-empty" data-empty="events" hidden>No events match these filters. Clear a filter to see more.</p>
       <div class="ev-grid" data-paginate="6">
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="advice culture" data-demographic="adults seniors">
-          <span class="ev-new">New</span>
-          <div class="ev-card__media"><img src="assets/img/events/turns-pink.jpg" alt="Pink breast cancer awareness ribbon" width="720" height="360" loading="lazy" style="object-position: 0% 50%"></div>
-          <h3>Turns Pink</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="courses" data-demographic="adults seniors" data-organization="vbl">
+          <div class="ev-card__media"><img src="assets/img/events/sewing.webp" alt="Hands guiding fabric through a sewing machine" loading="lazy"></div>
+          <h3>Sewing Lessons</h3>
           <div class="ev-card__body">
-            <p>We come together for breast cancer month to share our knowledge and experiences on the topic. We’d like to be there for everyone and whoever is ...</p>
-            <ul class="ev-meta small">
-              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 13 December</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 16:00 - 18:00</li>
-              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities courses culture" data-demographic="adults seniors">
-          <div class="ev-card__media"><img src="assets/img/events/painting-club.jpg" alt="Easels with blank canvases set up for a painting class" width="800" height="1200" loading="lazy" style="object-position: 50% 58%"></div>
-          <h3>Painting Club</h3>
-          <div class="ev-card__body">
-            <p>With Sadaf, you’ll learn how to paint step-by-step. You don’t need experience, together we’ll see how creative and fun painting can be.</p>
+            <p class="ev-org">VrouwenBuurtLab Laak</p>
+            <p>Learn to sew step by step. An advanced class follows on Wednesday mornings, with a clothing repair hour at 12:30.</p>
             <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Monday</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 9:00 - 12:00</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities culture" data-demographic="children youth adults seniors">
-          <div class="ev-card__media"><img src="assets/img/events/communal-meal.jpg" alt="A table full of shared dishes for a communal meal" width="682" height="1023" loading="lazy"></div>
-          <h3>Communal Meal</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="culture courses" data-demographic="adults seniors" data-organization="vbl">
+          <div class="ev-card__media"><img src="assets/img/events/painting-club.jpg" alt="A woman painting at an easel" loading="lazy"></div>
+          <h3>Painting Club</h3>
           <div class="ev-card__body">
-            <p>Come and have a meal together with the women from Wijk!</p>
+            <p class="ev-org">VrouwenBuurtLab Laak</p>
+            <p>Learn how to paint step by step. No experience needed: together we’ll see how creative and fun painting can be.</p>
             <ul class="ev-meta small">
-              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 29 November</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 17:00 - 19:00</li>
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: day">[text]</span></li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: time">[text]</span></li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities courses" data-demographic="adults seniors">
-          <div class="ev-card__media"><img src="assets/img/events/crochet-knitting.jpg" alt="Hands crocheting pink yarn" width="894" height="894" loading="lazy" style="object-position: 50% 56%"></div>
-          <h3>Crochet &amp; Knitting</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="health activities" data-demographic="adults seniors" data-organization="vbl">
+          <div class="ev-card__media"><img src="assets/img/events/zumba.jpg" alt="Women exercising together in a community room" loading="lazy"></div>
+          <h3>Slow Fitness</h3>
           <div class="ev-card__body">
-            <p>Discover the magic of crochet and knitting. Whether you are a beginner who wants to learn the basics or you have more experience ...</p>
+            <p class="ev-org">VrouwenBuurtLab Laak</p>
+            <p>Gentle exercise for every level with Beweegpraktijk. On Thursday evenings there is also kickboxing (19:30) and Pilates (20:30).</p>
             <ul class="ev-meta small">
-              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Tuesday</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Wednesday &amp; Thursday</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 11:30 - 12:30 (Wed), 18:30 - 19:30 (Thu)</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities" data-demographic="youth adults">
-          <div class="ev-card__media"><img src="assets/img/events/zumba.jpg" alt="A group of women dancing at a zumba class" width="1200" height="800" loading="lazy" style="object-position: 50% 76%"></div>
-          <h3>Zumba</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="health advice" data-demographic="adults seniors" data-organization="vbl">
+          <div class="ev-card__media"><img src="assets/img/events/hero-flowers.jpg" alt="Pink flowers" loading="lazy"></div>
+          <h3>Happy Women</h3>
           <div class="ev-card__body">
-            <p>Discover the magic of movement and the art of zumba. Whether you are a beginner who wants to learn the basics or you have ...</p>
+            <p class="ev-org">VrouwenBuurtLab Laak</p>
+            <p>A weekly meeting on health themes such as menopause, sleep, self-love and setting boundaries, organised with Wijkz and GGD Haaglanden.</p>
             <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Thursday</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 9:00 - 11:30</li>
               <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="courses education" data-demographic="adults seniors">
-          <div class="ev-card__media"><img src="assets/img/events/sewing.webp" alt="A sewing machine with fabric and a measuring tape" width="928" height="704" loading="lazy" style="object-position: 50% 100%"></div>
-          <h3>Sewing</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="courses education" data-demographic="adults seniors" data-organization="vbl">
+          <div class="ev-card__media ev-card__media--blank"><span class="ph" title="Missing: photo">[image]</span></div>
+          <h3>Dutch Conversation Group</h3>
           <div class="ev-card__body">
-            <p>If you have no experience with sewing machines, don’t fret! We will guide you. We ask that you bring your own fabric so that you can ...</p>
+            <p class="ev-org">VrouwenBuurtLab Laak</p>
+            <p>Praatgroep ABC: practise speaking Dutch in a relaxed group. Before it, ‘Kletsen en kansen’ runs from 9:00 to 12:00.</p>
+            <ul class="ev-meta small">
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Friday</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 11:00 - 12:30</li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="ev-card card" data-filter-item="events" data-location="segbroek" data-category="courses education" data-demographic="adults" data-organization="reva">
+          <div class="ev-card__media ev-card__media--blank"><span class="ph" title="Missing: photo">[image]</span></div>
+          <h3>Language Classes</h3>
+          <div class="ev-card__body">
+            <p class="ev-org">ReVa Moeders</p>
+            <p>Weekly language classes by ReVa Moeders. Mothers without childcare are welcome to bring their children.</p>
+            <ul class="ev-meta small">
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: day">[text]</span></li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: time">[text]</span></li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: location">[text]</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="advice" data-demographic="adults seniors" data-organization="bulgaarse-club">
+          <div class="ev-card__media ev-card__media--blank"><span class="ph" title="Missing: photo">[image]</span></div>
+          <h3>Drop-in Hour</h3>
+          <div class="ev-card__body">
+            <p class="ev-org">Bulgaarse Club Laak</p>
+            <p>Bring your practical questions about work, language courses, healthcare costs, official letters or school enrolment. Closed during school holidays.</p>
             <ul class="ev-meta small">
               <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Wednesday</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 9:30 - 11:30</li>
-              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 10:00 - 12:00</li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Goeverneurplein 8</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="advice culture" data-demographic="adults seniors">
-          <span class="ev-new">New</span>
-          <div class="ev-card__media"><img src="assets/img/events/turns-pink.jpg" alt="Pink breast cancer awareness ribbon" width="720" height="360" loading="lazy" style="object-position: 0% 50%"></div>
-          <h3>Turns Pink</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="centrum escamp" data-category="health activities" data-demographic="youth adults seniors" data-organization="mar">
+          <div class="ev-card__media ev-card__media--blank"><span class="ph" title="Missing: photo">[image]</span></div>
+          <h3>Women’s Swimming</h3>
           <div class="ev-card__body">
-            <p>We come together for breast cancer month to share our knowledge and experiences on the topic. We’d like to be there for everyone and whoever is ...</p>
+            <p class="ev-org">Zwemvereniging MAR</p>
+            <p>Women-only swimming lessons, free swimming and aqua classes. Wednesday at Zwembad Zuiderpark; Friday at De Houtzagerij with female instructors.</p>
             <ul class="ev-meta small">
-              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 13 December</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 16:00 - 18:00</li>
-              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Wednesday &amp; Friday</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 18:30 - 20:30 (Wed), 19:00 - 22:00 (Fri)</li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Zuiderpark &amp; De Houtzagerij</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities courses culture" data-demographic="adults seniors">
-          <div class="ev-card__media"><img src="assets/img/events/painting-club.jpg" alt="Easels with blank canvases set up for a painting class" width="800" height="1200" loading="lazy" style="object-position: 50% 58%"></div>
-          <h3>Painting Club</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="centrum" data-category="health activities children" data-demographic="children adults" data-organization="mar">
+          <div class="ev-card__media ev-card__media--blank"><span class="ph" title="Missing: photo">[image]</span></div>
+          <h3>Mother &amp; Child Swimming</h3>
           <div class="ev-card__body">
-            <p>With Sadaf, you’ll learn how to paint step-by-step. You don’t need experience, together we’ll see how creative and fun painting can be.</p>
+            <p class="ev-org">Zwemvereniging MAR</p>
+            <p>Swimming together with your child (boys up to 6) at Zwembad De Houtzagerij.</p>
             <ul class="ev-meta small">
-              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Monday</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 12:00 - 14:00</li>
-              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Tuesday</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 15:45 - 17:00</li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> De Houtzagerij</li>
             </ul>
           </div>
         </article>
 
-        <article class="ev-card card" data-filter-item="events" data-location="laak" data-category="activities culture" data-demographic="children youth adults seniors">
-          <div class="ev-card__media"><img src="assets/img/events/communal-meal.jpg" alt="A table full of shared dishes for a communal meal" width="682" height="1023" loading="lazy"></div>
-          <h3>Communal Meal</h3>
+        <article class="ev-card card" data-filter-item="events" data-location="segbroek" data-category="culture activities" data-demographic="adults" data-organization="polka">
+          <div class="ev-card__media ev-card__media--blank"><span class="ph" title="Missing: photo">[image]</span></div>
+          <h3>Friday Meeting for Polish Women</h3>
           <div class="ev-card__body">
-            <p>Come and have a meal together with the women from Wijk!</p>
+            <p class="ev-org">POLKA</p>
+            <p>Information, inspiration, language practice and time together with other Polish women at POLKA.</p>
             <ul class="ev-meta small">
-              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Mon, 29 November</li>
-              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 17:00 - 19:00</li>
-              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Van Meursstraat 1</li>
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Friday</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> 18:30 - 22:00</li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> Regentesseplein 148</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="ev-card card" data-filter-item="events" data-location="escamp" data-category="activities" data-demographic="adults" data-organization="moerwijk-moeders">
+          <div class="ev-card__media"><img src="assets/img/events/communal-meal.jpg" alt="A table full of shared dishes" loading="lazy"></div>
+          <h3>Mothers’ Breakfast</h3>
+          <div class="ev-card__body">
+            <p class="ev-org">Moerwijk Moeders</p>
+            <p>A weekly breakfast where mothers from Moerwijk meet, share and support each other.</p>
+            <ul class="ev-meta small">
+              <li><img src="assets/img/events/calendar.svg" alt="Date" width="14" height="14" loading="lazy"> Every Tuesday</li>
+              <li><img src="assets/img/events/clock.svg" alt="Time" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: time">[text]</span></li>
+              <li><img src="assets/img/events/location.svg" alt="Location" width="14" height="14" loading="lazy"> <span class="ph" title="Missing: location">[text]</span></li>
             </ul>
           </div>
         </article>

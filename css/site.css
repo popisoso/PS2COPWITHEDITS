@@ -387,3 +387,7 @@ mark { background: var(--lime-100); padding: 0 2px; border-radius: 3px; }
 .org-modal__head { display: flex; gap: 16px; align-items: center; padding-right: 32px; }
 .org-modal__head .logo-dot { width: 72px; height: 72px; flex: none; }
 .org-modal .btn { justify-self: start; }
+
+/* [text] placeholder for content that is not available yet: easy to spot during review.
+   Use <span class="ph" title="Missing: what">[text]</span> */
+.ph { display: inline-block; padding: 0 6px; border-radius: 6px; background: repeating-linear-gradient(135deg, #fff7d6 0 6px, #fff1b8 6px 12px); border: 1px dashed #d8b84a; color: #7a5b00; font-weight: 600; font-size: .9em; line-height: 1.5; cursor: help; }

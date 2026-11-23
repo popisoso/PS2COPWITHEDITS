@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ORDER = [
     "home", "organizations", "map", "org-vbl", "org-reva", "events", "blog", "blog-entry",
     "guide", "guide-location", "guide-structure", "guide-frictions", "guide-balance",
-    "guide-generations", "faq", "contact", "media", "about",
+    "guide-generations", "faq", "contact", "media", "about", "terms", "privacy", "cookies",
 ]
 
 

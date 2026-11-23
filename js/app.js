@@ -141,26 +141,12 @@
       '<div class="container">' +
         '<div class="site-footer__top">' +
           '<nav class="site-footer__links" aria-label="Footer">' + FOOTER_LINKS.map(function (l) { return '<a href="#' + l[0] + '">' + esc(l[1]) + '</a>'; }).join("") + '</nav>' +
-          '<div class="social">' +
-            '<a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="" width="42" height="42"></a>' +
-            '<a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><img src="assets/icons/youtube.svg" alt="" width="42" height="42"></a>' +
-            '<a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="" width="42" height="42"></a>' +
-          '</div>' +
         '</div>' +
         '<div class="site-footer__bottom">' +
           '<span class="loc"><img src="assets/icons/location.svg" alt="" width="9" height="13">Netherlands</span>' +
-          '<nav aria-label="Legal"><a href="#terms" data-legal="Terms of Use">Terms of Use</a><a href="#privacy" data-legal="Privacy &amp; Cookie Policy">Privacy &amp; Cookie Policy</a><a href="#cookies" data-legal="Cookie Settings">Cookie Settings</a></nav>' +
+          '<nav aria-label="Legal"><a href="#terms">Terms of Use</a><a href="#privacy">Privacy &amp; Cookie Policy</a><a href="#cookies">Cookie Settings</a></nav>' +
         '</div>' +
       '</div>';
-    $$("[data-legal]").forEach(function (a) {
-      a.addEventListener("click", function (e) {
-        e.preventDefault();
-        openModal('<h2 class="h-sub" style="margin-bottom:12px">' + esc(a.dataset.legal) + '</h2>' +
-          (a.dataset.legal === "Cookie Settings" ? '<p class="body">This site does not set tracking cookies.</p><p class="body" style="margin-top:10px">' : '<p class="body">') +
-          '<span class="ph" title="Missing: ' + esc(a.dataset.legal) + ' text">[text]</span></p>' +
-          '<p style="margin-top:20px"><a class="btn btn--sm" href="#contact" data-modal-close>Contact us</a></p>');
-      });
-    });
   }
 
   /* ---------------- router ---------------- */
@@ -563,6 +549,10 @@
 
   function mountCalendar(el) {
     var events = expandEvents().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    if (!events.length) {
+      el.innerHTML = '<div class="event-empty"><span class="event-empty__icon" aria-hidden="true"><img src="assets/icons/calendar.svg" alt="" width="28" height="28"></span><div><h3>No current events</h3><p>New activities and gatherings will appear here as soon as they are scheduled.</p></div><a class="btn btn--outline btn--sm" href="#contact">Share an event</a></div>';
+      return;
+    }
     var start = window.KV_CALENDAR_START ? parse(window.KV_CALENDAR_START + "-01") : new Date();
     var st = { y: start.getFullYear(), m: start.getMonth(), view: "month", sel: null, org: "", cat: "" };
     var orgs = window.KV_ORGS || {};
@@ -708,6 +698,10 @@
     var org = el.dataset.org;
     var today0 = iso(new Date());
     var events = expandEvents().filter(function (e) { return (!org || e.org === org) && e.date >= today0; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; }).slice(0, limit);
+    if (!events.length) {
+      el.innerHTML = '<div class="event-empty event-empty--compact"><span class="event-empty__icon" aria-hidden="true"><img src="assets/icons/calendar.svg" alt="" width="28" height="28"></span><div><h3>No upcoming events</h3><p>Check back soon for new activities from this organization.</p></div></div>';
+      return;
+    }
     el.innerHTML = '<div class="grid" style="--min:240px">' + events.map(function (e, i) {
       return '<button type="button" class="cal__event" data-ev="' + i + '">' + badge(e) + "<span><b>" + esc(e.title) + "</b><span>" + longDate(e.date) + " · " + esc(orgOf(e).name) + "</span></span></button>";
     }).join("") + "</div>";

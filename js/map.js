@@ -17,14 +17,19 @@
     { id: "rijswijk", name: "Rijswijk", lx: 630, ly: 538, d: "M560 420 690 400 765 470 735 560H500L520 520Z", outside: true }
   ];
   window.KV_HOODS = HOODS;
+  /* links elsewhere on the site can open the map at an organization: <a href="#map" data-fm-org="vbl"> */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("[data-fm-org]");
+    if (a) window.KV_MAP_PENDING = { view: "profile", sel: a.getAttribute("data-fm-org"), tab: "about" };
+  }, true);
   /* visible window: extra room on the left keeps the city clear of the floating cards */
   var VB = { x: -300, y: -10, w: 1300, h: 580 };
   function pos(o) { return "left:" + ((o.x - VB.x) / VB.w * 100).toFixed(2) + "%;top:" + ((o.y - VB.y) / VB.h * 100).toFixed(2) + "%"; }
 
   var PURPOSE = {
-    connect: { label: "Meet & connect", petal: "#dd5c90", petal2: "#f3a6c4", heart: "#ffd36b" },
-    learn: { label: "Learn & grow", petal: "#8f6fd0", petal2: "#c1a4e9", heart: "#ffd36b" },
-    support: { label: "Support", petal: "#ffa62b", petal2: "#ffd08a", heart: "#a83565" }
+    connect: { label: "Meet & connect", petal: "#dd5c90", petal2: "#f8c3d8", ink: "#a83565" },
+    learn: { label: "Learn & grow", petal: "#8f6fd0", petal2: "#ddcdf6", ink: "#6b4aa8" },
+    support: { label: "Support", petal: "#c9780a", petal2: "#ffd99e", ink: "#8a5206" }
   };
 
   var FILTERS = [
@@ -41,8 +46,15 @@
     var byId = {}; ORGS.forEach(function (o) { byId[o.id] = o; });
     var hoodById = {}; HOODS.forEach(function (h) { hoodById[h.id] = h; });
 
-    var st = { view: "field", back: "field", sel: null, q: "", sort: "az", tab: "about", zoom: 1, px: 0, py: 0, f: { hood: [], reach: [], themes: [], languages: [], type: [] } };
+    var st = { view: "field", back: "field", sel: null, q: "", sort: "az", tab: "about", zoom: 1.25, px: 0, py: 0, feat: null, f: { hood: [], reach: [], themes: [], languages: [], type: [] } };
     var uid = "fm" + Math.random().toString(36).slice(2, 7);
+    /* data-mode="preview" (home page): field view only; anything deeper opens the full map page */
+    var preview = el.dataset.mode === "preview";
+    if (!preview && window.KV_MAP_PENDING) {
+      var pend = window.KV_MAP_PENDING; window.KV_MAP_PENDING = null;
+      if (pend.sel && !byId[pend.sel]) pend.sel = null;
+      st.view = pend.view || "field"; st.sel = pend.sel || null; st.tab = pend.tab || "about"; st.back = pend.view === "profile" ? "field" : st.back;
+    }
 
     /* ---------- helpers ---------- */
     function ph(what) { return '<span class="ph" title="Missing: ' + esc(what) + '">[text]</span>'; }
@@ -88,28 +100,38 @@
     function plural(n, w) { return n + " " + w + (n === 1 ? "" : "s"); }
 
     /* ---------- flower art ---------- */
+    var flowerSeq = 0;
+    function initials(o) { return o.name.replace(/[^A-Za-zÀ-ÿ ]/g, "").split(" ").filter(Boolean).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase(); }
+    /* layered petals with a gradient from the heart outwards; the organization's logo sits in the heart */
     function flower(o, size, opts) {
       opts = opts || {};
       var p = PURPOSE[o.purpose] || PURPOSE.connect;
       var h = hasHash(o.id);
-      var n = 5 + (h % 4);              // 5–8 petals
-      var round = (h >> 3) % 2 === 0;   // round or pointed petals
-      var rot = (h >> 5) % 40;
-      var petals = "";
+      var n = 6 + (h % 3);
+      var rot = (h >> 4) % 30;
+      var id = uid + "f" + (flowerSeq++);
+      var outer = "", inner = "";
       for (var i = 0; i < n; i++) {
         var a = rot + i * 360 / n;
-        petals += round
-          ? '<ellipse cx="0" cy="-11" rx="6.4" ry="10" fill="' + (i % 2 ? p.petal2 : p.petal) + '" transform="rotate(' + a + ')"/>'
-          : '<path d="M0 -2 C 7 -8 6 -18 0 -23 C -6 -18 -7 -8 0 -2Z" fill="' + (i % 2 ? p.petal2 : p.petal) + '" transform="rotate(' + a + ')"/>';
+        outer += '<path d="M0 -7 C 10 -13 10 -26 0 -30 C -10 -26 -10 -13 0 -7Z" transform="rotate(' + a.toFixed(1) + ')"/>';
+        inner += '<path d="M0 -6 C 6 -10 6 -18 0 -21 C -6 -18 -6 -10 0 -6Z" transform="rotate(' + (a + 180 / n).toFixed(1) + ')"/>';
       }
+      var heart = '<circle r="13" fill="#fff"/>' + (o.logo
+        ? '<image href="' + esc(o.logo) + '" x="-11.5" y="-11.5" width="23" height="23" preserveAspectRatio="xMidYMid meet" clip-path="url(#' + id + 'c)"/>'
+        : '<text y="4" text-anchor="middle" font-size="10.5" font-weight="700" fill="' + p.ink + '" font-family="Inter, system-ui, sans-serif">' + esc(initials(o)) + "</text>");
       var stem = opts.noStem ? "" :
-        '<path d="M0 6 C 1 22 -2 34 0 46" stroke="#5f8f3e" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
-        '<path d="M0 30 C 8 24 15 25 18 20 C 11 18 4 22 0 30Z" fill="#7fb04f"/>' +
-        '<path d="M0 38 C -7 33 -13 34 -16 29 C -10 27 -4 31 0 38Z" fill="#6aa045"/>';
-      var vb = opts.noStem ? "-26 -26 52 52" : "-26 -26 52 74";
-      var hgt = opts.noStem ? size : Math.round(size * 74 / 52);
-      return '<svg class="fm-flower" viewBox="' + vb + '" width="' + size + '" height="' + hgt + '" aria-hidden="true" focusable="false">' + stem +
-        '<g>' + petals + '</g><circle r="6.5" fill="' + p.heart + '"/><circle r="6.5" fill="none" stroke="rgba(30,27,38,.12)"/></svg>';
+        '<path d="M0 12 C 4 32 -4 46 1 64" stroke="url(#' + id + 's)" stroke-width="3.4" fill="none" stroke-linecap="round"/>' +
+        '<path class="fm-leaf" d="M1 42 C 11 31 21 33 26 25 C 15 22 5 29 1 42Z" fill="#82b552"/>' +
+        '<path class="fm-leaf fm-leaf--l" d="M0 53 C -10 45 -18 46 -23 38 C -13 35 -4 41 0 53Z" fill="#5e9a3d"/>';
+      var vb = opts.noStem ? "-32 -32 64 64" : "-32 -32 64 98";
+      var hgt = opts.noStem ? size : Math.round(size * 98 / 64);
+      return '<svg class="fm-flower" viewBox="' + vb + '" width="' + size + '" height="' + hgt + '" aria-hidden="true" focusable="false">' +
+        '<defs><radialGradient id="' + id + 'g" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="30"><stop offset=".3" stop-color="' + p.petal2 + '"/><stop offset="1" stop-color="' + p.petal + '"/></radialGradient>' +
+        '<linearGradient id="' + id + 's" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa045"/><stop offset="1" stop-color="#3d7a2b"/></linearGradient>' +
+        '<clipPath id="' + id + 'c"><circle r="11.5"/></clipPath></defs>' + stem +
+        '<g class="fm-bloom"><g class="fm-petals fm-petals--outer" fill="url(#' + id + 'g)" stroke="rgba(255,255,255,.75)" stroke-width=".9">' + outer + "</g>" +
+        '<g class="fm-petals fm-petals--inner" fill="' + p.petal2 + '" stroke="rgba(255,255,255,.6)" stroke-width=".6">' + inner + "</g>" +
+        '<circle r="14.6" fill="none" stroke="' + p.petal + '" stroke-width="2.2"/>' + heart + "</g></svg>";
     }
 
     function mapSvg(cls, list) {
@@ -146,12 +168,14 @@
         "</div>" +
         '<div class="fm-bar" role="toolbar" aria-label="Filter organizations" data-fm-bar></div>' +
         '<div class="fm-view" data-fm-view></div>' +
+        '<div class="fm-extras" data-fm-extras></div>' +
       "</div>";
     var bar = el.querySelector("[data-fm-bar]");
     var host = el.querySelector("[data-fm-view]");
-    var storiesHost = document.querySelector("[data-fm-stories]");
+    var extras = el.querySelector("[data-fm-extras]");
     var qInput = el.querySelector("#" + uid + "-q");
     var openKey = null;
+    if (preview) { el.querySelector(".fm-top").hidden = true; bar.hidden = true; el.classList.add("fm--preview"); }
 
     el.querySelector("[data-fm-search]").addEventListener("submit", function (e) { e.preventDefault(); });
     qInput.addEventListener("input", function () { st.q = qInput.value.trim().toLowerCase(); st.sel = null; drawBar(); draw(); });
@@ -223,10 +247,15 @@
       else if (st.view === "profile") drawProfile();
       else if (st.view === "contact") drawContact();
       else drawField();
-      drawStories();
+      drawExtras();
     }
     function go(view, opts) {
       opts = opts || {};
+      if (preview && view !== "field") {
+        window.KV_MAP_PENDING = { view: view, sel: opts.sel !== undefined ? opts.sel : st.sel, tab: opts.tab };
+        location.hash = "map";
+        return;
+      }
       if (view === "profile" && st.view !== "contact") st.back = st.view === "profile" ? st.back : st.view;
       st.view = view; if (opts.sel !== undefined) st.sel = opts.sel; if (opts.tab) st.tab = opts.tab;
       openKey = null; drawBar(); draw();
@@ -236,79 +265,90 @@
     }
 
     /* field */
+    var grown = false, framed = false, hintGone = false, dragged = false, nudgeT;
     function drawField() {
       var list = visible();
       var on = {}; list.forEach(function (o) { on[o.id] = 1; });
       var placed = ORGS.filter(function (o) { return o.x != null && o.y != null; });
-      var unplaced = list.filter(function (o) { return o.x == null || o.y == null; });
       var h = oneHood();
       var sel = st.sel && byId[st.sel];
+      var coarse = matchMedia("(pointer: coarse)").matches;
 
       var intro = h ?
-        '<div class="fm-card fm-card--intro"><p class="fm-eyebrow">Your neighbourhood</p><h2 class="fm-h">Together in ' + esc(h.name) + '</h2>' +
+        '<div class="fm-card fm-card--intro"><h2 class="fm-h">Together in ' + esc(h.name) + "</h2>" +
           '<p class="fm-p">' + plural(list.length, "place") + " to connect, learn and feel at home.</p>" +
           '<ul class="fm-mini">' + list.map(function (o) { return '<li><button type="button" class="fm-mini__btn' + (st.sel === o.id ? " is-on" : "") + '" data-fm-pick="' + o.id + '"><span class="fm-dot fm-dot--' + o.purpose + '"></span>' + esc(o.name) + "</button></li>"; }).join("") + "</ul>" +
-          '<p class="fm-p fm-p--note">Your neighbourhood filter is on. Choose a flower to discover an organization.</p><button type="button" class="fm-link" data-fm-list>Show as a list →</button></div>'
+          '<button type="button" class="fm-link" data-fm-list>Show as a list →</button></div>'
         :
-        '<div class="fm-card fm-card--intro"><p class="fm-eyebrow">Rooted in The Hague</p><h2 class="fm-h fm-h--lg">Find your place. <br>Grow together.</h2>' +
-          '<p class="fm-p">Discover the women’s organizations making our city a place to connect, learn and belong.</p>' +
+        '<div class="fm-card fm-card--intro"><h2 class="fm-h fm-h--lg">Find your place. <br>Grow together.</h2>' +
+          '<p class="fm-p">Every flower is an organization. Drag the map around and pick a flower to meet the people behind it.</p>' +
           '<button type="button" class="btn btn--sm fm-wide" data-fm-list>Explore ' + plural(list.length, "organization") + ' <span class="arrow" aria-hidden="true">→</span></button></div>';
-
-      var hint = h ? "" :
-        '<div class="fm-card fm-card--hint"><h3 class="fm-h3">A field of possibilities</h3><p class="fm-p">Every flower is an organization. Select one to discover the people behind it.</p>' +
-          (unplaced.length ? '<p class="fm-p fm-p--note">' + plural(unplaced.length, "organization") + " still need a location on the map — find them in the list.</p>" : "") +
-          '<button type="button" class="fm-link" data-fm-list>Show as a list →</button></div>';
 
       host.innerHTML =
         '<div class="fm-stage">' +
-          '<div class="fm-canvas" data-fm-canvas tabindex="-1" data-fm-focus aria-label="Map of The Hague with ' + plural(list.length, "organization") + '">' +
+          '<div class="fm-canvas' + (grown ? "" : " is-growing") + '" data-fm-canvas tabindex="0" data-fm-focus aria-label="Map of The Hague with ' + plural(list.length, "organization") + '. Use the arrow keys to move around and plus or minus to zoom.">' +
             '<div class="fm-world" data-fm-world style="--z:' + st.zoom + ";transform:translate(" + st.px + "px," + st.py + "px) scale(" + st.zoom + ')">' +
               mapSvg("fm-svg", list) +
-              placed.map(function (o) {
+              placed.map(function (o, i) {
                 var vis = !!on[o.id];
-                return '<button type="button" class="fm-pin fm-pin--' + o.purpose + (vis ? "" : " is-dim") + (st.sel === o.id ? " is-sel" : "") + '" data-fm-pin="' + o.id + '" style="' + pos(o) + '"' +
+                return '<button type="button" class="fm-pin fm-pin--' + o.purpose + (vis ? "" : " is-dim") + (st.sel === o.id ? " is-sel" : "") + '" data-fm-pin="' + o.id + '" style="' + pos(o) + ";--i:" + i + '"' +
                   (vis ? "" : ' tabindex="-1" aria-hidden="true"') + ' aria-label="' + esc(o.name) + (hoodName(o) ? ", " + esc(hoodName(o)) : "") + '">' +
-                  flower(o, 34) + '<span class="fm-pin__label">' + esc(o.name) + "</span></button>";
+                  flower(o, 46) + '<span class="fm-pin__label">' + esc(o.name) + "</span></button>";
               }).join("") +
             "</div>" +
             '<div class="fm-zoom" role="group" aria-label="Zoom"><button type="button" data-fm-zoom="1" aria-label="Zoom in">+</button><button type="button" data-fm-zoom="-1" aria-label="Zoom out">−</button></div>' +
+            (hintGone ? "" : '<p class="fm-hint" aria-hidden="true"><span class="fm-hint__icon"></span>' + (coarse ? "Drag to explore · pinch to zoom" : "Drag to explore · Ctrl + scroll to zoom") + "</p>") +
           "</div>" +
-          '<span class="fm-place glass" aria-hidden="true">The Hague, Netherlands</span>' +
-          intro + hint +
+          intro +
           '<ul class="fm-legend" aria-label="Legend">' + Object.keys(PURPOSE).map(function (k) { return '<li><span class="fm-dot fm-dot--' + k + '"></span>' + PURPOSE[k].label + "</li>"; }).join("") + "</ul>" +
           (sel ? popup(sel) : "") +
-        "</div>" +
-        '<div class="fm-foot"><span>A city of connections. Every organization grows its own flower.</span><span>Neighbourhood boundaries are illustrative.</span></div>';
+        "</div>";
+      grown = true;
 
       host.querySelectorAll("[data-fm-list]").forEach(function (b) { b.addEventListener("click", function () { go("list"); }); });
       host.querySelectorAll("[data-fm-pin],[data-fm-pick]").forEach(function (b) {
-        b.addEventListener("click", function (e) { if (dragged) { e.preventDefault(); return; } var id = b.dataset.fmPin || b.dataset.fmPick; st.sel = st.sel === id ? null : id; drawField(); var p = host.querySelector(".fm-pop"); if (p) p.querySelector("h3").focus(); else { var pin = host.querySelector('[data-fm-pin="' + id + '"]'); if (pin) pin.focus(); } });
+        b.addEventListener("click", function (e) {
+          if (dragged) { e.preventDefault(); return; }
+          var id = b.dataset.fmPin || b.dataset.fmPick;
+          st.sel = st.sel === id ? null : id;
+          drawField();
+          if (b.dataset.fmPick && st.sel) { centerOn(byId[id]); }
+          var p = host.querySelector(".fm-pop"); if (p) p.querySelector("h3").focus({ preventScroll: true }); else { var pin = host.querySelector('[data-fm-pin="' + id + '"]'); if (pin) pin.focus({ preventScroll: true }); }
+        });
       });
       var pop = host.querySelector(".fm-pop");
       if (pop) {
         placePopup(pop);
-        pop.querySelector("[data-fm-close]").addEventListener("click", function () { var id = st.sel; st.sel = null; drawField(); var pin = host.querySelector('[data-fm-pin="' + id + '"]'); if (pin) pin.focus(); });
+        pop.querySelector("[data-fm-close]").addEventListener("click", function () { var id = st.sel; st.sel = null; drawField(); var pin = host.querySelector('[data-fm-pin="' + id + '"]'); if (pin) pin.focus({ preventScroll: true }); });
         pop.querySelector("[data-fm-open]").addEventListener("click", function () { go("profile", { sel: st.sel, tab: "about" }); });
         pop.addEventListener("keydown", function (e) { if (e.key === "Escape") { e.stopPropagation(); pop.querySelector("[data-fm-close]").click(); } });
       }
       host.querySelectorAll("[data-fm-zoom]").forEach(function (b) {
-        b.addEventListener("click", function () {
-          var z = Math.min(2.6, Math.max(1, Math.round((st.zoom + (+b.dataset.fmZoom) * 0.4) * 10) / 10));
-          var k = z / st.zoom; st.px *= k; st.py *= k; st.zoom = z; clampPan(); applyWorld(); if (pop) placePopup(pop);
-        });
+        b.addEventListener("click", function () { zoomAt(st.zoom * (+b.dataset.fmZoom > 0 ? 1.4 : 1 / 1.4), 0, 0); });
       });
+      if (!framed) {
+        framed = true;
+        if (matchMedia("(max-width: 760px)").matches) st.zoom = 1;
+        if (sel) centerOn(sel); else centerOn({ x: 545, y: 300 }); // open on the city centre, where most flowers are
+      }
+      clampPan(); applyWorld();
       bindPan();
     }
+    function impactRow(o, max) {
+      max = max || 3;
+      var items = (o.impact || []).slice(0, max);
+      if (o.since && items.length < max) items = items.concat([{ n: (o.sinceApprox ? "c. " : "") + o.since, label: "active since" }]);
+      if (!items.length) return "";
+      return '<dl class="fm-stats">' + items.map(function (it) { return "<div><dd>" + esc(String(it.n)) + "</dd><dt>" + esc(it.label) + "</dt></div>"; }).join("") + "</dl>";
+    }
+    function awardsLine(o) { return o.awards && o.awards.length ? '<p class="fm-award">' + esc(o.awards.join(" · ")) + "</p>" : ""; }
     function popup(o) {
-      var p = PURPOSE[o.purpose] || PURPOSE.connect;
       return '<div class="fm-pop" role="dialog" aria-label="' + esc(o.name) + '">' +
-        '<div class="fm-pop__band fm-band--' + o.purpose + '"><span>A place to bloom</span>' + flower(o, 30) + '<button type="button" class="fm-x" data-fm-close aria-label="Close">×</button></div>' +
-        '<div class="fm-pop__body"><p class="fm-eyebrow fm-eyebrow--check">' + val(o.type, "type of organization") + "</p>" +
-          '<h3 class="fm-h3" tabindex="-1">' + esc(o.name) + "</h3>" +
-          '<p class="fm-meta">The Hague · ' + val(hoodName(o), "neighbourhood") + "</p>" +
-          '<p class="fm-p">' + val(o.tagline, "short description") + "</p>" +
-          '<button type="button" class="btn btn--sm fm-wide" data-fm-open>View organization <span class="arrow" aria-hidden="true">→</span></button>' +
-          '<p class="sr-only">' + esc(p.label) + "</p></div></div>";
+        '<div class="fm-pop__band fm-band--' + o.purpose + '">' + flower(o, 52, { noStem: true }) +
+          '<div class="min0"><p class="fm-meta">' + val(o.type, "type of organization") + " · " + val(hoodName(o), "neighbourhood") + '</p><h3 class="fm-h3" tabindex="-1">' + esc(o.name) + "</h3></div>" +
+          '<button type="button" class="fm-x" data-fm-close aria-label="Close">×</button></div>' +
+        '<div class="fm-pop__body"><p class="fm-p">' + val(o.tagline, "short description") + "</p>" + impactRow(o, 2) + awardsLine(o) +
+          '<button type="button" class="btn btn--sm fm-wide" data-fm-open>View organization <span class="arrow" aria-hidden="true">→</span></button></div></div>';
     }
     function placePopup(pop) {
       if (matchMedia("(max-width: 760px)").matches) { pop.style.left = ""; pop.style.top = ""; return; }
@@ -321,31 +361,93 @@
       pop.style.left = Math.max(12, x) + "px"; pop.style.top = Math.max(12, Math.min(s.height - hgt - 12, y)) + "px";
     }
 
-    /* pan & zoom */
-    var dragged = false;
-    function applyWorld() { var w = host.querySelector("[data-fm-world]"); if (w) { w.style.transform = "translate(" + st.px + "px," + st.py + "px) scale(" + st.zoom + ")"; w.style.setProperty("--z", st.zoom); } }
+    /* pan & zoom: drag at any zoom level, pinch, Ctrl/⌘ + scroll, double-click, arrow keys */
+    function canvasEl() { return host.querySelector("[data-fm-canvas]"); }
+    function worldEl() { return host.querySelector("[data-fm-world]"); }
+    function applyWorld() { var w = worldEl(); if (w) { w.style.transform = "translate(" + st.px + "px," + st.py + "px) scale(" + st.zoom + ")"; w.style.setProperty("--z", st.zoom); } }
     function clampPan() {
-      var c = host.querySelector("[data-fm-canvas]"); if (!c) return;
-      var mx = c.clientWidth * (st.zoom - 1) / 2, my = c.clientHeight * (st.zoom - 1) / 2;
+      var c = canvasEl(), w = worldEl(); if (!c || !w) return;
+      var mx = Math.max(0, (w.offsetWidth * st.zoom - c.clientWidth) / 2), my = Math.max(0, (w.offsetHeight * st.zoom - c.clientHeight) / 2);
       st.px = Math.max(-mx, Math.min(mx, st.px)); st.py = Math.max(-my, Math.min(my, st.py));
     }
+    function afterMove() { var pop = host.querySelector(".fm-pop"); if (pop) placePopup(pop); }
+    function zoomAt(z, cx, cy) {
+      z = Math.min(3, Math.max(1, z));
+      var k = z / st.zoom;
+      st.px = cx - (cx - st.px) * k; st.py = cy - (cy - st.py) * k; st.zoom = z;
+      clampPan(); applyWorld(); hideHint(); afterMove();
+    }
+    function centerOn(o, z) {
+      var w = worldEl(), c = canvasEl(); if (!w || !c || !o || o.x == null) return;
+      if (z) st.zoom = Math.min(3, Math.max(st.zoom, z));
+      var ox = ((o.x - VB.x) / VB.w - 0.5) * w.offsetWidth, oy = ((o.y - VB.y) / VB.h - 0.5) * w.offsetHeight;
+      var shift = matchMedia("(min-width: 761px)").matches ? Math.min(170, c.clientWidth * 0.15) : 0; // keep clear of the intro card
+      st.px = -ox * st.zoom + shift; st.py = -oy * st.zoom; clampPan(); applyWorld(); afterMove();
+    }
+    function hideHint() { if (hintGone) return; hintGone = true; var hh = host.querySelector(".fm-hint"); if (hh) hh.classList.add("is-gone"); }
+    function nudge() {
+      var c = canvasEl(); if (!c) return;
+      var hh = c.querySelector(".fm-hint");
+      if (!hh) { hh = document.createElement("p"); hh.className = "fm-hint"; hh.setAttribute("aria-hidden", "true"); c.appendChild(hh); }
+      hh.innerHTML = '<span class="fm-hint__icon"></span>Hold Ctrl (or ⌘) and scroll to zoom';
+      hh.classList.remove("is-gone"); clearTimeout(nudgeT); nudgeT = setTimeout(function () { hh.classList.add("is-gone"); }, 1800);
+    }
     function bindPan() {
-      var c = host.querySelector("[data-fm-canvas]"); if (!c) return;
-      var start = null;
-      c.addEventListener("pointerdown", function (e) { if (st.zoom <= 1 || e.button !== 0 || e.target.closest(".fm-zoom")) return; e.preventDefault(); start = { x: e.clientX, y: e.clientY, px: st.px, py: st.py }; dragged = false; });
+      var c = canvasEl(); if (!c) return;
+      var pts = {}, start = null, pinch = null;
+      function rel(e) { var r = c.getBoundingClientRect(); return { x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 }; }
+      c.addEventListener("pointerdown", function (e) {
+        if ((e.pointerType === "mouse" && e.button !== 0) || e.target.closest(".fm-zoom")) return;
+        pts[e.pointerId] = rel(e);
+        var ids = Object.keys(pts);
+        if (ids.length === 1) { start = { x: e.clientX, y: e.clientY, px: st.px, py: st.py }; dragged = false; }
+        else if (ids.length === 2) {
+          var a = pts[ids[0]], b = pts[ids[1]];
+          pinch = { d: Math.max(20, Math.hypot(a.x - b.x, a.y - b.y)), z: st.zoom }; start = null; dragged = true;
+          ids.forEach(function (id) { try { c.setPointerCapture(+id); } catch (err) { /* ignore */ } });
+        }
+      });
       c.addEventListener("pointermove", function (e) {
+        if (!(e.pointerId in pts)) return;
+        pts[e.pointerId] = rel(e);
+        var ids = Object.keys(pts);
+        if (pinch && ids.length === 2) { var a = pts[ids[0]], b = pts[ids[1]]; zoomAt(pinch.z * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, (a.x + b.x) / 2, (a.y + b.y) / 2); return; }
         if (!start) return;
         var dx = e.clientX - start.x, dy = e.clientY - start.y;
         if (!dragged && Math.abs(dx) + Math.abs(dy) < 5) return;
-        if (!dragged) { dragged = true; try { c.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ } c.classList.add("is-dragging"); }
-        st.px = start.px + dx; st.py = start.py + dy; clampPan(); applyWorld();
-        var pop = host.querySelector(".fm-pop"); if (pop) placePopup(pop);
+        if (!dragged) { dragged = true; try { c.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ } c.classList.add("is-dragging"); hideHint(); }
+        st.px = start.px + dx; st.py = start.py + dy; clampPan(); applyWorld(); afterMove();
       });
-      var end = function () { start = null; c.classList.remove("is-dragging"); setTimeout(function () { dragged = false; }, 0); };
+      function end(e) {
+        delete pts[e.pointerId];
+        if (Object.keys(pts).length < 2) pinch = null;
+        if (!Object.keys(pts).length) { start = null; c.classList.remove("is-dragging"); setTimeout(function () { dragged = false; }, 0); }
+      }
       c.addEventListener("pointerup", end); c.addEventListener("pointercancel", end);
-      c.classList.toggle("can-pan", st.zoom > 1);
+      c.addEventListener("wheel", function (e) {
+        if (!(e.ctrlKey || e.metaKey)) { nudge(); return; }
+        e.preventDefault(); var p = rel(e); zoomAt(st.zoom * Math.exp(-e.deltaY * 0.004), p.x, p.y);
+      }, { passive: false });
+      c.addEventListener("dblclick", function (e) { if (e.target.closest(".fm-pin, .fm-zoom")) return; var p = rel(e); zoomAt(st.zoom * 1.6, p.x, p.y); });
+      c.addEventListener("keydown", function (e) {
+        if (e.target !== c) return;
+        var k = e.key, step = 60;
+        if (k === "+" || k === "=") { e.preventDefault(); zoomAt(st.zoom * 1.3, 0, 0); return; }
+        if (k === "-" || k === "_") { e.preventDefault(); zoomAt(st.zoom / 1.3, 0, 0); return; }
+        if (k === "ArrowLeft") st.px += step; else if (k === "ArrowRight") st.px -= step; else if (k === "ArrowUp") st.py += step; else if (k === "ArrowDown") st.py -= step; else return;
+        e.preventDefault(); clampPan(); applyWorld(); hideHint(); afterMove();
+      });
     }
-    window.addEventListener("resize", function () { var pop = host.querySelector(".fm-pop"); if (pop && document.body.contains(el)) placePopup(pop); });
+    window.addEventListener("resize", function () { if (!document.body.contains(el)) return; clampPan(); applyWorld(); afterMove(); });
+    /* show an organization on the map: select its flower and bring it into view */
+    function focusOrg(id) {
+      var o = byId[id]; if (!o) return;
+      st.view = "field"; st.sel = id; openKey = null; drawBar(); draw();
+      centerOn(o, 1.6);
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 100;
+      window.scrollTo({ top: top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      var p = host.querySelector(".fm-pop h3"); if (p) p.focus({ preventScroll: true });
+    }
 
     /* list */
     function drawList() {
@@ -355,7 +457,8 @@
           '<div class="min0">' +
             '<div class="fm-list-head"><div><p class="fm-eyebrow">Your community, at a glance</p>' +
               '<h2 class="fm-h fm-h--lg" tabindex="-1" data-fm-focus>' + plural(list.length, "organization") + " in " + esc(placeLabel()) + "</h2>" +
-              '<p class="fm-p">A few different ways to find your people. Explore a profile to learn more.</p></div>' +
+              '<p class="fm-p">A few different ways to find your people. Explore a profile to learn more.</p>' +
+              (list.some(function (o) { return o.x == null; }) ? '<p class="fm-p fm-p--note">Organizations marked “neighbourhood [text]” don’t have a confirmed location yet, so they are listed here but not shown on the map.</p>' : "") + "</div>" +
               '<div class="select"><label class="sr-only" for="' + uid + '-sort">Sort</label><select id="' + uid + '-sort" data-fm-sort>' +
                 '<option value="az"' + (st.sort === "az" ? " selected" : "") + ">Sort: Name A–Z</option>" +
                 '<option value="za"' + (st.sort === "za" ? " selected" : "") + ">Sort: Name Z–A</option>" +
@@ -400,12 +503,14 @@
             '<div data-tabs><div class="fm-tabs tabs__list" role="tablist" aria-label="About ' + esc(o.name) + '">' + tab("about", "About") + tab("stories", "Community stories") + tab("contact", "Get in touch") + "</div>" +
               '<section class="fm-panel-body" data-tab-panel="about">' +
                 '<h3 class="fm-h3">A space to connect and grow</h3><p class="fm-p">' + val(o.about, "about the organization") + "</p>" +
+                impactRow(o, 4) + awardsLine(o) +
                 '<p class="fm-label">What you can do here</p><ul class="fm-tags">' + ((o.themes && o.themes.length) ? o.themes.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") : "<li>" + ph("themes") + "</li>") + "</ul>" +
                 '<div class="fm-facts"><div><p class="fm-label">Who they reach</p><p class="fm-p">' + ((o.reach && o.reach.length) ? esc(o.reach.join(", ")) : ph("who they reach")) + "</p></div>" +
                   '<div><p class="fm-label">Languages</p><p class="fm-p">' + ((o.languages && o.languages.length) ? esc(o.languages.join(", ")) : ph("languages")) + "</p></div></div>" +
                 quote(stories ? stories[0] : null, o) +
               "</section>" +
               '<section class="fm-panel-body" data-tab-panel="stories" hidden><h3 class="fm-h3">Community stories</h3><p class="fm-p">How women found their place at ' + esc(o.name) + ".</p>" +
+                (o.highlight ? '<div class="fm-fact"><p>' + esc(o.highlight) + "</p>" + (o.sources && o.sources[0] ? '<a class="fm-src" href="' + esc(o.sources[0]) + '" target="_blank" rel="noopener">Source ↗</a>' : "") + "</div>" : "") +
                 '<div class="fm-story-grid">' + (stories || [null, null]).map(function (s) { return quote(s, o); }).join("") + "</div>" +
                 '<p class="fm-p fm-p--note">Are you part of ' + esc(o.name) + '? <a class="fm-link" href="#contact">Share your story with us</a>.</p></section>' +
               '<section class="fm-panel-body" data-tab-panel="contact" hidden><h3 class="fm-h3">Get in touch</h3>' +
@@ -471,21 +576,75 @@
       host.querySelector("[data-fm-back]").addEventListener("click", function () { go("profile"); });
     }
 
-    /* stories section (outside the mount, if present on the page) */
-    function drawStories() {
-      if (!storiesHost) return;
-      var list = visible();
-      var items = [];
-      list.forEach(function (o) { (o.stories || []).forEach(function (s) { items.push({ s: s, o: o }); }); });
-      var fill = list.length ? list : ORGS;
-      for (var i = 0; items.length < 3 && i < fill.length; i++) items.push({ s: null, o: fill[i] });
-      storiesHost.innerHTML = items.slice(0, 6).map(function (it) {
-        return '<article class="card fm-story"><div class="fm-story__top"><span class="fm-row__art fm-band--' + it.o.purpose + '">' + flower(it.o, 26) + '</span><div><p class="fm-meta">' + val(hoodName(it.o), "neighbourhood") + '</p><p class="fm-story__org">' + esc(it.o.name) + "</p></div></div>" +
-          '<blockquote>“' + (it.s && it.s.quote ? esc(it.s.quote) : ph("success story quote")) + '”</blockquote>' +
-          '<p class="fm-story__by">— ' + (it.s && it.s.by ? esc(it.s.by) : ph("member name")) + "</p>" +
-          '<button type="button" class="fm-link" data-fm-story="' + it.o.id + '">Read their story →</button></article>';
-      }).join("");
-      storiesHost.querySelectorAll("[data-fm-story]").forEach(function (b) { b.addEventListener("click", function () { go("profile", { sel: b.dataset.fmStory, tab: "stories" }); }); });
+    /* impact at a glance + stories of impact (rendered below the map, on the map page and the home preview) */
+    function drawExtras() {
+      if (!extras) return;
+      var weekly = (window.KV_EVENTS || []).filter(function (e) { return typeof e.weekly === "number"; }).length;
+      var hoods = {}; ORGS.forEach(function (o) { if (o.hood) hoods[o.hood] = 1; });
+      var years = ORGS.map(function (o) { return +o.since; }).filter(function (y) { return y > 1900; });
+      var first = years.length ? Math.min.apply(null, years) : null;
+      var tiles = [[ORGS.length, "organizations on the map"], [weekly, "weekly activities in the calendar"], [Object.keys(hoods).length, "neighbourhoods and towns"]];
+      if (first) tiles.push([new Date().getFullYear() - first, "years of experience in the network, since " + first]);
+
+      var figures = [];
+      ORGS.forEach(function (o) { (o.impact || []).forEach(function (it) { figures.push({ o: o, n: it.n, label: it.label }); }); });
+
+      var byYear = {};
+      ORGS.forEach(function (o) { if (o.since) (byYear[o.since] = byYear[o.since] || []).push(o); });
+      var cop = 2024; if (!byYear[cop]) byYear[cop] = [];
+      var tl = Object.keys(byYear).sort();
+
+      var awards = [];
+      ORGS.forEach(function (o) { (o.awards || []).forEach(function (a) { awards.push({ o: o, a: a }); }); });
+
+      var list = visible().filter(function (o) { return o.highlight; });
+      if (!list.length) list = ORGS.filter(function (o) { return o.highlight; });
+      if (!st.feat || !list.some(function (o) { return o.id === st.feat; })) st.feat = list[0] && list[0].id;
+      var feat = byId[st.feat];
+      var rest = list.filter(function (o) { return o.id !== st.feat; }).slice(0, preview ? 3 : 6);
+      var src = function (o) { return o.sources && o.sources[0] ? '<a class="fm-src" href="' + esc(o.sources[0]) + '" target="_blank" rel="noopener">Source ↗</a>' : ""; };
+      var memberQuote = function (o) { var q = o.stories && o.stories[0]; return '<p class="fm-feature__quote">“' + (q && q.quote ? esc(q.quote) : ph("member quote")) + "” — " + (q && q.by ? esc(q.by) : ph("member name")) + "</p>"; };
+
+      extras.innerHTML =
+        '<section class="fm-impact" aria-labelledby="' + uid + '-impact">' +
+          '<div class="fm-sec-head"><h2 class="h-section" id="' + uid + '-impact">Impact at a glance</h2><p class="lead">What the organizations in the network make possible, in figures they have published themselves.</p></div>' +
+          '<div class="fm-tiles">' + tiles.map(function (t) { return '<div class="fm-tile"><p class="fm-tile__n">' + t[0] + '</p><p class="fm-tile__l">' + esc(t[1]) + "</p></div>"; }).join("") + "</div>" +
+          '<div class="fm-impact__grid">' +
+            '<div class="fm-panel-card"><h3 class="fm-h3">People reached</h3><ul class="fm-figures">' + figures.map(function (f) {
+              return '<li><button type="button" class="fm-figure" data-fm-show="' + f.o.id + '"><span class="fm-figure__art fm-band--' + f.o.purpose + '">' + flower(f.o, 34, { noStem: true }) + '</span><span class="fm-figure__n">' + esc(String(f.n)) + '</span><span class="fm-figure__l">' + esc(f.label) + "<b>" + esc(f.o.name) + "</b></span></button></li>";
+            }).join("") + "</ul></div>" +
+            '<div class="stack" style="--gap:20px">' +
+              '<div class="fm-panel-card"><h3 class="fm-h3">A network that keeps growing</h3><ol class="fm-tl">' + tl.map(function (y) {
+                return '<li><span class="fm-tl__year">' + y + '</span><span class="fm-tl__dot' + (+y === cop ? " fm-tl__dot--cop" : "") + '"></span><ul>' +
+                  byYear[y].map(function (o) { return '<li><button type="button" class="fm-tl__org" data-fm-show="' + o.id + '">' + flower(o, 26, { noStem: true }) + "<span>" + esc(o.name) + (o.sinceApprox ? " (about)" : "") + "</span></button></li>"; }).join("") +
+                  (+y === cop ? '<li class="fm-tl__note">Kracht(vrouwen) in de Wijk starts as a Community of Practice</li>' : "") + "</ul></li>";
+              }).join("") + "</ol></div>" +
+              (awards.length ? '<div class="fm-panel-card"><h3 class="fm-h3">Recognition</h3><ul class="fm-awards">' + awards.map(function (a) { return '<li><button type="button" data-fm-show="' + a.o.id + '"><span class="fm-awards__icon" aria-hidden="true"></span><span><b>' + esc(a.a) + "</b>" + esc(a.o.name) + "</span></button></li>"; }).join("") + "</ul></div>" : "") +
+            "</div>" +
+          "</div>" +
+        "</section>" +
+        (feat ? '<section class="fm-stories" id="' + (preview ? uid + "-stories" : "map-stories") + '" aria-labelledby="' + uid + '-stories-t">' +
+          '<div class="fm-sec-head"><h2 class="h-section" id="' + uid + '-stories-t">Stories of impact</h2><p class="lead">What changes for women when an organization is there for them. The stories follow the filters on the map.</p></div>' +
+          '<div class="fm-story-wrap">' +
+            '<article class="fm-feature fm-band--' + feat.purpose + '" aria-live="polite">' +
+              '<div class="fm-feature__art">' + flower(feat, 104) + "</div>" +
+              '<div class="fm-feature__body"><p class="fm-meta">' + esc(feat.name) + " · " + val(hoodName(feat), "neighbourhood") + "</p>" +
+                '<blockquote class="fm-feature__text">' + esc(feat.highlight) + "</blockquote>" + memberQuote(feat) + impactRow(feat, 3) +
+                '<div class="fm-feature__actions"><button type="button" class="btn btn--sm" data-fm-show="' + feat.id + '">See it on the map <span class="arrow" aria-hidden="true">→</span></button>' +
+                '<button type="button" class="btn btn--sm btn--outline" data-fm-story="' + feat.id + '">Read their story</button>' + src(feat) + "</div></div>" +
+            "</article>" +
+            '<ul class="fm-story-list">' + rest.map(function (o) {
+              return '<li><button type="button" class="fm-story-item" data-fm-feat="' + o.id + '"><span class="fm-figure__art fm-band--' + o.purpose + '">' + flower(o, 34, { noStem: true }) + '</span><span><b>' + esc(o.name) + "</b>" + esc(o.highlight) + "</span></button></li>";
+            }).join("") + "</ul>" +
+          "</div>" +
+          '<p class="fm-p fm-p--note">Part of the network? <a class="fm-link" href="#contact">Share your story with us</a>.</p>' +
+        "</section>" : "");
+
+      extras.querySelectorAll("[data-fm-show]").forEach(function (b) { b.addEventListener("click", function () { focusOrg(b.dataset.fmShow); }); });
+      extras.querySelectorAll("[data-fm-story]").forEach(function (b) { b.addEventListener("click", function () { go("profile", { sel: b.dataset.fmStory, tab: "stories" }); }); });
+      extras.querySelectorAll("[data-fm-feat]").forEach(function (b) {
+        b.addEventListener("click", function () { st.feat = b.dataset.fmFeat; drawExtras(); var f = extras.querySelector(".fm-feature [data-fm-show]"); if (f) f.focus({ preventScroll: true }); });
+      });
     }
     function bindScroll(root) {
       root.querySelectorAll("[data-scroll]").forEach(function (a) {

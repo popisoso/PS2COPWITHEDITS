@@ -2,8 +2,7 @@
 <style>
 /* ---- hero: photo with glass bubbles, text card overlapping the photo ---- */
 .page-home .hero { position: relative; background: var(--lime-50); }
-@media (max-width: 640px) { .page-home .map-legend { display: none; } }
-.page-home .hero__media { position: relative; height: clamp(300px, 40vw, 560px); overflow: hidden; }
+@media (max-width: 640px) { .page-home .hero__media { position: relative; height: clamp(300px, 40vw, 560px); overflow: hidden; }
 .page-home .hero__photo { width: 100%; height: 100%; object-fit: cover; }
 .page-home .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(30, 27, 38, .08) 0%, rgba(30, 27, 38, 0) 35%, rgba(46, 30, 80, .35) 100%); pointer-events: none; }
 .page-home .hero__card-wrap { position: relative; z-index: 3; margin-top: clamp(-140px, -9vw, -60px); }
@@ -37,21 +36,7 @@
 
 /* ---- find organizations ---- */
 .page-home .find__top { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: end; justify-content: space-between; }
-.page-home .map-card { position: relative; border-radius: var(--radius-l); overflow: hidden; background: var(--lavender-50); border: 1px solid var(--line); box-shadow: var(--e2); aspect-ratio: 1141 / 625; }
-.page-home .map-card__img { position: absolute; width: 178.1%; max-width: none; left: -42.6%; top: -105.8%; height: auto; filter: grayscale(.85) saturate(.7) contrast(.92) brightness(1.08); }
-.page-home .map-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(246, 239, 255, .55), rgba(193, 164, 233, .22) 60%, rgba(221, 92, 144, .14)); pointer-events: none; }
-.page-home .map-legend { position: absolute; z-index: 3; left: 16px; top: 16px; border-radius: var(--radius-m); padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; }
-.page-home .map-legend b { font-size: 22px; letter-spacing: -0.02em; }
-.page-home .map-legend span { font-size: 13px; color: var(--ink-soft); font-weight: 500; }
-.page-home .pin { position: absolute; z-index: 2; width: clamp(34px, 4.6vw, 56px); transform: translate(-50%, -50%); display: block; border-radius: 50%; text-decoration: none; }
-.page-home .pin::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--pink); opacity: 0; transform: scale(.8); transition: opacity .2s, transform .3s var(--ease); }
-.page-home .pin img { width: 100%; height: auto; transition: transform .25s var(--ease); }
-.page-home .pin__label { position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translate(-50%, 4px); white-space: nowrap; background: var(--ink); color: #fff; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: var(--radius-pill); opacity: 0; pointer-events: none; transition: opacity .15s, transform .2s var(--ease); box-shadow: var(--e2); }
-.page-home .pin:hover, .page-home .pin:focus-visible, .page-home .pin.is-hl { z-index: 4; }
-.page-home .pin:hover img, .page-home .pin:focus-visible img, .page-home .pin.is-hl img { transform: scale(1.12); }
-.page-home .pin:hover::before, .page-home .pin:focus-visible::before, .page-home .pin.is-hl::before { opacity: 1; transform: scale(1); }
-.page-home .pin:hover .pin__label, .page-home .pin:focus-visible .pin__label, .page-home .pin.is-hl .pin__label { opacity: 1; transform: translate(-50%, 0); }
-.page-home .chip.is-hl { border-color: var(--pink); color: var(--ink); box-shadow: var(--e1); }
+.page-home .map-cta { justify-self: start; align-self: flex-start; }
 
 /* ---- media ---- */
 .page-home .media__grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
@@ -106,16 +91,16 @@
           <button type="button" class="network__logo" data-modal="org-info-eva" aria-label="Coöperatie Eva: more information" style="left:21.22%;top:33.22%;width:15.95%;--dur:8s;--delay:-1s"><img class="logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="120" height="120"></button>
           <button type="button" class="network__logo" data-modal="org-info-klup" aria-label="Talentenklup: more information" style="left:40.79%;top:6.1%;width:20.07%;--dur:11s;--delay:-4s"><img class="logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="120" height="120"></button>
           <button type="button" class="network__logo" data-modal="org-info-vbl" aria-label="VrouwenBuurtLab Laak: more information" style="left:36.18%;top:53.56%;width:22.53%;--dur:9.5s;--delay:-2s"><img class="logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="120" height="120"></button>
-          <button type="button" class="network__logo" data-modal="org-info-member" aria-label="Member organization: more information" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="120" height="120"></button>
+          <button type="button" class="network__logo" data-modal="org-info-member" aria-label="Member organization (name to be added): more information" style="left:62.66%;top:33.22%;width:15.79%;--dur:8.5s;--delay:-5s"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="120" height="120"></button>
           <button type="button" class="network__logo" data-modal="org-info-polka" aria-label="POLKA: more information" style="left:76.81%;top:0%;width:21.55%;--dur:10.5s;--delay:-1.5s"><img class="logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="120" height="120"></button>
           <button type="button" class="network__logo" data-modal="org-info-wijkz" aria-label="Wijkz: more information" style="left:81.25%;top:52.54%;width:18.75%;--dur:9s;--delay:-6s"><img class="logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="120" height="120"></button>
           </div>
           <p class="network__hint small muted">Select a logo to learn more about the organization.</p>
         </div>
         <div class="stat-panel">
-          <div><p class="stat__num">10</p><p class="stat__label">Organizations</p></div>
-          <div><p class="stat__num">250</p><p class="stat__label">Total Members</p></div>
-          <div><p class="stat__num">300</p><p class="stat__label">Activities</p></div>
+          <div><p class="stat__num">9</p><p class="stat__label">Member organizations</p></div>
+          <div><p class="stat__num"><span class="ph" title="Missing: total members">[text]</span></p><p class="stat__label">Total Members</p></div>
+          <div><p class="stat__num"><span class="ph" title="Missing: number of activities">[text]</span></p><p class="stat__label">Activities</p></div>
         </div>
       </div>
     </div>
@@ -123,56 +108,57 @@
 <template id="org-info-vbl">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-1-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">VrouwenBuurtLab Laak</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Social</span></div></div></div>
-    <p class="body">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
+    <p class="body">A meeting centre in Laak for and by women: meet, discover, develop.</p>
     <a class="btn" href="#org-vbl" data-modal-close>View organization page <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-reva">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-4-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">ReVa Moeders</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Motherhood</span><span class="tag tag--pink">Courses</span></div></div></div>
-    <p class="body">Het gaat deze groep om de belangenbehartiging en emancipatie van een grote...</p>
+    <p class="body">Neighbourhood mothers in Segbroek who connect residents through language and sewing classes, homework support and meals for families.</p>
     <a class="btn" href="#org-reva" data-modal-close>View organization page <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-eva">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-3-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Coöperatie Eva</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Women</span><span class="tag tag--pink">Health</span></div></div></div>
-    <p class="body">Coöperatie Eva ondersteunt vrouwen op weg naar economische zelfstandigheid.</p>
-    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+    <p class="body">A social cooperative supporting women on the way to economic independence.</p>
+    <a class="btn" href="#map" data-modal-close>Find it on the map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-klup">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-2-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Talentenklup</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Children</span><span class="tag tag--pink">Activities</span></div></div></div>
-    <p class="body">Stichting de Talentenklup biedt peuteropvang aan voor alle kinderen in de leeftijd van 2,5 tot 4 jaar.</p>
-    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+    <p class="body">Play-based pre-school for all children aged 2.5 to 4.</p>
+    <a class="btn" href="#map" data-modal-close>Find it on the map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-polka">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-6-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">POLKA</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Women</span><span class="tag tag--pink">Culture</span></div></div></div>
-    <p class="body">We organiseren themabijeenkomsten, workshops, trainingen, rondleidingen door de stad, maar ook sport...</p>
-    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+    <p class="body">A volunteer-run centre for Polish women in The Hague, with themed meetings, workshops, trainings, city tours and sport.</p>
+    <a class="btn" href="#map" data-modal-close>Find it on the map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-amal">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-7-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Amal Coaching</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Coaching</span></div></div></div>
-    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+    <p class="body"><span class="ph" title="Missing: short description">[text]</span></p>
+    <a class="btn" href="#map" data-modal-close>Find it on the map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-wijkz">
   <div class="org-modal">
     <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-8-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Wijkz</h2><div class="row" style="--gap:6px"><span class="tag tag--pink">Social</span><span class="tag tag--pink">Activities</span></div></div></div>
-    <p class="body">We zetten ons met veel enthousiasme en deskundigheid in om je te informeren, advies te geven en je alvast een stukje ...</p>
-    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+    <p class="body">The welfare organisation of The Hague, working with residents in seven city districts. In Laak, Wijkz supports the VrouwenBuurtLab.</p>
+    <a class="btn" href="#map" data-modal-close>Find it on the map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 <template id="org-info-member">
   <div class="org-modal">
-    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub">Member organization</h2></div></div>
-    <p class="body">One of the organizations in the Kracht(vrouwen) in de Wijk network.</p>
-    <a class="btn" href="#organizations" data-modal-close>See all organizations <span class="arrow" aria-hidden="true">→</span></a>
+    <div class="org-modal__head"><img class="logo-dot" src="assets/img/home/who-logo-5-c.png" alt="" width="72" height="72"><div class="stack" style="--gap:8px"><h2 class="h-sub"><span class="ph" title="Missing: organization name">[text]</span></h2></div></div>
+    <p class="body"><span class="ph" title="Missing: short description">[text]</span></p>
+    <a class="btn" href="#map" data-modal-close>Find it on the map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </template>
 </section>
@@ -205,6 +191,7 @@
     <div class="find__top">
       <div class="section-head">
         <h2 class="h-section" id="find-title">Find Organizations</h2>
+        <p class="body">Every organization in the network has its own flower on our interactive community map.</p>
       </div>
       <form class="search search--lg" role="search">
         <label class="sr-only" for="home-org-search">Search organizations</label>
@@ -213,26 +200,17 @@
       </form>
     </div>
     <div class="chips">
-      <a class="chip" href="#org-vbl" data-filter-item="home-orgs" data-hl="vbl"><img class="chip__logo" src="assets/img/home/pin-6-c.png" alt="" width="24" height="24">VrouwenBuurtLab Laak</a>
-      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="amal"><img class="chip__logo" src="assets/img/home/pin-5-c.png" alt="" width="24" height="24">Amal Coaching</a>
-      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="wijkz"><img class="chip__logo" src="assets/img/home/pin-7-c.png" alt="" width="24" height="24">Wijkz</a>
-      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="polka"><img class="chip__logo" src="assets/img/home/pin-1-c.png" alt="" width="24" height="24">Stichting POLKA</a>
-      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="eva"><img class="chip__logo" src="assets/img/home/pin-3-c.png" alt="" width="24" height="24">Coöperatie Eva</a>
-      <a class="chip" href="#organizations" data-filter-item="home-orgs" data-hl="klup"><img class="chip__logo" src="assets/img/home/pin-4-c.png" alt="" width="24" height="24">Stichting de Talenten ”klup”</a>
-      <a class="chip" href="#org-reva" data-filter-item="home-orgs" data-hl="reva"><img class="chip__logo" src="assets/img/home/pin-2-c.png" alt="" width="24" height="24">ReVa Moeders</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="vbl"><img class="chip__logo" src="assets/img/home/pin-6-c.png" alt="" width="24" height="24">VrouwenBuurtLab Laak</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="amal"><img class="chip__logo" src="assets/img/home/pin-5-c.png" alt="" width="24" height="24">Amal Coaching</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="wijkz"><img class="chip__logo" src="assets/img/home/pin-7-c.png" alt="" width="24" height="24">Wijkz</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="polka"><img class="chip__logo" src="assets/img/home/pin-1-c.png" alt="" width="24" height="24">POLKA</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="eva"><img class="chip__logo" src="assets/img/home/pin-3-c.png" alt="" width="24" height="24">Coöperatie Eva</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="klup"><img class="chip__logo" src="assets/img/home/pin-4-c.png" alt="" width="24" height="24">Stichting de Talentenklup</a>
+      <a class="chip" href="#map" data-filter-item="home-orgs" data-fm-org="reva"><img class="chip__logo" src="assets/img/home/pin-2-c.png" alt="" width="24" height="24">ReVa Moeders</a>
     </div>
     <p class="muted small" data-empty="home-orgs" hidden>No organizations match that search.</p>
-    <div class="map-card">
-      <img class="map-card__img" src="assets/img/home/map.webp" alt="" width="2032" height="1660" loading="lazy">
-      <div class="map-legend glass" aria-hidden="true"><b>7</b><span>organizations on the map</span></div>
-      <a class="pin" href="#organizations" data-hl="polka" style="left:31.7%;top:21.1%"><img class="logo-dot" src="assets/img/home/pin-1-c.png" alt="" width="60" height="60"><span class="pin__label">Stichting POLKA</span></a>
-      <a class="pin" href="#org-reva" data-hl="reva" style="left:26.9%;top:29.1%"><img class="logo-dot" src="assets/img/home/pin-2-c.png" alt="" width="60" height="60"><span class="pin__label">ReVa Moeders</span></a>
-      <a class="pin" href="#organizations" data-hl="eva" style="left:45.5%;top:36.3%"><img class="logo-dot" src="assets/img/home/pin-3-c.png" alt="" width="60" height="60"><span class="pin__label">Coöperatie Eva</span></a>
-      <a class="pin" href="#organizations" data-hl="klup" style="left:50.0%;top:45.9%"><img class="logo-dot" src="assets/img/home/pin-4-c.png" alt="" width="60" height="60"><span class="pin__label">Stichting de Talenten ”klup”</span></a>
-      <a class="pin" href="#organizations" data-hl="amal" style="left:34.4%;top:85.6%"><img class="logo-dot" src="assets/img/home/pin-5-c.png" alt="" width="60" height="60"><span class="pin__label">Amal Coaching</span></a>
-      <a class="pin" href="#org-vbl" data-hl="vbl" style="left:55.4%;top:73.6%"><img class="logo-dot" src="assets/img/home/pin-6-c.png" alt="" width="60" height="60"><span class="pin__label">VrouwenBuurtLab Laak</span></a>
-      <a class="pin" href="#organizations" data-hl="wijkz" style="left:80.1%;top:76.0%"><img class="logo-dot" src="assets/img/home/pin-7-c.png" alt="" width="60" height="60"><span class="pin__label">Wijkz</span></a>
-    </div>
+    <div data-mount="org-map" data-mode="preview"></div>
+    <a class="btn map-cta" style="align-self:center" href="#map">Open the interactive map <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </section>
 

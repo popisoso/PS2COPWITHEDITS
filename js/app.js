@@ -6,6 +6,7 @@
   var NAV = [
     { route: "home", label: "Home" },
     { route: "organizations", label: "Organizations", match: ["org-vbl", "org-reva"] },
+    { route: "map", label: "Map" },
     { label: "Resources", children: [
       { route: "guide", label: "Guide", match: ["guide-location", "guide-structure", "guide-frictions", "guide-balance", "guide-generations"] },
       { route: "faq", label: "FAQ" },
@@ -16,7 +17,7 @@
     { route: "blog", label: "Blog", match: ["blog-entry"] }
   ];
   var FOOTER_LINKS = [
-    ["home", "Home"], ["organizations", "Organizations"], ["guide", "Tools & Downloads"],
+    ["home", "Home"], ["organizations", "Organizations"], ["map", "Community Map"], ["guide", "Tools & Downloads"],
     ["about", "About Us"], ["blog", "Blog"], ["contact", "Contact Us"]
   ];
 
@@ -140,25 +141,12 @@
       '<div class="container">' +
         '<div class="site-footer__top">' +
           '<nav class="site-footer__links" aria-label="Footer">' + FOOTER_LINKS.map(function (l) { return '<a href="#' + l[0] + '">' + esc(l[1]) + '</a>'; }).join("") + '</nav>' +
-          '<div class="social">' +
-            '<a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="" width="42" height="42"></a>' +
-            '<a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><img src="assets/icons/youtube.svg" alt="" width="42" height="42"></a>' +
-            '<a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="" width="42" height="42"></a>' +
-          '</div>' +
         '</div>' +
         '<div class="site-footer__bottom">' +
           '<span class="loc"><img src="assets/icons/location.svg" alt="" width="9" height="13">Netherlands</span>' +
-          '<nav aria-label="Legal"><a href="#terms" data-legal="Terms of Use">Terms of Use</a><a href="#privacy" data-legal="Privacy &amp; Cookie Policy">Privacy &amp; Cookie Policy</a><a href="#cookies" data-legal="Cookie Settings">Cookie Settings</a></nav>' +
+          '<nav aria-label="Legal"><a href="#terms">Terms of Use</a><a href="#privacy">Privacy &amp; Cookie Policy</a><a href="#cookies">Cookie Settings</a></nav>' +
         '</div>' +
       '</div>';
-    $$("[data-legal]").forEach(function (a) {
-      a.addEventListener("click", function (e) {
-        e.preventDefault();
-        openModal('<h2 class="h-sub" style="margin-bottom:12px">' + esc(a.dataset.legal) + '</h2><p class="body">This page is not part of the design yet. ' +
-          (a.dataset.legal === "Cookie Settings" ? "This site does not set tracking cookies; it only remembers nothing beyond the page you are on." : "Contact the Kracht(vrouwen) in de Wijk team for the full text.") +
-          '</p><p style="margin-top:20px"><a class="btn btn--sm" href="#contact" data-modal-close>Contact us</a></p>');
-      });
-    });
   }
 
   /* ---------------- router ---------------- */
@@ -424,27 +412,7 @@
     });
 
     // forms
-    $$("form[data-form]", root).forEach(function (form) {
-      form.setAttribute("novalidate", "");
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var bad = $$("input, textarea, select", form).filter(function (f) { return !f.checkValidity(); });
-        $$(".field-error", form).forEach(function (n) { n.remove(); });
-        bad.forEach(function (f) {
-          f.setAttribute("aria-invalid", "true");
-          var msg = document.createElement("p");
-          msg.className = "field-error small"; msg.style.color = "#b0174f";
-          msg.textContent = f.validity.valueMissing ? "Please fill in this field." : f.validity.typeMismatch ? "Please enter a valid " + (f.type === "email" ? "email address." : "value.") : f.validationMessage;
-          f.insertAdjacentElement("afterend", msg);
-          f.addEventListener("input", function once() { f.removeAttribute("aria-invalid"); if (msg.parentNode) msg.remove(); f.removeEventListener("input", once); });
-        });
-        if (bad.length) { bad[0].focus(); return; }
-        var ok = $("[data-form-success]", form);
-        $$(":scope > *", form).forEach(function (c) { if (c !== ok) c.hidden = true; });
-        if (ok) { ok.hidden = false; ok.setAttribute("role", "status"); ok.setAttribute("tabindex", "-1"); ok.focus(); }
-        else toast("Thank you! Your message has been received.");
-      });
-    });
+    $$("form[data-form]", root).forEach(bindForm);
 
     // lightbox
     $$("img[data-lightbox]", root).forEach(function (img) {
@@ -473,6 +441,32 @@
     // mounts
     $$('[data-mount="calendar"]', root).forEach(mountCalendar);
     $$('[data-mount="upcoming"]', root).forEach(mountUpcoming);
+    if (window.KVOrgMap) $$('[data-mount="org-map"]', root).forEach(function (el) {
+      window.KVOrgMap(el, { esc: esc, openModal: openModal, toast: toast, bindForm: bindForm });
+    });
+  }
+
+  function bindForm(form) {
+    form.setAttribute("novalidate", "");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var bad = $$("input, textarea, select", form).filter(function (f) { return !f.checkValidity(); });
+      $$(".field-error", form).forEach(function (n) { n.remove(); });
+      bad.forEach(function (f) {
+        f.setAttribute("aria-invalid", "true");
+        var msg = document.createElement("p");
+        msg.className = "field-error small"; msg.style.color = "#b0174f";
+        msg.textContent = f.validity.valueMissing ? (f.type === "checkbox" ? "Please tick this box to continue." : "Please fill in this field.") : f.validity.typeMismatch ? "Please enter a valid " + (f.type === "email" ? "email address." : "value.") : f.validationMessage;
+        (f.type === "checkbox" && f.closest("label") ? f.closest("label") : f).insertAdjacentElement("afterend", msg);
+        var evt = f.type === "checkbox" ? "change" : "input";
+        f.addEventListener(evt, function once() { f.removeAttribute("aria-invalid"); if (msg.parentNode) msg.remove(); f.removeEventListener(evt, once); });
+      });
+      if (bad.length) { bad[0].focus(); return; }
+      var ok = $("[data-form-success]", form);
+      $$(":scope > *", form).forEach(function (c) { if (c !== ok) c.hidden = true; });
+      if (ok) { ok.hidden = false; ok.setAttribute("role", "status"); ok.setAttribute("tabindex", "-1"); ok.focus(); }
+      else toast("Thank you! Your message has been received.");
+    });
   }
 
   function fallbackCopy(text) {
@@ -555,6 +549,10 @@
 
   function mountCalendar(el) {
     var events = expandEvents().sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    if (!events.length) {
+      el.innerHTML = '<div class="event-empty"><span class="event-empty__icon" aria-hidden="true"><img src="assets/icons/calendar.svg" alt="" width="28" height="28"></span><div><h3>No current events</h3><p>New activities and gatherings will appear here as soon as they are scheduled.</p></div><a class="btn btn--outline btn--sm" href="#contact">Share an event</a></div>';
+      return;
+    }
     var start = window.KV_CALENDAR_START ? parse(window.KV_CALENDAR_START + "-01") : new Date();
     var st = { y: start.getFullYear(), m: start.getMonth(), view: "month", sel: null, org: "", cat: "" };
     var orgs = window.KV_ORGS || {};
@@ -700,6 +698,10 @@
     var org = el.dataset.org;
     var today0 = iso(new Date());
     var events = expandEvents().filter(function (e) { return (!org || e.org === org) && e.date >= today0; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; }).slice(0, limit);
+    if (!events.length) {
+      el.innerHTML = '<div class="event-empty event-empty--compact"><span class="event-empty__icon" aria-hidden="true"><img src="assets/icons/calendar.svg" alt="" width="28" height="28"></span><div><h3>No upcoming events</h3><p>Check back soon for new activities from this organization.</p></div></div>';
+      return;
+    }
     el.innerHTML = '<div class="grid" style="--min:240px">' + events.map(function (e, i) {
       return '<button type="button" class="cal__event" data-ev="' + i + '">' + badge(e) + "<span><b>" + esc(e.title) + "</b><span>" + longDate(e.date) + " · " + esc(orgOf(e).name) + "</span></span></button>";
     }).join("") + "</div>";

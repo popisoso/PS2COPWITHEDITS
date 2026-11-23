@@ -110,6 +110,8 @@
 .page-org-reva .org-info p, .page-org-reva .org-info a { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
 .page-org-reva .org-info a { text-decoration: none; }
 .page-org-reva .org-info a:hover { color: var(--pink-700); text-decoration: underline; text-underline-offset: 3px; }
+.page-org-reva .org-map--link { display: block; color: inherit; }
+.page-org-reva .org-map--link .org-map__canvas > img { aspect-ratio: 16 / 9; object-fit: cover; }
 </style>
 
 <div class="org-top">
@@ -122,10 +124,10 @@
 
   <section class="split org-hero" aria-labelledby="org-title">
     <div class="org-hero__text">
-      <h1 class="h-display" id="org-title">St. Reva Moeders</h1>
-      <p class="lead org-hero__lead">De plek om elkaar te ontmoeten, te ontdekken en jezelf te ontwikkelen</p>
+      <h1 class="h-display" id="org-title">ReVa Moeders</h1>
+      <p class="lead org-hero__lead">Neighbourhood mothers in the Regentesse- and Valkenboskwartier, connecting residents through low-threshold activities.</p>
       <hr class="divider org-rule">
-      <p class="body org-hero__body">Een ontmoetingscentrum voor vrouwen, het VrouwenBuurtLab. Niet de problemen van de vrouwen staan centraal, maar hun mogelijkheden, kwaliteiten en talenten. Via verschillende soorten activiteiten en cursussen worden de vrouwen stap voor stap begeleid naar bijvoorbeeld een opleiding of een baan. Het nieuwe ontmoetingscentrum is bedacht en georganiseerd door de vrouwen zelf en wordt door ons ondersteund.</p>
+      <p class="body org-hero__body">ReVa Moeders started in 2022 as a small group of mothers in the ReVa area (Regentesse- and Valkenboskwartier) of Segbroek and became an official foundation in January 2024. Today the group has about 40 women. It connects neighbourhood residents with low-threshold activities that encourage participation and personal development: weekly language classes, sewing classes and homework support. The group also hands out meals to families with little money. Women who could not attend the language classes for lack of childcare are welcome to bring their children. In 2024 ReVa Moeders received a Gulden Klinker for its social activities in the neighbourhood.</p>
       <div class="org-hero__actions">
         <button type="button" class="btn" data-scroll="org-contact-title">Contact Us <span class="arrow" aria-hidden="true">&rarr;</span></button>
         <button type="button" class="btn btn--outline" data-scroll="org-events-title">Events</button>
@@ -135,7 +137,7 @@
       <span class="bubble" aria-hidden="true" style="width: 150px; height: 150px; left: -48px; top: -36px; --dur: 11s;"></span>
       <span class="bubble" aria-hidden="true" style="width: 90px; height: 90px; right: -20px; bottom: -30px; --dur: 9s; --delay: -4s; --dx: -8px;"></span>
       <span class="bubble bubble--front" aria-hidden="true" style="width: 44px; height: 44px; right: 8%; top: -18px; --dur: 7s; --delay: -2s;"></span>
-      <img class="org-hero__img" src="assets/img/org-reva/hero.jpg" alt="Group photo of the women of St. Reva Moeders holding a donation cheque outside their building" width="1530" height="862">
+      <img class="org-hero__img" src="assets/img/org-reva/hero.jpg" alt="Group photo of the women of ReVa Moeders holding a cheque outside" width="1530" height="862">
     </div>
   </section>
 </div>
@@ -153,14 +155,14 @@
       <li id="reva-event-1">
         <article class="card event-card">
           <div class="event-card__media">
-            <img src="assets/img/org-reva/event-youth-workshop.jpg" alt="Girls and women sitting together on the floor working on a sewing project" width="770" height="578" loading="lazy">
+            <img src="assets/img/org-reva/event-youth-workshop.jpg" alt="Women sitting together on the floor working on a sewing project" width="770" height="578" loading="lazy">
           </div>
           <div class="event-card__body">
-            <h3 class="h-card event-card__title">Youth Future Skills Workshop <span class="event-card__new">New</span></h3>
-            <p class="event-card__desc">ocus: Teens learning about study options, soft skills, and mental well-being<br>Activities: Mini-lectures, group discussions, creative exercises</p>
+            <h3 class="h-card event-card__title">Sewing Classes</h3>
+            <p class="event-card__desc">Learn to sew together with other women from the neighbourhood, at your own pace.</p>
             <ul class="event-card__meta">
-              <li><img src="assets/img/org-reva/icon-calendar.svg" alt="Date" width="20" height="20"> Mon, 19 October 2025</li>
-              <li><img src="assets/img/org-reva/icon-location.svg" alt="Location" width="20" height="20"> Televisiestraat 4</li>
+              <li><img src="assets/img/org-reva/icon-calendar.svg" alt="Date" width="20" height="20"> Day and time: <span class="ph" title="Missing: schedule">[text]</span></li>
+              <li><img src="assets/img/org-reva/icon-location.svg" alt="Location" width="20" height="20"> <span class="ph" title="Missing: location">[text]</span></li>
             </ul>
             <a class="btn btn--outline btn--sm" href="#events">Read More <span class="arrow" aria-hidden="true">&rarr;</span></a>
           </div>
@@ -169,14 +171,14 @@
       <li id="reva-event-2">
         <article class="card event-card">
           <div class="event-card__media">
-            <img src="assets/img/org-reva/event-painting-club.jpg" alt="A woman painting a forest scene on a canvas at an easel" width="809" height="673" loading="lazy">
+            <img src="assets/img/org-reva/media-6.jpg" alt="Women sitting together around tables in a community room" width="654" height="975" loading="lazy">
           </div>
           <div class="event-card__body">
-            <h3 class="h-card event-card__title">Painting Club</h3>
-            <p class="event-card__desc">With Sadaf, you’ll learn how to paint step-by-step. You don’t need experience, together we’ll see how creative and fun painting can be.</p>
+            <h3 class="h-card event-card__title">Language Classes</h3>
+            <p class="event-card__desc">Weekly Dutch language classes. Mothers without childcare are welcome to bring their children.</p>
             <ul class="event-card__meta">
-              <li><img src="assets/img/org-reva/icon-calendar.svg" alt="Date" width="20" height="20"> Every Thursday</li>
-              <li><img src="assets/img/org-reva/icon-location.svg" alt="Location" width="20" height="20"> Televisiestraat 4</li>
+              <li><img src="assets/img/org-reva/icon-calendar.svg" alt="Date" width="20" height="20"> Day and time: <span class="ph" title="Missing: schedule">[text]</span></li>
+              <li><img src="assets/img/org-reva/icon-location.svg" alt="Location" width="20" height="20"> <span class="ph" title="Missing: location">[text]</span></li>
             </ul>
             <a class="btn btn--outline btn--sm" href="#events">Read More <span class="arrow" aria-hidden="true">&rarr;</span></a>
           </div>
@@ -188,11 +190,11 @@
             <img src="assets/img/org-reva/event-communal-meal.jpg" alt="A table full of shared dishes for a communal meal" width="682" height="1023" loading="lazy">
           </div>
           <div class="event-card__body">
-            <h3 class="h-card event-card__title">Communal Meal</h3>
-            <p class="event-card__desc">Come and have a meal together with the women from Wijk!</p>
+            <h3 class="h-card event-card__title">Meals for Families</h3>
+            <p class="event-card__desc">ReVa Moeders hands out meals to families in the neighbourhood who have little money.</p>
             <ul class="event-card__meta">
-              <li><img src="assets/img/org-reva/icon-calendar.svg" alt="Date" width="20" height="20"> Mon, 29 October 2025</li>
-              <li><img src="assets/img/org-reva/icon-location.svg" alt="Location" width="20" height="20"> Televisiestraat 4</li>
+              <li><img src="assets/img/org-reva/icon-calendar.svg" alt="Date" width="20" height="20"> Day and time: <span class="ph" title="Missing: schedule">[text]</span></li>
+              <li><img src="assets/img/org-reva/icon-location.svg" alt="Location" width="20" height="20"> <span class="ph" title="Missing: location">[text]</span></li>
             </ul>
             <a class="btn btn--outline btn--sm" href="#events">Read More <span class="arrow" aria-hidden="true">&rarr;</span></a>
           </div>
@@ -241,8 +243,8 @@
             <span class="comment__quote"><img src="assets/img/org-reva/icon-quote.svg" alt="" width="36" height="36"><img src="assets/img/org-reva/icon-quote.svg" alt="" width="36" height="36"></span>
             <img src="assets/img/org-reva/icon-message.svg" alt="" width="36" height="36">
           </div>
-          <blockquote>Working with Stichting Joury gave me the push I needed. The team speaks my language, literally and emotionally.</blockquote>
-          <figcaption>Nickole</figcaption>
+          <blockquote>“<span class="ph" title="Missing: member quote">[text]</span>”</blockquote>
+          <figcaption><span class="ph" title="Missing: member name">[text]</span></figcaption>
         </figure>
       </li>
       <li>
@@ -251,8 +253,8 @@
             <span class="comment__quote"><img src="assets/img/org-reva/icon-quote.svg" alt="" width="36" height="36"><img src="assets/img/org-reva/icon-quote.svg" alt="" width="36" height="36"></span>
             <img src="assets/img/org-reva/icon-message.svg" alt="" width="36" height="36">
           </div>
-          <blockquote>The youth workshops helped me figure out what I want to study and I met other girls with the same struggles.</blockquote>
-          <figcaption>Sara</figcaption>
+          <blockquote>“<span class="ph" title="Missing: member quote">[text]</span>”</blockquote>
+          <figcaption><span class="ph" title="Missing: member name">[text]</span></figcaption>
         </figure>
       </li>
       <li>
@@ -261,8 +263,8 @@
             <span class="comment__quote"><img src="assets/img/org-reva/icon-quote.svg" alt="" width="36" height="36"><img src="assets/img/org-reva/icon-quote.svg" alt="" width="36" height="36"></span>
             <img src="assets/img/org-reva/icon-message.svg" alt="" width="36" height="36">
           </div>
-          <blockquote>As a volunteer I can use my own experience as a newcomer to support other women. The organization is warm, professional and very organized.</blockquote>
-          <figcaption>Lina</figcaption>
+          <blockquote>“<span class="ph" title="Missing: member quote">[text]</span>”</blockquote>
+          <figcaption><span class="ph" title="Missing: member name">[text]</span></figcaption>
         </figure>
       </li>
     </ul>
@@ -315,36 +317,35 @@
     </form>
     </div>
     <div class="org-aside">
-      <figure class="card org-map">
+      <a class="card card--link org-map org-map--link" href="#map">
         <div class="org-map__canvas">
-          <img src="assets/img/org-reva/map.jpg" alt="Map showing the location of ReVa Moeders at Televisiestraat 4 in Den Haag" width="2310" height="1290" loading="lazy">
-          <span class="org-map__pin" aria-hidden="true"></span>
+          <img src="assets/img/home/map.webp" alt="" width="2032" height="1660" loading="lazy">
         </div>
-        <figcaption class="org-map__label">
+        <span class="org-map__label">
           <span class="org-map__disc"><img src="assets/img/org-reva/icon-location-big.svg" alt="" width="18" height="18"></span>
-          <span><b>ReVa Moeders</b><span>Televisiestraat 4</span></span>
-        </figcaption>
-      </figure>
+          <span><b>ReVa Moeders · Segbroek</b><span>Regentesse- and Valkenboskwartier — see it on the community map →</span></span>
+        </span>
+      </a>
       <ul class="org-info">
       <li class="card">
         <img src="assets/img/org-reva/icon-phone.svg" alt="" width="67" height="67">
         <h3>Phone</h3>
-        <a href="tel:+31685782987">+31 6 85782987</a>
+        <p><span class="ph" title="Missing: phone number">[text]</span></p>
       </li>
       <li class="card">
         <img src="assets/img/org-reva/icon-email.svg" alt="" width="67" height="67">
         <h3>E-mail</h3>
-        <a href="mailto:vrouwenbuurtlab@wijkz.nl">vrouwenbuurtlab@wijkz.nl</a>
+        <p><span class="ph" title="Missing: e-mail address">[text]</span></p>
       </li>
       <li class="card">
         <img src="assets/img/org-reva/icon-internet.svg" alt="" width="67" height="67">
-        <h3>Links</h3>
-        <a href="mailto:vrouwenbuurtlab@wijkz.nl">vrouwenbuurtlab@wijkz.nl</a>
+        <h3>Website</h3>
+        <p><span class="ph" title="Missing: website or social media">[text]</span></p>
       </li>
       <li class="card">
         <img src="assets/img/org-reva/icon-location-big.svg" alt="" width="67" height="67">
         <h3>Location</h3>
-        <p>Van Meursstraat<br>12524 XN 's-Gravenhage</p>
+        <p>Segbroek (ReVa area)<br><span class="ph" title="Missing: address">[text]</span></p>
       </li>
       </ul>
     </div>
